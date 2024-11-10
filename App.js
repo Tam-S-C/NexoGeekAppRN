@@ -13,6 +13,7 @@ export default function App() {
     'PressStart': require('./assets/fonts/PressStart.ttf'),
   });
 
+  
 
   useEffect(() => {
     if (loaded || error) {
