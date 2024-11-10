@@ -14,7 +14,6 @@ export default function App() {
   });
 
   
-
   useEffect(() => {
     if (loaded || error) {
       SplashScreen.hideAsync();

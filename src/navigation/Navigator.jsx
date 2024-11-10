@@ -1,8 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import CategoriesScreen from "../screens/CategoriesScreen";
-import EventsScreen from "../screens/EventsScreen";
-import OneEventScreen from "../screens/OneEventScreen";
+import { CategoriesScreen, EventsScreen, OneEventScreen } from '../screens';
 import Header from "../components/Header"
 
 const Stack = createNativeStackNavigator()
@@ -20,8 +18,8 @@ const Navigator = () => {
         >
 
             <Stack.Screen name="Categorías" component={CategoriesScreen}/>
-            <Stack.Screen name="Eventos & Locales" component={EventsScreen}/>
-            <Stack.Screen name="Detalle del Evento" component={OneEventScreen}/>
+            <Stack.Screen name="Eventos" component={EventsScreen}/>
+            <Stack.Screen name="Evento" component={OneEventScreen}/>
 
         </Stack.Navigator>
 

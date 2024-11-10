@@ -4,7 +4,7 @@ import CardGeneral from '../components/CardGeneral.jsx';
 import { colors } from '../global/colors.js';
 
 
-const CategoriesScreen = ({navigation}) => {
+const CategoriesScreen = ({ navigation }) => {
 
 
     const {width, height} = useWindowDimensions()
@@ -14,7 +14,7 @@ const CategoriesScreen = ({navigation}) => {
 
         return (
 
-            <Pressable onPress={()=>navigation.navigate('Eventos y Locales', item.title)}>
+            <Pressable onPress={()=>navigation.navigate('Eventos', item.title)}>
 
                 <CardGeneral style={
                     index % 2 === 0 ? 

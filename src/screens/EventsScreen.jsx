@@ -12,7 +12,7 @@ const EventsScreen = ({navigation, route}) => {
 
   const [search, setSearch] = useState("")
 
-  const eventId = route.params || "";
+  const category = route.params || "";
 
   useEffect(() => {
 
@@ -38,7 +38,7 @@ const EventsScreen = ({navigation, route}) => {
   const renderEventItem = ({item}) => {
     return(
 
-      <Pressable onPress={()=>navigation.navigate("Detalle del evento", item.id)}>
+      <Pressable onPress={()=>navigation.navigate("Evento", item.id)}>
 
         <CardGeneral style= {styles.eventContainer}>
 
