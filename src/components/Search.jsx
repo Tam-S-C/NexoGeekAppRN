@@ -12,6 +12,7 @@ const Search = ({ style, setSearch }) => {
   )
 }
 
+
 export default Search;
 
 const styles = StyleSheet.create({

@@ -1,3 +1,1 @@
-# NexkGeekApp
-# NexoGeekAppRN
 # NexoGeekAppRN
