@@ -92,7 +92,7 @@ const EventsScreen = ({navigation, route}) => {
       <View style={styles.backSearchContainer}>
 
         <Pressable onPress={()=>navigation.goBack()}>
-          <Icon style={styles.backArrow} name="angle-left" size={24} color={colors.fucsiaAcento}/> 
+          <Icon style={styles.backArrow} name="angle-left" size={32} color={colors.fucsiaAcento}/> 
         </Pressable>
         
         <Search style={styles.searchStyle} setSearch={setSearch} />
@@ -142,7 +142,6 @@ const styles = StyleSheet.create({
     color: colors.fucsiaAcento,
     fontFamily: 'Roboto',
     fontSize: 14,
-
   },
   priceStyle:{
     color: colors.violetaPrimario,
@@ -159,7 +158,8 @@ const styles = StyleSheet.create({
   },
   tagsStyle:{
     alignItems: 'center',
-    color: colors.violetaSecundario
+    color: colors.violetaSecundario,
+    fontStyle: 'italic'
   },
   tagsStyleDirection:{
     flexDirection: 'row',
