@@ -1,4 +1,3 @@
-import { NavigationContainer } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { CategoriesScreen, EventsScreen, OneEventScreen } from '../screens';
 import Header from "../components/Header"
@@ -6,15 +5,13 @@ import Header from "../components/Header"
 const Stack = createNativeStackNavigator()
 
 
-const Navigator = () => {
+const ShopNavigator = () => {
   return (
-    <NavigationContainer>
 
         <Stack.Navigator
             screenOptions={{
                 header: ({route})=> <Header screenName={route.name} />
             }}
-        
         >
 
             <Stack.Screen name="Categorías" component={CategoriesScreen}/>
@@ -23,9 +20,8 @@ const Navigator = () => {
 
         </Stack.Navigator>
 
-    </NavigationContainer>
   )
 }
 
-export default Navigator;
+export default ShopNavigator;
 
