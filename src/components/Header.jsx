@@ -20,11 +20,11 @@ export default Header;
 
 const styles = StyleSheet.create({
   headerContainer: {
-    height: 112,
+    height: 104,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: colors.violetaSecundario,
-    paddingTop: 24,
+    paddingTop: 36,
     flexDirection: 'row'
   },
   title: {
@@ -43,6 +43,10 @@ const styles = StyleSheet.create({
   image: {
     width: 44, 
     height: 44,
-    marginRight: 16
+    marginRight: 8
+  },
+  screenNameStyle:{
+    paddingTop: 8,
+    color: colors.violetaPrimario
   }
 })

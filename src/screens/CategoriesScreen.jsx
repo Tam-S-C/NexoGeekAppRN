@@ -39,6 +39,8 @@ const CategoriesScreen = ({ navigation }) => {
 
     return (
         <>
+
+            <Text style={styles.subtitle}>Bienvenid@s a la única App de Argentina de búsqueda y compra de tickets de eventos y locales del universo geek!!  </Text>
             <FlatList
                 data={categories}
                 keyExtractor={item => item.id.toString()}
@@ -52,10 +54,18 @@ export default CategoriesScreen;
 
 const styles = StyleSheet.create({
 
+
+    subtitle:{
+        color: colors.violetaPrimario,
+        fontSize: 18,
+        fontWeight: '600',
+        paddingHorizontal: 16,
+        paddingVertical: 8
+    },
     cardGeneralContainer: {
         justifyContent: "space-between",
         alignItems: "center",
-        marginHorizontal: 24,
+        marginHorizontal: 16,
         marginVertical: 8,
         padding: 24,
     },
