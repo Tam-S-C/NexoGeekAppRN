@@ -1,0 +1,75 @@
+[
+    {
+        "id":1,
+        "title":"Back to the Orchesta",
+        "dateAndPlace": "21/11/24 - Gran Rex - CABA",
+        "description": "blablablablablabla",
+        "price": 10000,
+        "stock": 0,
+        "category": "Recitales & Parties",
+        "discount": "3x2",
+        "tags":["recital", "fiesta"],
+        "mainImage":"https://i.postimg.cc/PrRJXnXZ/stage.png"
+    },
+    {
+        "id":2,
+        "title":"Tecnópolis",
+        "dateAndPlace": "Siempre abierto - Vicente López",
+        "description": "blablablablablabla",
+        "price": 5000,
+        "stock": 1000,
+        "category": "Tecnología & Gaming",
+        "discount": "2x1",
+        "tags":["tecno", "gaming"],
+        "mainImage":"https://i.postimg.cc/VNyNt9bk/vr.png"
+    },
+    {
+        "id":3,
+        "title":"Charlas Ted",
+        "dateAndPlace": "20/12/24 - CABA",
+        "description": "blablablablablabla",
+        "price": 1000,
+        "stock": 200,
+        "category": "Talleres & Charlas",
+        "discount": "20%",
+        "tags":["talleres", "charlas"],
+        "mainImage":"https://i.postimg.cc/q78vxt8X/training.png"
+    },
+    {
+        "id":4,
+        "title":"ComicCon",
+        "dateAndPlace": "6, 7 y 8/12/24 - CABA",
+        "description": "blablablablablabla",
+        "price": 30000,
+        "stock": 300,
+        "category": "Convenciones & Expos",
+        "discount": "30%",
+        "tags":["convenciones", "expo"],
+        "mainImage":"https://i.postimg.cc/3RYJSK1M/witch.png"
+    },
+    {
+        "id":5,
+        "title":"Fairyland",
+        "dateAndPlace": "21/02/25 - Palermo",
+        "description": "blablablablablabla",
+        "price": 7000,
+        "stock": 100,
+        "category": "Ferias & Aire Libre",
+        "discount": "15%",
+        "tags":["feria", "aire libre"],
+        "mainImage":"https://i.postimg.cc/T35whN1s/garlands.png"
+    },
+    {
+        "id":6,
+        "title":"Aquelarre",
+        "dateAndPlace": "Ma a Sá - CABA",
+        "description": "blablablablablabla",
+        "price": 10000,
+        "stock": 100,
+        "category": "Locales & Showrooms",
+        "discount": "5%",
+        "tags":["local", "showroom"],
+        "mainImage":"https://i.postimg.cc/02Qr1ysP/store.png"
+       
+    }
+]
