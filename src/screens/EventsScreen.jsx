@@ -1,10 +1,12 @@
-import { FlatList, Image, StyleSheet, View, Text, Pressable } from 'react-native'
-import events from '../data/events.json'
-import CardGeneral from '../components/CardGeneral'
-import { colors } from '../global/colors'
-import { useEffect, useState } from 'react'
+import { FlatList, Image, StyleSheet, View, Text, Pressable } from 'react-native';
+import events from '../data/events.json';
+import CardGeneral from '../components/CardGeneral';
+import { colors } from '../global/colors';
+import { useEffect, useState } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import Search from '../components/Search'
+import Search from '../components/Search';
+import { useSelector, useDispatch } from 'react-redux';
+
 
 const EventsScreen = ({navigation, route}) => {
 
@@ -12,27 +14,24 @@ const EventsScreen = ({navigation, route}) => {
 
   const [search, setSearch] = useState("")
 
-  const category = route.params || "";
+  const eventsFilteredByCategory = useSelector(state=>state.shopReducer.value.eventsFilteredByCategory)
 
   useEffect(() => {
-
-    const eventsTempFiltered = events.filter(
-      (ev) => ev.category.toLowerCase() === category.toLowerCase()
-    );
+    let filteredEvents = [...eventsFilteredByCategory];
   
     if (search) {
-      const eventsTempSearched = eventsTempFiltered.filter(
-        (ev) =>
-          ev.title.toLowerCase().includes(search.toLowerCase()) ||
-          ev.tags.some((tag) => tag.toLowerCase().includes(search.toLowerCase())) ||
-          ev.dateAndPlace.toLowerCase().includes(search.toLowerCase())
+      filteredEvents = filteredEvents.filter(ev => 
+        ev.title.toLowerCase().includes(search.toLowerCase()) 
+        ||
+        ev.tags.some(tag => tag.toLowerCase().includes(search.toLowerCase())) 
+        ||
+        ev.dateAndPlace.toLowerCase().includes(search.toLowerCase())
       );
-      setEventsFiltered(eventsTempSearched);
-    } else {
-
-      setEventsFiltered(eventsTempFiltered);
     }
-  }, [category, search]);
+    setEventsFiltered(filteredEvents);
+  
+  }, [search, eventsFilteredByCategory]);
+  
   
 
   const renderEventItem = ({item}) => {

@@ -1,12 +1,15 @@
 import { StyleSheet, Text, FlatList, Image, Pressable, useWindowDimensions } from 'react-native';
-//import categories from "../data/categories.json";
 import CardGeneral from '../components/CardGeneral.jsx';
 import { colors } from '../global/colors.js';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setCategory } from '../features/shop/shopSlice.js';
+
 
 const CategoriesScreen = ({ navigation }) => {
 
-    const categories = useSelector(state=>state.shopSlice.value.categories)
+    const categories = useSelector(state=>state.shopReducer.value.categories)
+
+    const dispatch = useDispatch()
 
     const {width, height} = useWindowDimensions()
 
@@ -15,7 +18,11 @@ const CategoriesScreen = ({ navigation }) => {
 
         return (
 
-            <Pressable onPress={()=>navigation.navigate('Eventos', item.title)}>
+            <Pressable onPress={()=>{
+                dispatch(setCategory(item.title)),
+                navigation.navigate('Eventos')
+                
+                }}>
 
                 <CardGeneral style={
                     index % 2 === 0 ? 
