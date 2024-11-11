@@ -29,7 +29,7 @@ const OrdersScreen = () => {
           <Text style={styles.title}>Recibo nº:</Text>
           <Text style={styles.date}>Creado el {new Date(item.createdAt).toLocaleString('es-Ar', dateOptions)} hs.</Text>
           <Text style={styles.total}>Total: ${total} </Text>
-          <Icon name="" size={24} color={colors.violetaSombra} style={styles.viewIcon} />
+          <Icon name="search-plus" size={24} color={colors.violetaSecundario} style={styles.viewIcon} />
       </CardGeneral>
     )
   }
@@ -70,4 +70,8 @@ const styles = StyleSheet.create({
     marginTop: 16,
     fontFamily: 'PressStart'
   },
+  viewIcon:{
+   alignSelf: 'flex-end',
+   marginBottom: 12
+  }
 })
