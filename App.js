@@ -5,6 +5,10 @@ import { StatusBar } from 'expo-status-bar';
 import TabNavigator from './src/navigation/TabNavigator';
 import { enableScreens } from 'react-native-screens';
 
+import { store } from './src/app/store';
+import { Provider } from 'react-redux';
+
+
 enableScreens();
 SplashScreen.preventAutoHideAsync();
 
@@ -25,9 +29,9 @@ export default function App() {
   }
 
   return (
-    <>
+    <Provider store={store}>
       <TabNavigator />
       <StatusBar style="light" />
-    </>
+    </Provider>
   );
 }

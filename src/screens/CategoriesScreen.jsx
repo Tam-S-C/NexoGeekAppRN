@@ -1,11 +1,12 @@
 import { StyleSheet, Text, FlatList, Image, Pressable, useWindowDimensions } from 'react-native';
-import categories from "../data/categories.json";
+//import categories from "../data/categories.json";
 import CardGeneral from '../components/CardGeneral.jsx';
 import { colors } from '../global/colors.js';
-
+import { useSelector } from 'react-redux';
 
 const CategoriesScreen = ({ navigation }) => {
 
+    const categories = useSelector(state=>state.shopSlice.value.categories)
 
     const {width, height} = useWindowDimensions()
 
