@@ -26,7 +26,7 @@ const TabNavigator = () => {
                 name="Home" 
                 component={ShopNavigator} 
                 options={{
-                    tabBarIcon: ({focused}) => (<Icon name="store" marginBottom={16} size={32} color={focused? colors.violetaSecundario : colors.blanco} />)
+                    tabBarIcon: ({focused}) => (<Icon name="store" marginBottom={16} size={24} color={focused? colors.violetaSecundario : colors.blanco} />)
                 }}
             />
 
@@ -34,7 +34,7 @@ const TabNavigator = () => {
                 name="Cart" 
                 component={CartNavigator} 
                 options={{
-                    tabBarIcon: ({focused}) => (<Icon name="shopping-cart" marginBottom={16} size={32} color={focused? colors.violetaSecundario : colors.blanco} />)
+                    tabBarIcon: ({focused}) => (<Icon name="shopping-cart" marginBottom={16} size={24} color={focused? colors.violetaSecundario : colors.blanco} />)
                 }}
             />
 
@@ -43,7 +43,7 @@ const TabNavigator = () => {
 
                 component={OrdersNavigator} 
                 options={{
-                    tabBarIcon: ({focused}) => (<Icon name="receipt" marginBottom={16} size={32} color={focused? colors.violetaSecundario : colors.blanco} />)
+                    tabBarIcon: ({focused}) => (<Icon name="receipt" marginBottom={16} size={24} color={focused? colors.violetaSecundario : colors.blanco} />)
                 }}
             />
 
