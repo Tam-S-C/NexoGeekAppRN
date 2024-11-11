@@ -7,7 +7,7 @@
     "price": 30000,
     "stock": 300,
     "category": "Convenciones & Expos",
-    "discount": "30%",
+    "discount": "30",
     "tags":["convenciones", "expo"],
     "mainImage":"https://i.postimg.cc/3RYJSK1M/witch.png",
     "quantity": 2
@@ -20,7 +20,7 @@
     "price": 7000,
     "stock": 100,
     "category": "Ferias & Aire Libre",
-    "discount": "15%",
+    "discount": "15",
     "tags":["feria", "aire libre"],
     "mainImage":"https://i.postimg.cc/T35whN1s/garlands.png",
     "quantity": 1

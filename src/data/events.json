@@ -7,7 +7,7 @@
         "price": 10000,
         "stock": 0,
         "category": "Recitales & Parties",
-        "discount": "3x2",
+        "discount": "20",
         "tags":["recital", "fiesta"],
         "mainImage":"https://i.postimg.cc/PrRJXnXZ/stage.png"
     },
@@ -19,7 +19,7 @@
         "price": 5000,
         "stock": 1000,
         "category": "Tecnología & Gaming",
-        "discount": "2x1",
+        "discount": "15",
         "tags":["tecno", "gaming"],
         "mainImage":"https://i.postimg.cc/VNyNt9bk/vr.png"
     },
@@ -31,7 +31,7 @@
         "price": 1000,
         "stock": 200,
         "category": "Talleres & Charlas",
-        "discount": "20%",
+        "discount": "20",
         "tags":["talleres", "charlas"],
         "mainImage":"https://i.postimg.cc/q78vxt8X/training.png"
     },
@@ -43,7 +43,7 @@
         "price": 30000,
         "stock": 300,
         "category": "Convenciones & Expos",
-        "discount": "30%",
+        "discount": "30",
         "tags":["convenciones", "expo"],
         "mainImage":"https://i.postimg.cc/3RYJSK1M/witch.png"
     },
@@ -55,7 +55,7 @@
         "price": 7000,
         "stock": 100,
         "category": "Ferias & Aire Libre",
-        "discount": "15%",
+        "discount": "15",
         "tags":["feria", "aire libre"],
         "mainImage":"https://i.postimg.cc/T35whN1s/garlands.png"
     },
@@ -67,7 +67,7 @@
         "price": 10000,
         "stock": 100,
         "category": "Locales & Showrooms",
-        "discount": "5%",
+        "discount": "5",
         "tags":["local", "showroom"],
         "mainImage":"https://i.postimg.cc/02Qr1ysP/store.png"
        

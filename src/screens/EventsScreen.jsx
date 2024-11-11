@@ -72,10 +72,11 @@ const EventsScreen = ({navigation, route}) => {
           </View>
 
           <View style={styles.column3Style}>
-            <Text>DESCUENTO!</Text>
-            <Text style={styles.discountStyle}>{item.discount}</Text>
+            <Text style={styles.discountTextStyle}>¡DESCUENTO!</Text>
+            <Text style={styles.discountStyle}>{item.discount}%</Text>
+            <Text style={styles.priceStyle1}>${item.price}</Text>
+            <Text style={styles.priceStyle}>${(item.price - (item.price * (item.discount / 100)))}</Text>
 
-            <Text style={styles.priceStyle}>${item.price}</Text>
           </View>
 
           
@@ -127,7 +128,8 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     justifyContent: 'space-between',
     marginHorizontal: 16,
-    marginVertical: 8
+    marginVertical: 8,
+    marginBottom: 16
   },
   eventImage:{
     width: 88,
@@ -142,12 +144,20 @@ const styles = StyleSheet.create({
     color: colors.fucsiaAcento,
     fontFamily: 'Roboto',
     fontSize: 14,
+    marginTop: 2,
+    marginBottom: 2
   },
   priceStyle:{
     color: colors.violetaPrimario,
-    fontSize: 14,
+    fontSize: 12,
     fontFamily: 'PressStart',
     paddingTop: 8
+  },
+  priceStyle1:{
+    color: colors.violetaPrimario,
+    textDecorationLine: 'line-through',
+    fontSize: 16,
+
   },
   titleStyle:{
     color: colors.violetaPrimario,
@@ -178,7 +188,7 @@ const styles = StyleSheet.create({
     color: colors.blanco,
   },
   column3Style:{
-    paddingVertical: 10,
+    paddingVertical: 8,
     paddingHorizontal: 4,
     alignItems: 'center'
   },
@@ -200,7 +210,11 @@ const styles = StyleSheet.create({
     padding: 16,
     margin: 16,
     borderRadius:16
-  }
+  },
+  discountTextStyle: {
+    color: colors.violetaPrimario,
+    fontSize: 13
+  },
   
 
 })

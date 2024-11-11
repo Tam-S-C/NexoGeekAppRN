@@ -63,7 +63,7 @@ const OneEventScreen = ({ route, navigation }) => {
               
               <View style={styles.discountContainer}>
                 <Text style={styles.discountTextStyle}>DESCUENTO: </Text>
-                <Text style={styles.discountStyle}>{eventFound.discount}</Text>
+                <Text style={styles.discountStyle}>{eventFound.discount}%</Text>
               </View>
               
               <View style={styles.priceContainer}>
@@ -174,7 +174,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
       },
       addToCardButton:{
-        //backgroundColor: colors.violetaPrimario,
         fontWeight: 'bold',
         fontSize: 16,
         borderRadius: 100,
@@ -186,7 +185,6 @@ const styles = StyleSheet.create({
         marginVertical: 16
       },
       addToCardButton2:{
-        //backgroundColor: colors.fucsiaAcento,
         fontWeight: 'bold',
         fontSize: 16,
         borderRadius: 100,
