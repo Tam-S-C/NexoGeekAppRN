@@ -1,0 +1,1 @@
+export const base_url = "https://nexo-geek-db-default-rtdb.firebaseio.com/"

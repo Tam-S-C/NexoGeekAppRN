@@ -45,6 +45,7 @@ const OrdersScreen = () => {
     <FlatList 
       data={orders}
       keyExtractor={item => item.id}
+      ListHeaderComponent={<Text style={styles.ordersScreenTitle}>Mis Compras Realizadas:</Text>}
       renderItem={renderOrderItem}
     
     />
@@ -55,8 +56,17 @@ export default OrdersScreen
 
 const styles = StyleSheet.create({
 
+  ordersScreenTitle:{
+    fontFamily: 'PressStart',
+    color: colors.violetaPrimario,
+    fontSize: 14,
+    marginLeft: 24,
+    marginTop: 12
+  },
   orderContainer:{
-    margin: 16,
+    marginTop: 8,
+    marginBottom: 16,
+    marginHorizontal: 16,
     paddingHorizontal: 16,
     paddingTop: 8,
   },

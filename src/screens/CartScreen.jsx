@@ -1,4 +1,4 @@
-import { StyleSheet, Text, FlatList, View, Image, Pressable } from 'react-native'
+import { StyleSheet, Text, FlatList, View, Image, Pressable, Modal } from 'react-native'
 import cart from '../data/cart.json'
 import { colors } from '../global/colors'
 import CardGeneral from '../components/CardGeneral'
@@ -8,6 +8,9 @@ import { useState, useEffect } from 'react'
 const CartScreen = () => {
   
   const [total, setTotal] = useState(0)
+  const [modalVisible, setModalVisible] = useState(false); 
+  const [eventToDelete, setEventToDelete] = useState(null);
+
 
   useEffect(() => {
     const newTotal = cart.reduce((acu, item) => {
@@ -24,18 +27,21 @@ const CartScreen = () => {
           <Text style={styles.confirmButtomText}>CONFIRMAR COMPRA</Text>
         </Pressable>
 
-        <Pressable onPress={() => deleteAllEvents(item.id)}
-          style={({ pressed }) => [
-            styles.trashAllEvents]}>
-          {({ pressed }) => (
-            <Icon
-              name="trash"
-              size={28}
-              color={pressed ? colors.fucsiaSombra : colors.fucsiaAcento}
-            />
-
-          )}
-        </Pressable>
+        <Pressable
+        onPress={() => {
+          setEventToDelete(null);
+          setModalVisible(true); 
+        }}
+        style={({ pressed }) => [styles.trashAllEvents]}
+      >
+        {({ pressed }) => (
+          <Icon
+            name="trash"
+            size={28}
+            color={pressed ? colors.fucsiaSombra : colors.fucsiaAcento}
+          />
+        )}
+      </Pressable>
         <Text style={styles.deleteText}>Vaciar Carrito</Text>
 
       </View>
@@ -55,9 +61,11 @@ const CartScreen = () => {
             style={styles.eventImage}
             resizeMode='contain'
           />
-            <Pressable  onPress={() => deleteEvent(item.id)}
-                        style={({ pressed }) => [
-                        styles.trashStyle]}>
+            <Pressable  onPress={() => {
+                    setEventToDelete(item.id);
+                    setModalVisible(false);
+                }}
+                style={({ pressed }) => [styles.trashStyle]} >
                {({ pressed }) => (
                       <Icon
                           name="trash"
@@ -110,6 +118,10 @@ const CartScreen = () => {
           </Text>
         </View>
       </CardGeneral>
+
+          
+
+
     );
   };
 
@@ -120,8 +132,72 @@ const CartScreen = () => {
         keyExtractor={item => item.id}
         renderItem={renderCartItem}
         ListHeaderComponent={<Text style={styles.cartScreenTitle}>Mi carrito:</Text>}
-        ListFooterComponent={<FooterComponent/>}
+        ListFooterComponent={<FooterComponent />}
       />
+
+      <Modal
+        visible={eventToDelete !== null}
+        transparent={true}
+        animationType="slide"
+        onRequestClose={() => setEventToDelete(null)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalText}>
+              ¿Seguro quiere eliminar este evento del carrito?
+            </Text>
+            <View style={styles.modalButtons}>
+              <Pressable
+                style={styles.modalCancelButton}
+                onPress={() => setEventToDelete(null)}
+              >
+                <Text style={styles.modalButtonText}>Cancelar</Text>
+              </Pressable>
+              <Pressable
+                style={styles.modalConfirmButton}
+                onPress={() => {
+                  deleteEvent(eventToDelete);
+                  setEventToDelete(null);
+                }}
+              >
+                <Text style={styles.modalButtonText}>Sí, eliminar</Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+      <Modal
+        visible={modalVisible}
+        transparent={true}
+        animationType="slide"
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalText}>
+              ¿Seguro quiere vaciar todo el carrito?
+            </Text>
+            <View style={styles.modalButtons}>
+              <Pressable
+                style={styles.modalCancelButton}
+                onPress={() => setModalVisible(false)}
+              >
+                <Text style={styles.modalButtonText}>Cancelar</Text>
+              </Pressable>
+              <Pressable
+                style={styles.modalConfirmButton}
+                onPress={() => {
+                  deleteAllEvents();
+                  setModalVisible(false);
+                }}
+              >
+                <Text style={styles.modalButtonText}>Sí, eliminar</Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </>
   );
 };
@@ -129,6 +205,62 @@ const CartScreen = () => {
 export default CartScreen
 
 const styles = StyleSheet.create({
+
+  //MODAL
+
+      modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    modalContent: {
+        width: '80%',
+        backgroundColor: colors.blanco,
+        padding: 20,
+        borderRadius: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+        alignItems: 'center',
+    },
+    modalText: {
+        fontSize: 16,
+        color: colors.violetaPrimario,
+        textAlign: 'center',
+        marginBottom: 20,
+    },
+    modalButtons: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '100%',
+    },
+    modalCancelButton: {
+        flex: 1,
+        marginRight: 10,
+        backgroundColor: colors.fucsiaAcento,
+        padding: 10,
+        borderRadius: 5,
+        alignItems: 'center',
+    },
+    modalConfirmButton: {
+        flex: 1,
+        marginLeft: 10,
+        backgroundColor: colors.violetaPrimario,
+        padding: 10,
+        borderRadius: 5,
+        alignItems: 'center',
+    },
+    modalButtonText: {
+        color: colors.blanco,
+        fontWeight: 'bold',
+        fontSize: 14,
+    },
+
+
+  //Screen
 
   cartScreenTitle:{
       fontFamily: 'PressStart',
@@ -164,7 +296,7 @@ const styles = StyleSheet.create({
   },
   priceStyle:{
     color: colors.violetaPrimario,
-    fontSize: 13,
+    fontSize: 12,
     fontFamily: 'PressStart',
     paddingTop: 8
   },
@@ -203,25 +335,25 @@ const styles = StyleSheet.create({
     elevation: 5,
     color: colors.blanco,
   },
+  discountTextStyle: {
+    color: colors.violetaSecundario,
+    fontWeight: 'bold',
+    fontSize: 13,
+    marginTop: 2
+  },
   column3Style:{
     paddingVertical: 10,
     alignItems: 'flex-end'
   },
   subtotalStyle:{
     color: colors.violetaPrimario,
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: '500',
     marginBottom: 8
   },
   quantityStyle:{
     marginTop: 2,
     color: colors.violetaPrimario,
-  },
-  discountTextStyle: {
-    color: colors.violetaSecundario,
-    fontWeight: 'bold',
-    fontSize: 14,
-    marginTop: 2
   },
   trashStyle:{
     marginTop: 16,

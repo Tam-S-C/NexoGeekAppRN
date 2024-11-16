@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   eventContainer:{
     flexDirection: 'row',
     paddingHorizontal: 16,
-    paddingVertical: 4,
+    paddingVertical: 2,
     justifyContent: 'space-between',
     marginHorizontal: 16,
     marginVertical: 8,
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
   eventImage:{
     width: 88,
     height: 88,
-    marginTop: 12
+    marginTop: 16
   },
   eventDescription:{
     paddingHorizontal: 2,
@@ -180,9 +180,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.violetaSecundario,
     fontWeight: 'bold',
     fontSize: 16,
-    borderRadius: 100,
+    borderRadius: 50,
     margin: 4,
-    padding: 12,
+    paddingHorizontal: 9,
+    paddingVertical: 12,
     shadowColor: colors.violetaSombra,
     shadowOpacity: 0.5,
     elevation: 5,

@@ -1,13 +1,13 @@
-import { StyleSheet, Text, FlatList, Image, Pressable, useWindowDimensions } from 'react-native';
+import { StyleSheet, Text, FlatList, Image, Pressable, useWindowDimensions, ActivityIndicator } from 'react-native';
 import CardGeneral from '../components/CardGeneral.jsx';
 import { colors } from '../global/colors.js';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCategory } from '../features/shop/shopSlice.js';
-
+import { useGetCategoriesQuery } from '../services/shopService';
 
 const CategoriesScreen = ({ navigation }) => {
 
-    const categories = useSelector(state=>state.shopReducer.value.categories)
+    const { data: categories, error, isLoading } = useGetCategoriesQuery()
 
     const dispatch = useDispatch()
 
@@ -47,13 +47,31 @@ const CategoriesScreen = ({ navigation }) => {
 
     return (
         <>
+            {
+                isLoading
+                ?
+                <ActivityIndicator size={80} color={colors.fucsiaAcento} style={styles.spinner} />
+                :
+                error
+                ?
+                <Text style={styles.errorText}>
+                    Ha ocurrido un error al cargar las categorías, lo sentimos mucho, prueba nuevamente.
+                </Text>
+                :
+                <>
+                    <Text style={styles.subtitle}>
+                        Bienvenid@s a la única App de Argentina de búsqueda y compra de tickets de eventos y locales del universo geek!!  
+                    </Text>
 
-            <Text style={styles.subtitle}>Bienvenid@s a la única App de Argentina de búsqueda y compra de tickets de eventos y locales del universo geek!!  </Text>
-            <FlatList
-                data={categories}
-                keyExtractor={item => item.id.toString()}
-                renderItem={renderCategoryItem}
-            />
+                    <FlatList
+                        data={categories}
+                        keyExtractor={item => item.id.toString()}
+                        renderItem={renderCategoryItem}
+                    />
+                </>
+            }
+
+            
         </>
     );
 }
@@ -83,7 +101,7 @@ const styles = StyleSheet.create({
     },
     categoryTitle: {
         fontFamily: 'PressStart',
-        fontSize: 11,
+        fontSize: 12,
         color: colors.violetaPrimario,
     },
     row: {
@@ -92,4 +110,18 @@ const styles = StyleSheet.create({
     rowReverse: {
         flexDirection: "row-reverse",
     },
+    spinner:{
+        marginTop: 160
+    },
+    errorText:{
+        fontSize: 18,
+        color: colors.blanco,
+        fontWeight: 'bold',
+        backgroundColor: colors.fucsiaAcento,
+        borderRadius: 16,
+        padding: 24,
+        marginHorizontal: 16,
+        marginVertical: 64,
+        textAlign: 'center'
+    }
 });
