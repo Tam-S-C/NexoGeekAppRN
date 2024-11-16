@@ -11,18 +11,14 @@ const CategoriesScreen = ({ navigation }) => {
 
     const dispatch = useDispatch()
 
-    const {width, height} = useWindowDimensions()
-
-
     const renderCategoryItem = ({ item, index }) => {
 
         return (
 
-            <Pressable onPress={()=>{
-                dispatch(setCategory(item.title)),
-                navigation.navigate('Eventos')
-                
-                }}>
+            <Pressable onPress={() => {
+                dispatch(setCategory(item.title));
+                navigation.navigate('Eventos');
+              }}>
 
                 <CardGeneral style={
                     index % 2 === 0 ? 
@@ -55,7 +51,7 @@ const CategoriesScreen = ({ navigation }) => {
                 error
                 ?
                 <Text style={styles.errorText}>
-                    Ha ocurrido un error al cargar las categorías, lo sentimos mucho, prueba nuevamente.
+                    Ha ocurrido un error al cargar las categorías, lo sentimos mucho 🙇‍♀️, prueba nuevamente.
                 </Text>
                 :
                 <>
@@ -65,7 +61,7 @@ const CategoriesScreen = ({ navigation }) => {
 
                     <FlatList
                         data={categories}
-                        keyExtractor={item => item.id.toString()}
+                        keyExtractor={item => item.id}
                         renderItem={renderCategoryItem}
                     />
                 </>

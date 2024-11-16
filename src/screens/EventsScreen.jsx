@@ -1,4 +1,4 @@
-import { FlatList, Image, StyleSheet, View, Text, Pressable } from 'react-native';
+import { FlatList, Image, StyleSheet, View, Text, Pressable, ActivityIndicator } from 'react-native';
 import CardGeneral from '../components/CardGeneral';
 import { colors } from '../global/colors';
 import { useEffect, useState } from 'react';
@@ -6,6 +6,8 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import Search from '../components/Search';
 import { useSelector, useDispatch } from 'react-redux';
 import { setEventId } from '../features/shop/shopSlice';
+import { useGetEventsByCategoryQuery } from '../services/shopService';
+import { addItem } from '../features/cart/cartSlice';
 
 
 const EventsScreen = ({navigation, route}) => {
@@ -14,108 +16,121 @@ const EventsScreen = ({navigation, route}) => {
   
   const [search, setSearch] = useState("")
 
-  const eventsFilteredByCategory = useSelector(state=>state.shopReducer.value.eventsFilteredByCategory)
+  const category = useSelector(state => state.shopReducer.value.categorySelected)
 
+  const { data: eventsFilteredByCategory, error, isLoading} = useGetEventsByCategoryQuery(category)
+
+  const dispatch = useDispatch()
+  
   useEffect(() => {
-    let filteredEvents = [...eventsFilteredByCategory];
-  
+    setEventsFiltered(eventsFilteredByCategory)
     if (search) {
-      filteredEvents = filteredEvents.filter(ev => 
-        ev.title.toLowerCase().includes(search.toLowerCase()) 
-        ||
-        ev.tags.some(tag => tag.toLowerCase().includes(search.toLowerCase())) 
-        ||
-        ev.dateAndPlace.toLowerCase().includes(search.toLowerCase())
-      );
+        seteventsFiltered(eventsFilteredByCategory.filter(event => event.title.toLowerCase().includes(search.toLowerCase())))
     }
-    setEventsFiltered(filteredEvents);
+}, [search,eventsFilteredByCategory])
   
-  }, [search, eventsFilteredByCategory]);
-  
-  dispatch = useDispatch()
+
 
  const renderEventItem = ({ item }) => {
   return (
-    <Pressable onPress={() => {
-      dispatch(setEventId(item.id)); 
-      navigation.navigate("Evento"); 
-    }}>
 
-        <CardGeneral style= {styles.eventContainer}>
+      <>
+      <Pressable onPress={() => {
+        dispatch(setEventId(item.id)); 
+        navigation.navigate("Evento"); 
+      }}>
+  
+          <CardGeneral style= {styles.eventContainer}>
+  
+            <View>
+              <Image
+                source={{uri: item.mainImage }}
+                style={styles.eventImage}
+                resizeMode= 'contain'
+              />
+            </View>
+  
+            <View style={styles.eventDescription}>
+  
+              <Text style={styles.titleStyle}>{item.title}</Text>
+  
+              <Text>{item.dateAndPlace}</Text>
+  
+              <FlatList style={styles.tagsStyleDirection}
+                data={item.tags}
+                keyExtractor={()=>Math.random()}
+                renderItem={({item})=><Text style={styles.tagsStyle}>{item}</Text>}
+              />
+  
+              {
+                item.stock > 0 ?
+                <Text style={styles.stockStyle} >Stock: {item.stock} </Text>
+                : 
+                <Text style={styles.stockStyle} >AGOTADO </Text>
+              }
+  
+            </View>
+  
+            <View style={styles.column3Style}>
+              <Text style={styles.discountTextStyle}>¡DESCUENTO!</Text>
+              <Text style={styles.discountStyle}>{item.discount}%</Text>
+              <Text style={styles.priceStyle1}>${item.price}</Text>
+              <Text style={styles.priceStyle}>${(item.price - (item.price * (item.discount / 100)))}</Text>
+  
+            </View>
+  
+          </CardGeneral>
+  
+        </Pressable>
+        </>
+      )}        
 
-          <View>
-            <Image
-              source={{uri: item.mainImage }}
-              style={styles.eventImage}
-              resizeMode= 'contain'
-            />
-          </View>
-
-          <View style={styles.eventDescription}>
-
-            <Text style={styles.titleStyle}>{item.title}</Text>
-
-            <Text>{item.dateAndPlace}</Text>
-
-            <FlatList style={styles.tagsStyleDirection}
-              data={item.tags}
-              keyExtractor={()=>Math.random()}
-              renderItem={({item})=><Text style={styles.tagsStyle}>{item}</Text>}
-            />
-
-            {
-              item.stock > 0 ?
-              <Text style={styles.stockStyle} >Stock: {item.stock} </Text>
-              : 
-              <Text style={styles.stockStyle} >AGOTADO </Text>
-            }
-
-          </View>
-
-          <View style={styles.column3Style}>
-            <Text style={styles.discountTextStyle}>¡DESCUENTO!</Text>
-            <Text style={styles.discountStyle}>{item.discount}%</Text>
-            <Text style={styles.priceStyle1}>${item.price}</Text>
-            <Text style={styles.priceStyle}>${(item.price - (item.price * (item.discount / 100)))}</Text>
-
-          </View>
-
-          
-        </CardGeneral>
-
-      </Pressable>
-    )
-  }
 
 
   return (
+
     <>
-    
-      <View style={styles.backSearchContainer}>
-
-        <Pressable onPress={()=>navigation.goBack()}>
-          <Icon style={styles.backArrow} name="angle-left" size={32} color={colors.fucsiaAcento}/> 
-        </Pressable>
-        
-        <Search style={styles.searchStyle} setSearch={setSearch} />
-
-      </View>
-
       {
-        eventsFiltered.length === 0
-        ?
-        <Text style={styles.noSearch}>No hay eventos ni locales que contengan los términos de tu búsqueda. Lo lamentamos 🙇‍♀️ . Intenta con otras palabras.</Text>
-        :
-        <FlatList
-        data= {eventsFiltered}
-        keyExtractor= {item=>item.id}
-        renderItem={renderEventItem}
-        />
+          isLoading
+          ?
+          <ActivityIndicator size={80} color={colors.fucsiaAcento} style={styles.spinner} /> 
+          :
+          error
+          ?
+          <Text style={styles.errorText}>
+            Ha ocurrido un error al cargar las categorías, lo sentimos mucho 🙇‍♀️, prueba nuevamente.
+          </Text>
+          :
+        <>
+          <View style={styles.backSearchContainer}>
+
+            <Pressable onPress={() => navigation.goBack()}>
+              <Icon style={styles.backArrow} name="angle-left" size={32} color={colors.fucsiaAcento} />
+            </Pressable>
+
+            <Search style={styles.searchStyle} setSearch={setSearch} />
+
+           </View>
+
+              {
+                !eventsFilteredByCategory || eventsFilteredByCategory.length === 0
+                  ?
+                  <Text style={styles.noSearch}>
+                    No hay eventos ni locales que contengan los términos de tu búsqueda. Lo lamentamos 🙇‍♀️ . Intenta con otras palabras.
+                  </Text>
+                  :
+                  <FlatList
+                    data={eventsFilteredByCategory}
+                    keyExtractor={(item) => item.id}
+                    renderItem={renderEventItem}
+                  />
+
+              }
+        </>
+
       }
-
-
-    </>
-  )
+  </>
+)
 }
 
 export default EventsScreen;
@@ -217,6 +232,19 @@ const styles = StyleSheet.create({
     color: colors.violetaPrimario,
     fontSize: 13
   },
+  spinner:{
+    marginTop: 80
+  },
+  errorText:{
+      fontSize: 18,
+      color: colors.blanco,
+      fontWeight: 'bold',
+      backgroundColor: colors.fucsiaAcento,
+      borderRadius: 16,
+      padding: 24,
+      marginHorizontal: 16,
+      marginVertical: 64,
+      textAlign: 'center'
+  },
   
-
 })
