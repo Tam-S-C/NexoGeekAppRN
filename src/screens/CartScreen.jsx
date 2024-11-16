@@ -23,6 +23,21 @@ const CartScreen = () => {
         <Pressable style={({ pressed }) => [{ backgroundColor: pressed ? colors.violetaSombra : colors.violetaPrimario }, styles.confirmButton]}  >
           <Text style={styles.confirmButtomText}>CONFIRMAR COMPRA</Text>
         </Pressable>
+
+        <Pressable onPress={() => deleteAllEvents(item.id)}
+          style={({ pressed }) => [
+            styles.trashAllEvents]}>
+          {({ pressed }) => (
+            <Icon
+              name="trash"
+              size={28}
+              color={pressed ? colors.fucsiaSombra : colors.fucsiaAcento}
+            />
+
+          )}
+        </Pressable>
+        <Text style={styles.deleteText}>Vaciar Carrito</Text>
+
       </View>
   )
 
@@ -40,9 +55,19 @@ const CartScreen = () => {
             style={styles.eventImage}
             resizeMode='contain'
           />
-
-        <Icon name="trash" size={28} color={colors.fucsiaAcento} style={styles.trashStyle} />
-
+            <Pressable  onPress={() => deleteEvent(item.id)}
+                        style={({ pressed }) => [
+                        styles.trashStyle]}>
+               {({ pressed }) => (
+                      <Icon
+                          name="trash"
+                          size={28}
+                          color={pressed ? colors.fucsiaSombra : colors.fucsiaAcento}
+                      />
+                  )}
+            </Pressable>
+            <Text style={styles.deleteEventText}>Eliminar</Text>
+            <Text style={styles.deleteEventText}>Evento</Text>
         </View>
 
         <View style={styles.eventDescription}>
@@ -199,9 +224,15 @@ const styles = StyleSheet.create({
     marginTop: 2
   },
   trashStyle:{
-    marginTop: 32,
+    marginTop: 16,
     alignSelf: 'center',
-    marginRight: 18
+    marginRight: 18,
+    marginBottom: 2,
+    paddingHorizontal: 16,
+  },
+  trashAllEvents:{
+    marginTop: 16,
+    alignSelf: 'center',
   },
   confirmButton:{
     borderRadius: 100,
@@ -231,9 +262,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 16,
     marginTop: 4,
-
-
-  }
+  },
+  deleteText:{
+    alignSelf: 'center',
+    color: colors.fucsiaAcento,
+    marginTop: 2,
+    fontSize: 18,
+    fontWeight: '600'
+  },
+  deleteEventText:{
+    alignSelf: 'center',
+    color: colors.fucsiaAcento,
+    fontSize: 12,
+    fontWeight: '600',
+    marginRight: 16,
+  },
 
 })
 
