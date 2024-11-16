@@ -20,7 +20,7 @@ const CartScreen = () => {
   const FooterComponent = () => (
       <View style={styles.footerContainer}>
         <Text style={styles.footerTotal}>Total: ${total} </Text>
-        <Pressable style={styles.confirmButton} >
+        <Pressable style={({ pressed }) => [{ backgroundColor: pressed ? colors.violetaSombra : colors.violetaPrimario }, styles.confirmButton]}  >
           <Text style={styles.confirmButtomText}>CONFIRMAR COMPRA</Text>
         </Pressable>
       </View>
@@ -33,6 +33,7 @@ const CartScreen = () => {
 
     return (
       <CardGeneral style={styles.eventContainer}>
+
         <View>
           <Image
             source={{ uri: item.mainImage }}
@@ -40,7 +41,7 @@ const CartScreen = () => {
             resizeMode='contain'
           />
 
-        <Icon name="trash" size={24} color={colors.fucsiaAcento} style={styles.trashStyle} />
+        <Icon name="trash" size={28} color={colors.fucsiaAcento} style={styles.trashStyle} />
 
         </View>
 
@@ -65,10 +66,10 @@ const CartScreen = () => {
 
           <View style={styles.lessPlusContainer}>
             <Pressable style={styles.lessItem} >
-              <Icon name='minus-square' color={colors.violetaSecundario} size={28}/>
+              <Icon name='minus-square' color={colors.violetaSecundario} size={32}/>
             </Pressable>
             <Pressable style={styles.plusItem} >
-              <Icon name='plus-square' color={colors.violetaSecundario} size={28} />
+              <Icon name='plus-square' color={colors.violetaSecundario} size={32} />
             </Pressable>  
           </View>
 
@@ -114,7 +115,7 @@ const styles = StyleSheet.create({
   eventContainer:{
     flexDirection: 'row',
     paddingHorizontal: 16,
-    paddingVertical: 4,
+    paddingVertical: 2,
     justifyContent: 'space-between',
     marginHorizontal: 16,
     marginVertical: 8
@@ -123,7 +124,7 @@ const styles = StyleSheet.create({
     width: 72,
     height: 72,
     marginTop: 12,
-    marginRight: 8,
+    marginRight: 18,
   },
   eventDescription:{
     paddingHorizontal: 2,
@@ -162,7 +163,7 @@ const styles = StyleSheet.create({
   },
   tagsStyleDirection:{
     flexDirection: 'row',
-    gap: 4
+    gap: 6
   },
   discountStyle:{
     backgroundColor: colors.violetaSecundario,
@@ -170,7 +171,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     borderRadius: 100,
     margin: 4,
-    padding: 12,
+    paddingVertical: 14,
+    paddingHorizontal: 10,
     shadowColor: colors.violetaSombra,
     shadowOpacity: 0.5,
     elevation: 5,
@@ -178,27 +180,7 @@ const styles = StyleSheet.create({
   },
   column3Style:{
     paddingVertical: 10,
-    paddingHorizontal: 2,
-    alignItems: 'center'
-  },
-  backArrow:{
-    paddingVertical: 4,
-    paddingHorizontal: 4,
-  },
-  backSearchContainer:{
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 4,
-  },
-  noSearch: {
-    backgroundColor: colors.violetaPrimario,
-    textAlign: 'center',
-    color: colors.blanco,
-    fontSize: 16,
-    padding: 16,
-    margin: 16,
-    borderRadius:16
+    alignItems: 'flex-end'
   },
   subtotalStyle:{
     color: colors.violetaPrimario,
@@ -211,26 +193,24 @@ const styles = StyleSheet.create({
     color: colors.violetaPrimario,
   },
   discountTextStyle: {
-    color: colors.violetaPrimario,
-    fontSize: 13,
+    color: colors.violetaSecundario,
+    fontWeight: 'bold',
+    fontSize: 14,
     marginTop: 2
   },
   trashStyle:{
-    marginTop: 24,
+    marginTop: 32,
     alignSelf: 'center',
-    marginRight: 8
+    marginRight: 18
   },
   confirmButton:{
-    backgroundColor: colors.violetaPrimario,
-    fontWeight: 'bold',
-    fontSize: 16,
     borderRadius: 100,
     padding: 12,
     shadowColor: colors.violetaSombra,
     shadowOpacity: 0.5,
     elevation: 4,
     marginHorizontal: 16,
-    marginVertical: 8,
+    marginVertical: 12,
     marginBottom: 16
   },
   confirmButtomText:{
@@ -243,14 +223,14 @@ const styles = StyleSheet.create({
   footerTotal:{
     alignSelf: 'center',
     color: colors.violetaPrimario,
-    marginTop: 16,
+    marginTop: 24,
     fontSize: 18,
     fontWeight: '600'
   },
   lessPlusContainer:{
     flexDirection: 'row',
-    gap: 8,
-    marginBottom: 8
+    gap: 16,
+    marginTop: 4,
 
 
   }

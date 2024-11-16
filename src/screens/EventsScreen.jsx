@@ -1,5 +1,4 @@
 import { FlatList, Image, StyleSheet, View, Text, Pressable } from 'react-native';
-import events from '../data/events.json';
 import CardGeneral from '../components/CardGeneral';
 import { colors } from '../global/colors';
 import { useEffect, useState } from 'react';

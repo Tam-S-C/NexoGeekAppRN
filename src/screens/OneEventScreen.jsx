@@ -43,7 +43,7 @@ const OneEventScreen = ({ route, navigation }) => {
           width = '100%'
           height={width*0.5}
           resizeMode='contain'
-          marginTop= {16}
+          marginTop= {8}
 
         />
 
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
         paddingLeft: 16,
         fontFamily: 'PressStart',
         fontSize: 14,
-        paddingTop: 6,
+        paddingTop: 8,
         color: colors.violetaPrimario
       },
       stockStyle:{
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         paddingHorizontal: 16,
-        marginBottom: 16,
+        marginBottom: 8,
         marginTop: 16,
       },
       stockStyle2:{
@@ -136,13 +136,13 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         paddingHorizontal: 16,
-        marginBottom: 16,
+        marginBottom: 8,
         marginTop: 16,
       },
       priceStyle:{
         color: colors.violetaPrimario,
         fontSize: 14,
-        paddingTop: 18,
+        paddingTop: 10,
         paddingLeft: 4,
         textDecorationLine: 'line-through',
       },
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
         color: colors.violetaPrimario,
         fontSize: 14,
         fontFamily: 'PressStart',
-        paddingTop: 22,
+        paddingTop: 14,
         paddingLeft: 4
       },
       discountStyle:{
@@ -158,7 +158,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 16,
         borderRadius: 100,
-        padding: 12,
+        paddingVertical: 14,
+        paddingHorizontal: 10,
         shadowColor: colors.violetaSombra,
         shadowOpacity: 0.5,
         elevation: 5,
@@ -181,7 +182,7 @@ const styles = StyleSheet.create({
       },
       priceTextStyle:{
         marginLeft: 16,
-        marginTop: 16,
+        marginTop: 8,
         color: colors.violetaPrimario,
         fontWeight: 'bold',
         fontSize: 16

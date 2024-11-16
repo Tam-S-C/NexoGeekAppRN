@@ -26,7 +26,7 @@ const TabNavigator = () => {
                 name="Home" 
                 component={ShopNavigator} 
                 options={{
-                    tabBarIcon: ({focused}) => (<Icon name="store" marginBottom={16} size={24} color={focused? colors.violetaSecundario : colors.blanco} />)
+                    tabBarIcon: ({focused}) => (<Icon name="store" marginBottom={16} size={24} color={focused? colors.blanco : colors.violetaSecundario} />)
                 }}
             />
 
@@ -34,7 +34,7 @@ const TabNavigator = () => {
                 name="Cart" 
                 component={CartNavigator} 
                 options={{
-                    tabBarIcon: ({focused}) => (<Icon name="shopping-cart" marginBottom={16} size={24} color={focused? colors.violetaSecundario : colors.blanco} />)
+                    tabBarIcon: ({focused}) => (<Icon name="shopping-cart" marginBottom={16} size={24} color={focused? colors.blanco : colors.violetaSecundario} />)
                 }}
             />
 
@@ -43,7 +43,7 @@ const TabNavigator = () => {
 
                 component={OrdersNavigator} 
                 options={{
-                    tabBarIcon: ({focused}) => (<Icon name="receipt" marginBottom={16} size={24} color={focused? colors.violetaSecundario : colors.blanco} />)
+                    tabBarIcon: ({focused}) => (<Icon name="receipt" marginBottom={16} size={24} color={focused? colors.blanco : colors.violetaSecundario} />)
                 }}
             />
 
@@ -55,11 +55,11 @@ const TabNavigator = () => {
 export default TabNavigator
 
 const styles = StyleSheet.create({
-    tabBar:{
+    tabBar: {
         height: 64,
         padding: 16,
         shadowColor: colors.violetaSombra,
-        elevation: 16,
+        elevation: 8,
         backgroundColor: colors.violetaPrimario,
-    }
-})
+    },
+});

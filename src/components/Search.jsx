@@ -22,9 +22,9 @@ const styles = StyleSheet.create({
   searchInput: {
     borderRadius: 16,
     paddingLeft: 16,
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: colors.violetaPrimario,
-    width: '90%',
-    marginLeft: 16
+    width: '92%',
+    marginLeft: 16,
   },
 });
