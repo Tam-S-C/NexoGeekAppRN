@@ -3,19 +3,26 @@ import { colors } from '../global/colors'
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import events from '../data/events.json'
 import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 
 const OneEventScreen = ({ route, navigation }) => {
   
     const [eventFound, setEventFound] = useState({})
 
-    const eventId = route.params || "";
+    const eventId = useSelector(state=>state.shopReducer.value.eventId)
 
     const {width, height} = useWindowDimensions()
   
-    useEffect(()=>{
-        setEventFound(events.find(ev => ev.id === eventId))
-    },[eventId])
+    useEffect(() => {
+      if (eventId) {
+        setEventFound(events.find(ev => ev.id === eventId));
+      }
+    }, [eventId]);
+    
+
+    const dispatch = useDispatch()
   
     return (
     <ScrollView>
@@ -70,12 +77,17 @@ const OneEventScreen = ({ route, navigation }) => {
                 <Text style={styles.priceTextStyle}>PRECIO: </Text>
                 <Text style={styles.priceStyle}>${eventFound.price}</Text>
               </View>
+
+              <View style={styles.priceContainer}>
+                <Text style={styles.priceTextStyle}>TOTAL: </Text>
+                <Text style={styles.priceStyle2}>${(eventFound.price - (eventFound.price * (eventFound.discount / 100)))}</Text>
+              </View>
               
               { 
                 eventFound.stock > 0 ?
                 <Pressable style={({ pressed }) => [{ backgroundColor: pressed ? colors.violetaSombra : colors.violetaPrimario }, styles.addToCardButton]}
                 onPress={null}>
-                  <Text style={styles.addToCardText}>Agregar Ticket al Carrito</Text>
+                  <Text style={styles.addToCardText}>Agregar al Carrito <FontAwesome name="ticket" size={24}/></Text>
                 </Pressable>
                 :
                 <Pressable 
@@ -128,6 +140,13 @@ const styles = StyleSheet.create({
         marginTop: 16,
       },
       priceStyle:{
+        color: colors.violetaPrimario,
+        fontSize: 14,
+        paddingTop: 18,
+        paddingLeft: 4,
+        textDecorationLine: 'line-through',
+      },
+      priceStyle2:{
         color: colors.violetaPrimario,
         fontSize: 14,
         fontFamily: 'PressStart',
@@ -200,7 +219,6 @@ const styles = StyleSheet.create({
         fontFamily: 'PressStart',
         fontSize: 12,
         alignSelf: 'center',
-        paddingTop: 4
       },
       addToCardText2:{
         color: colors.blanco,

@@ -26,10 +26,16 @@ const OrdersScreen = () => {
 
     return (
       <CardGeneral style={styles.orderContainer}>
-          <Text style={styles.title}>Recibo nº:</Text>
-          <Text style={styles.date}>Creado el {new Date(item.createdAt).toLocaleString('es-Ar', dateOptions)} hs.</Text>
-          <Text style={styles.total}>Total: ${total} </Text>
-          <Icon name="search-plus" size={24} color={colors.violetaSecundario} style={styles.viewIcon} />
+        <View style={styles.rowsStyle}>
+          <View>
+            <Text style={styles.title}>Recibo nº:</Text>
+            <Text style={styles.date}>Creado el {new Date(item.createdAt).toLocaleString('es-Ar', dateOptions)} hs.</Text>
+            <Text style={styles.total}>Total: ${total} </Text>
+          </View>
+          <View>
+            <Icon name="search-plus" size={24} color={colors.violetaSecundario} style={styles.viewIcon} />
+          </View>
+        </View>
       </CardGeneral>
     )
   }
@@ -52,7 +58,10 @@ const styles = StyleSheet.create({
   orderContainer:{
     margin: 16,
     paddingHorizontal: 16,
-    paddingTop:16
+    paddingTop: 8,
+  },
+  rowsStyle:{
+    flexDirection: "row"
   },
   title:{
     color: colors.violetaPrimario,
@@ -68,10 +77,11 @@ const styles = StyleSheet.create({
     color: colors.violetaPrimario,
     fontSize: 12,
     marginTop: 16,
-    fontFamily: 'PressStart'
+    fontFamily: 'PressStart',
+    paddingBottom: 8
   },
   viewIcon:{
-   alignSelf: 'flex-end',
-   marginBottom: 12
+   marginLeft: '50%',
+   marginTop: '25%'
   }
 })

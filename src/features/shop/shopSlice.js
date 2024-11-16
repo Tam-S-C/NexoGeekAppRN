@@ -18,10 +18,13 @@ export const shopSlice = createSlice({
         setCategory: (state, action) =>{
             state.value.eventsFilteredByCategory = events.filter(ev => ev.category.toLowerCase() === action.payload.toLowerCase())
             state.value.categorySelected = action.payload
+        },
+        setEventId: (state,action) => {
+            state.value.eventId = action.payload 
         }
     }
 })
 
-export const {setCategory} = shopSlice.actions
+export const {setCategory, setEventId} = shopSlice.actions
 
 export default shopSlice.reducer

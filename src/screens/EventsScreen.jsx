@@ -6,12 +6,13 @@ import { useEffect, useState } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Search from '../components/Search';
 import { useSelector, useDispatch } from 'react-redux';
+import { setEventId } from '../features/shop/shopSlice';
 
 
 const EventsScreen = ({navigation, route}) => {
 
   const [eventsFiltered, setEventsFiltered] = useState([])
-
+  
   const [search, setSearch] = useState("")
 
   const eventsFilteredByCategory = useSelector(state=>state.shopReducer.value.eventsFilteredByCategory)
@@ -32,12 +33,14 @@ const EventsScreen = ({navigation, route}) => {
   
   }, [search, eventsFilteredByCategory]);
   
-  
+  dispatch = useDispatch()
 
-  const renderEventItem = ({item}) => {
-    return(
-
-      <Pressable onPress={()=>navigation.navigate("Evento", item.id)}>
+ const renderEventItem = ({ item }) => {
+  return (
+    <Pressable onPress={() => {
+      dispatch(setEventId(item.id)); 
+      navigation.navigate("Evento"); 
+    }}>
 
         <CardGeneral style= {styles.eventContainer}>
 
