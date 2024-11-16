@@ -13,7 +13,7 @@ export const shopSlice = createSlice({
         setCategory: (state, action) =>{
             state.value.categorySelected = action.payload
         },
-        setEventId: (state,action) => {
+        setEventId: (state, action) => {
             state.value.eventId = action.payload 
         }
     }
@@ -22,3 +22,4 @@ export const shopSlice = createSlice({
 export const {setCategory, setEventId} = shopSlice.actions
 
 export default shopSlice.reducer
+

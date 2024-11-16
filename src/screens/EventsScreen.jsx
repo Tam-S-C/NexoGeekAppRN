@@ -10,7 +10,7 @@ import { useGetEventsByCategoryQuery } from '../services/shopService';
 import { addItem } from '../features/cart/cartSlice';
 
 
-const EventsScreen = ({navigation, route}) => {
+const EventsScreen = ({navigation}) => {
 
   const [eventsFiltered, setEventsFiltered] = useState([])
   
@@ -20,15 +20,26 @@ const EventsScreen = ({navigation, route}) => {
 
   const { data: eventsFilteredByCategory, error, isLoading} = useGetEventsByCategoryQuery(category)
 
-  const dispatch = useDispatch()
+  dispatch = useDispatch()
+
   
-  useEffect(() => {
-    setEventsFiltered(eventsFilteredByCategory)
-    if (search) {
-        seteventsFiltered(eventsFilteredByCategory.filter(event => event.title.toLowerCase().includes(search.toLowerCase())))
-    }
-}, [search,eventsFilteredByCategory])
-  
+//SEARCH LÓGICA
+useEffect(() => {
+  if (!search.trim()) {
+      setEventsFiltered(eventsFilteredByCategory || []);
+      return;
+  }
+
+  const searchLowerCase = search.trim().toLowerCase();
+  const filteredEvents = (eventsFilteredByCategory || []).filter(({ title, dateAndPlace, tags }) => 
+      title.toLowerCase().includes(searchLowerCase) || 
+      dateAndPlace.toLowerCase().includes(searchLowerCase) || 
+      tags.some(tag => tag.toLowerCase().includes(searchLowerCase))
+  );
+
+  setEventsFiltered(filteredEvents);
+}, [search, eventsFilteredByCategory]);
+
 
 
  const renderEventItem = ({ item }) => {
@@ -36,8 +47,8 @@ const EventsScreen = ({navigation, route}) => {
 
       <>
       <Pressable onPress={() => {
-        dispatch(setEventId(item.id)); 
-        navigation.navigate("Evento"); 
+        dispatch(setEventId(item.id)) 
+        navigation.navigate("Evento") 
       }}>
   
           <CardGeneral style= {styles.eventContainer}>
@@ -98,7 +109,7 @@ const EventsScreen = ({navigation, route}) => {
           error
           ?
           <Text style={styles.errorText}>
-            Ha ocurrido un error al cargar las categorías, lo sentimos mucho 🙇‍♀️, prueba nuevamente.
+            Ha ocurrido un error al cargar las categorías, lo sentimos mucho 🙇‍♀️. Prueba nuevamente.
           </Text>
           :
         <>
@@ -113,15 +124,15 @@ const EventsScreen = ({navigation, route}) => {
            </View>
 
               {
-                !eventsFilteredByCategory || eventsFilteredByCategory.length === 0
+                  eventsFiltered.length == 0
                   ?
                   <Text style={styles.noSearch}>
                     No hay eventos ni locales que contengan los términos de tu búsqueda. Lo lamentamos 🙇‍♀️ . Intenta con otras palabras.
                   </Text>
                   :
                   <FlatList
-                    data={eventsFilteredByCategory}
-                    keyExtractor={(item) => item.id}
+                    data={eventsFiltered}
+                    keyExtractor={(item) => item.id.toString()}
                     renderItem={renderEventItem}
                   />
 

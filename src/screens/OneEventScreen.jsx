@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-const OneEventScreen = ({ route, navigation }) => {
+const OneEventScreen = ({ navigation }) => {
 
   const [eventFound, setEventFound] = useState({});
   const [modalVisible, setModalVisible] = useState(false); 
@@ -19,7 +19,7 @@ const OneEventScreen = ({ route, navigation }) => {
     }
   }, [eventId]);
 
-  const dispatch = useDispatch();
+  dispatch = useDispatch();
 
 
   const handleAddToCart = () => {

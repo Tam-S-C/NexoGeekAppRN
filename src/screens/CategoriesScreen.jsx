@@ -1,7 +1,7 @@
-import { StyleSheet, Text, FlatList, Image, Pressable, useWindowDimensions, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, FlatList, Image, Pressable, ActivityIndicator } from 'react-native';
 import CardGeneral from '../components/CardGeneral.jsx';
 import { colors } from '../global/colors.js';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setCategory } from '../features/shop/shopSlice.js';
 import { useGetCategoriesQuery } from '../services/shopService';
 
@@ -9,7 +9,7 @@ const CategoriesScreen = ({ navigation }) => {
 
     const { data: categories, error, isLoading } = useGetCategoriesQuery()
 
-    const dispatch = useDispatch()
+    dispatch = useDispatch()
 
     const renderCategoryItem = ({ item, index }) => {
 
