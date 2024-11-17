@@ -92,8 +92,8 @@ const styles = StyleSheet.create({
         padding: 24,
     },
     image: {
-        width: 64,
-        height: 52,
+        width: 60,
+        height: 60,
     },
     categoryTitle: {
         fontFamily: 'PressStart',

@@ -57,16 +57,13 @@ useEffect(() => {
               <Image
                 source={{uri: item.mainImage }}
                 style={styles.eventImage}
-                resizeMode= 'contain'
               />
             </View>
   
             <View style={styles.eventDescription}>
   
               <Text style={styles.titleStyle}>{item.title}</Text>
-  
               <Text>{item.dateAndPlace}</Text>
-  
               <FlatList style={styles.tagsStyleDirection}
                 data={item.tags}
                 keyExtractor={()=>Math.random()}
@@ -83,6 +80,7 @@ useEffect(() => {
             </View>
   
             <View style={styles.column3Style}>
+
               <Text style={styles.discountTextStyle}>¡DESCUENTO!</Text>
               <Text style={styles.discountStyle}>{item.discount}%</Text>
               <Text style={styles.priceStyle1}>${item.price}</Text>
@@ -96,10 +94,7 @@ useEffect(() => {
         </>
       )}        
 
-
-
   return (
-
     <>
       {
           isLoading
@@ -114,14 +109,11 @@ useEffect(() => {
           :
         <>
           <View style={styles.backSearchContainer}>
-
             <Pressable onPress={() => navigation.goBack()}>
               <Icon style={styles.backArrow} name="angle-left" size={32} color={colors.fucsiaAcento} />
             </Pressable>
-
             <Search style={styles.searchStyle} setSearch={setSearch} />
-
-           </View>
+          </View>
 
               {
                   eventsFiltered.length == 0
@@ -135,14 +127,11 @@ useEffect(() => {
                     keyExtractor={(item) => item.id.toString()}
                     renderItem={renderEventItem}
                   />
-
               }
         </>
-
       }
   </>
-)
-}
+)}
 
 export default EventsScreen;
 
@@ -159,9 +148,10 @@ const styles = StyleSheet.create({
     marginBottom: 16
   },
   eventImage:{
-    width: 88,
-    height: 88,
-    marginTop: 16
+    width: 96,
+    height: 96,
+    marginTop: 24,
+    borderRadius: 50
   },
   eventDescription:{
     paddingHorizontal: 2,
@@ -184,7 +174,6 @@ const styles = StyleSheet.create({
     color: colors.violetaPrimario,
     textDecorationLine: 'line-through',
     fontSize: 16,
-
   },
   titleStyle:{
     color: colors.violetaPrimario,
@@ -257,5 +246,4 @@ const styles = StyleSheet.create({
       marginVertical: 64,
       textAlign: 'center'
   },
-  
 })

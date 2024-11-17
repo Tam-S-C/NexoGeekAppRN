@@ -10,8 +10,8 @@ const OneEventScreen = ({ navigation }) => {
 
   const [eventFound, setEventFound] = useState({});
   const [modalVisible, setModalVisible] = useState(false); 
+  const [selectedImage, setSelectedImage] = useState(null);
   const eventId = useSelector(state => state.shopReducer.value.eventId);
-  const { width, height } = useWindowDimensions();
 
   useEffect(() => {
     if (eventId) {
@@ -21,7 +21,6 @@ const OneEventScreen = ({ navigation }) => {
 
   dispatch = useDispatch();
 
-
   const handleAddToCart = () => {
     setModalVisible(true);
     setTimeout(() => {
@@ -29,8 +28,12 @@ const OneEventScreen = ({ navigation }) => {
     }, 2000); 
   };
 
+  const handleImagePress = (imageUri) => {
+    setSelectedImage(imageUri);
+  };
+
   return (
-    <ScrollView>
+    <View>
 
       <View style={styles.backTitleContainer}>
         <Pressable onPress={() => navigation.goBack()}>
@@ -39,14 +42,29 @@ const OneEventScreen = ({ navigation }) => {
         <Text style={styles.eventSelected}>{eventFound.title}</Text>
       </View>
 
-      <Image
-        source={{ uri: eventFound.mainImage }}
-        alt={eventFound.title}
-        width='100%'
-        height={width * 0.5}
-        resizeMode='contain'
-        marginTop={8}
-      />
+      <ScrollView horizontal={true} style={styles.imageScrollContainer}>
+        <Pressable onPress={() => handleImagePress(eventFound.mainImage)}>
+          <Image
+            source={{ uri: eventFound.mainImage }}
+            alt={eventFound.title}
+            style={styles.scrollImage}
+          />
+        </Pressable>
+        <Pressable onPress={() => handleImagePress(eventFound.mainImage2)}>
+          <Image
+            source={{ uri: eventFound.mainImage2 }}
+            alt={eventFound.title}
+            style={styles.scrollImage}
+          />
+        </Pressable>
+        <Pressable onPress={() => handleImagePress(eventFound.mainImage3)}>
+          <Image
+            source={{ uri: eventFound.mainImage3 }}
+            alt={eventFound.title}
+            style={styles.scrollImage}
+          />
+        </Pressable>
+      </ScrollView>
 
       <Text style={styles.eventDescription}>{eventFound.description}</Text>
 
@@ -62,7 +80,7 @@ const OneEventScreen = ({ navigation }) => {
       </View>
 
       {
-        eventFound.stock > 0 ?
+        eventFound.stock > 0 ? 
           <Text style={styles.stockStyle} >Stock: {eventFound.stock} </Text>
           :
           <Text style={styles.stockStyle2} >AGOTADO </Text>
@@ -109,7 +127,21 @@ const OneEventScreen = ({ navigation }) => {
         </View>
       </Modal>
 
-    </ScrollView>
+      <Modal
+        visible={selectedImage !== null}
+        transparent={true}
+        animationType="fade"
+        onRequestClose={() => setSelectedImage(null)}
+      >
+        <Pressable style={styles.modalContainer} onPress={() => setSelectedImage(null)}>
+          <Image
+            source={{ uri: selectedImage }}
+            style={styles.modalImage}
+          />
+        </Pressable>
+      </Modal>
+
+    </View>
   );
 };
 
@@ -266,6 +298,15 @@ const styles = StyleSheet.create({
     marginLeft: 16,
     marginBottom: 16
   },
+  imageScrollContainer: {
+    marginVertical: 4,
+  },
+  scrollImage: {
+    width: 180, 
+    height: 180, 
+    marginHorizontal: 16,
+    borderRadius: 60
+  },
 
   //Modal
 
@@ -287,5 +328,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
-});
 
+  modalImage: {
+    width: '100%',
+    height: '80%',
+    resizeMode: 'contain',
+  },
+});

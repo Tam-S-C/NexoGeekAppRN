@@ -1,75 +1,364 @@
 [
     {
-        "id":1,
-        "title":"Back to the Orchesta",
-        "dateAndPlace": "01/12/24 - Gran Rex - CABA",
-        "description": "Back to the Orchestra es una experiencia sinfónica única que nos transporta a través de las bandas sonoras más icónicas de los años 80.",
-        "price": 10000,
-        "stock": 0,
-        "category": "Recitales & Parties",
-        "discount": "20",
-        "tags":["recital", "fiesta"],
-        "mainImage":"https://i.postimg.cc/PrRJXnXZ/stage.png"
+      "category": "Recitales/Parties",
+      "dateAndPlace": "01/12/24 - Gran Rex - CABA",
+      "description": "Back to the Orchestra es una experiencia sinfónica única que nos transporta a través de las bandas sonoras más icónicas de los años 80.",
+      "discount": "20",
+      "id": 10,
+      "mainImage": "https://i.postimg.cc/fTH3XwQW/back1.webp",
+      "mainImage2": "https://i.postimg.cc/gkcXnx5B/back2.webp",
+      "mainImage3": "https://i.postimg.cc/526XSZfB/back3.jpg",
+      "price": 15000,
+      "stock": 0,
+      "tags": [
+        "recital",
+        "fiesta"
+      ],
+      "title": "Back to the Orchesta"
+    },
+{
+      "category": "Recitales/Parties",
+      "dateAndPlace": "01/12/24 - Gran Rex - CABA",
+      "description": "Back to the Orchestra es una experiencia sinfónica única que nos transporta a través de las bandas sonoras más icónicas de los años 80.",
+      "discount": "20",
+      "id": 11,
+      "mainImage": "https://i.postimg.cc/PrRJXnXZ/stage.png",
+      "price": 10000,
+      "stock": 0,
+      "tags": [
+        "recital",
+        "fiesta"
+      ],
+      "title": "Back to the Orchesta"
+    },
+{
+      "category": "Recitales/Parties",
+      "dateAndPlace": "01/12/24 - Gran Rex - CABA",
+      "description": "Back to the Orchestra es una experiencia sinfónica única que nos transporta a través de las bandas sonoras más icónicas de los años 80.",
+      "discount": "20",
+      "id": 12,
+      "mainImage": "https://i.postimg.cc/PrRJXnXZ/stage.png",
+      "price": 10000,
+      "stock": 0,
+      "tags": [
+        "recital",
+        "fiesta"
+      ],
+      "title": "Back to the Orchesta"
+    },
+{
+      "category": "Recitales/Parties",
+      "dateAndPlace": "01/12/24 - Gran Rex - CABA",
+      "description": "Back to the Orchestra es una experiencia sinfónica única que nos transporta a través de las bandas sonoras más icónicas de los años 80.",
+      "discount": "20",
+      "id": 13,
+      "mainImage": "https://i.postimg.cc/PrRJXnXZ/stage.png",
+      "price": 10000,
+      "stock": 0,
+      "tags": [
+        "recital",
+        "fiesta"
+      ],
+      "title": "Back to the Orchesta"
     },
     {
-        "id":2,
-        "title":"Tecnópolis",
-        "dateAndPlace": "Siempre abierto - Vicente López",
-        "description": "blablablablablabla",
-        "price": 5000,
-        "stock": 1000,
-        "category": "Tecnología & Gaming",
-        "discount": "15",
-        "tags":["tecno", "gaming"],
-        "mainImage":"https://i.postimg.cc/VNyNt9bk/vr.png"
+      "category": "Tecnología/Gaming",
+      "dateAndPlace": "Siempre abierto - Vicente López",
+      "description": "blablablablablabla",
+      "discount": "15",
+      "id": 20,
+      "mainImage": "https://i.postimg.cc/VNyNt9bk/vr.png",
+      "price": 5000,
+      "stock": 1000,
+      "tags": [
+        "tecno",
+        "gaming"
+      ],
+      "title": "Tecnópolis"
+    },
+{
+      "category": "Tecnología/Gaming",
+      "dateAndPlace": "Siempre abierto - Vicente López",
+      "description": "blablablablablabla",
+      "discount": "15",
+      "id": 21,
+      "mainImage": "https://i.postimg.cc/VNyNt9bk/vr.png",
+      "price": 5000,
+      "stock": 1000,
+      "tags": [
+        "tecno",
+        "gaming"
+      ],
+      "title": "Tecnópolis"
+    },
+{
+      "category": "Tecnología/Gaming",
+      "dateAndPlace": "Siempre abierto - Vicente López",
+      "description": "blablablablablabla",
+      "discount": "15",
+      "id": 22,
+      "mainImage": "https://i.postimg.cc/VNyNt9bk/vr.png",
+      "price": 5000,
+      "stock": 1000,
+      "tags": [
+        "tecno",
+        "gaming"
+      ],
+      "title": "Tecnópolis"
+    },
+{
+      "category": "Tecnología/Gaming",
+      "dateAndPlace": "Siempre abierto - Vicente López",
+      "description": "blablablablablabla",
+      "discount": "15",
+      "id": 23,
+      "mainImage": "https://i.postimg.cc/VNyNt9bk/vr.png",
+      "price": 5000,
+      "stock": 1000,
+      "tags": [
+        "tecno",
+        "gaming"
+      ],
+      "title": "Tecnópolis"
     },
     {
-        "id":3,
-        "title":"Charlas Ted",
-        "dateAndPlace": "20/12/24 - CABA",
-        "description": "blablablablablabla",
-        "price": 1000,
-        "stock": 200,
-        "category": "Talleres & Charlas",
-        "discount": "20",
-        "tags":["talleres", "charlas"],
-        "mainImage":"https://i.postimg.cc/q78vxt8X/training.png"
+      "category": "Talleres/Charlas",
+      "dateAndPlace": "20/12/24 - CABA",
+      "description": "blablablablablabla",
+      "discount": "20",
+      "id": 30,
+      "mainImage": "https://i.postimg.cc/q78vxt8X/training.png",
+      "price": 1000,
+      "stock": 200,
+      "tags": [
+        "talleres",
+        "charlas"
+      ],
+      "title": "Charlas Ted"
+    },
+{
+      "category": "Talleres/Charlas",
+      "dateAndPlace": "20/12/24 - CABA",
+      "description": "blablablablablabla",
+      "discount": "20",
+      "id": 31,
+      "mainImage": "https://i.postimg.cc/q78vxt8X/training.png",
+      "price": 1000,
+      "stock": 200,
+      "tags": [
+        "talleres",
+        "charlas"
+      ],
+      "title": "Charlas Ted"
+    },
+{
+      "category": "Talleres/Charlas",
+      "dateAndPlace": "20/12/24 - CABA",
+      "description": "blablablablablabla",
+      "discount": "20",
+      "id": 32,
+      "mainImage": "https://i.postimg.cc/q78vxt8X/training.png",
+      "price": 1000,
+      "stock": 200,
+      "tags": [
+        "talleres",
+        "charlas"
+      ],
+      "title": "Charlas Ted"
+    },
+{
+      "category": "Talleres/Charlas",
+      "dateAndPlace": "20/12/24 - CABA",
+      "description": "blablablablablabla",
+      "discount": "20",
+      "id": 33,
+      "mainImage": "https://i.postimg.cc/q78vxt8X/training.png",
+      "price": 1000,
+      "stock": 200,
+      "tags": [
+        "talleres",
+        "charlas"
+      ],
+      "title": "Charlas Ted"
     },
     {
-        "id":4,
-        "title":"ComicCon",
-        "dateAndPlace": "6, 7 y 8/12/24 - CABA",
-        "description": "blablablablablabla",
-        "price": 30000,
-        "stock": 300,
-        "category": "Convenciones & Expos",
-        "discount": "30",
-        "tags":["convenciones", "expo"],
-        "mainImage":"https://i.postimg.cc/3RYJSK1M/witch.png"
+      "category": "Convenciones/Expos",
+      "dateAndPlace": "6, 7 y 8/12/24 - CABA",
+      "description": "blablablablablabla",
+      "discount": "30",
+      "id": 40,
+      "mainImage": "https://i.postimg.cc/3RYJSK1M/witch.png",
+      "price": 30000,
+      "stock": 300,
+      "tags": [
+        "convenciones",
+        "expo"
+      ],
+      "title": "ComicCon"
     },
     {
-        "id":5,
-        "title":"Fairyland",
-        "dateAndPlace": "21/02/25 - Palermo",
-        "description": "blablablablablabla",
-        "price": 7000,
-        "stock": 100,
-        "category": "Ferias & Aire Libre",
-        "discount": "15",
-        "tags":["feria", "aire libre"],
-        "mainImage":"https://i.postimg.cc/T35whN1s/garlands.png"
+      "category": "Convenciones/Expos",
+      "dateAndPlace": "6, 7 y 8/12/24 - CABA",
+      "description": "blablablablablabla",
+      "discount": "30",
+      "id": 41,
+      "mainImage": "https://i.postimg.cc/3RYJSK1M/witch.png",
+      "price": 30000,
+      "stock": 300,
+      "tags": [
+        "convenciones",
+        "expo"
+      ],
+      "title": "ComicCon"
     },
     {
-        "id":6,
-        "title":"Aquelarre",
-        "dateAndPlace": "Ma a Sá - CABA",
-        "description": "blablablablablabla",
-        "price": 10000,
-        "stock": 100,
-        "category": "Locales & Showrooms",
-        "discount": "5",
-        "tags":["local", "showroom"],
-        "mainImage":"https://i.postimg.cc/02Qr1ysP/store.png"
-       
+      "category": "Convenciones/Expos",
+      "dateAndPlace": "6, 7 y 8/12/24 - CABA",
+      "description": "blablablablablabla",
+      "discount": "30",
+      "id": 42,
+      "mainImage": "https://i.postimg.cc/3RYJSK1M/witch.png",
+      "price": 30000,
+      "stock": 300,
+      "tags": [
+        "convenciones",
+        "expo"
+      ],
+      "title": "ComicCon"
+    },
+    {
+      "category": "Convenciones/Expos",
+      "dateAndPlace": "6, 7 y 8/12/24 - CABA",
+      "description": "blablablablablabla",
+      "discount": "30",
+      "id": 43,
+      "mainImage": "https://i.postimg.cc/3RYJSK1M/witch.png",
+      "price": 30000,
+      "stock": 300,
+      "tags": [
+        "convenciones",
+        "expo"
+      ],
+      "title": "ComicCon"
+    },
+    {
+      "category": "Ferias/AireLibre",
+      "dateAndPlace": "21/02/25 - Palermo",
+      "description": "blablablablablabla",
+      "discount": "15",
+      "id": 50,
+      "mainImage": "https://i.postimg.cc/T35whN1s/garlands.png",
+      "price": 7000,
+      "stock": 100,
+      "tags": [
+        "feria",
+        "aire libre"
+      ],
+      "title": "Fairyland"
+    },
+{
+      "category": "Ferias/AireLibre",
+      "dateAndPlace": "21/02/25 - Palermo",
+      "description": "blablablablablabla",
+      "discount": "15",
+      "id": 51,
+      "mainImage": "https://i.postimg.cc/T35whN1s/garlands.png",
+      "price": 7000,
+      "stock": 100,
+      "tags": [
+        "feria",
+        "aire libre"
+      ],
+      "title": "Fairyland"
+    },
+{
+      "category": "Ferias/AireLibre",
+      "dateAndPlace": "21/02/25 - Palermo",
+      "description": "blablablablablabla",
+      "discount": "15",
+      "id": 52,
+      "mainImage": "https://i.postimg.cc/T35whN1s/garlands.png",
+      "price": 7000,
+      "stock": 100,
+      "tags": [
+        "feria",
+        "aire libre"
+      ],
+      "title": "Fairyland"
+    },
+{
+      "category": "Ferias/AireLibre",
+      "dateAndPlace": "21/02/25 - Palermo",
+      "description": "blablablablablabla",
+      "discount": "15",
+      "id": 53,
+      "mainImage": "https://i.postimg.cc/T35whN1s/garlands.png",
+      "price": 7000,
+      "stock": 100,
+      "tags": [
+        "feria",
+        "aire libre"
+      ],
+      "title": "Fairyland"
+    },
+    {
+      "category": "Locales/Showrooms",
+      "dateAndPlace": "Ma a Sá - CABA",
+      "description": "blablablablablabla",
+      "discount": "10",
+      "id": 60,
+      "mainImage": "https://i.postimg.cc/02Qr1ysP/store.png",
+      "price": 10000,
+      "stock": 100,
+      "tags": [
+        "local",
+        "showroom"
+      ],
+      "title": "Aquelarre"
+    },
+{
+      "category": "Locales/Showrooms",
+      "dateAndPlace": "Ma a Sá - CABA",
+      "description": "blablablablablabla",
+      "discount": "10",
+      "id": 61,
+      "mainImage": "https://i.postimg.cc/02Qr1ysP/store.png",
+      "price": 10000,
+      "stock": 100,
+      "tags": [
+        "local",
+        "showroom"
+      ],
+      "title": "Aquelarre"
+    },
+{
+      "category": "Locales/Showrooms",
+      "dateAndPlace": "Ma a Sá - CABA",
+      "description": "blablablablablabla",
+      "discount": "10",
+      "id": 62,
+      "mainImage": "https://i.postimg.cc/02Qr1ysP/store.png",
+      "price": 10000,
+      "stock": 100,
+      "tags": [
+        "local",
+        "showroom"
+      ],
+      "title": "Aquelarre"
+    },
+{
+      "category": "Locales/Showrooms",
+      "dateAndPlace": "Ma a Sá - CABA",
+      "description": "blablablablablabla",
+      "discount": "10",
+      "id": 63,
+      "mainImage": "https://i.postimg.cc/02Qr1ysP/store.png",
+      "price": 10000,
+      "stock": 100,
+      "tags": [
+        "local",
+        "showroom"
+      ],
+      "title": "Aquelarre"
     }
-]
+  ]
