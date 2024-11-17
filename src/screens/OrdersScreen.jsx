@@ -8,13 +8,13 @@ import CardGeneral from '../components/CardGeneral'
 
 const OrdersScreen = () => {
 
-  const renderOrderItem = ({item})=> {
-    
+  const renderOrderItem = ({ item }) => {
+
     let total = item.items.reduce((acu, currentItem) => {
       const discountedPrice = currentItem.price - (currentItem.price * (currentItem.discount / 100));
       return acu + discountedPrice * currentItem.quantity;
     }, 0);
-    
+
     dateOptions = {
       year: 'numeric',
       month: '2-digit',
@@ -42,12 +42,12 @@ const OrdersScreen = () => {
 
 
   return (
-    <FlatList 
+    <FlatList
       data={orders}
       keyExtractor={item => item.id}
       ListHeaderComponent={<Text style={styles.ordersScreenTitle}>Mis Compras Realizadas:</Text>}
       renderItem={renderOrderItem}
-    
+
     />
   )
 }
@@ -56,42 +56,42 @@ export default OrdersScreen
 
 const styles = StyleSheet.create({
 
-  ordersScreenTitle:{
+  ordersScreenTitle: {
     fontFamily: 'PressStart',
     color: colors.violetaPrimario,
     fontSize: 14,
     marginLeft: 24,
     marginTop: 12
   },
-  orderContainer:{
+  orderContainer: {
     marginTop: 8,
     marginBottom: 16,
     marginHorizontal: 16,
     paddingHorizontal: 16,
     paddingTop: 8,
   },
-  rowsStyle:{
+  rowsStyle: {
     flexDirection: "row"
   },
-  title:{
+  title: {
     color: colors.violetaPrimario,
     fontSize: 16,
     fontWeight: '800'
   },
-  date:{
+  date: {
     color: colors.violetaPrimario,
     fontSize: 14,
     marginTop: 8
   },
-  total:{
+  total: {
     color: colors.violetaPrimario,
     fontSize: 12,
     marginTop: 16,
     fontFamily: 'PressStart',
     paddingBottom: 8
   },
-  viewIcon:{
-   marginLeft: '50%',
-   marginTop: '25%'
+  viewIcon: {
+    marginLeft: '50%',
+    marginTop: '25%'
   }
 })

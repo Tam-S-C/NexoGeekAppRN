@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
 import { colors } from '../global/colors.js'
 
-const Header = ({screenName}) => {
+const Header = ({ screenName }) => {
   return (
 
     <View style={styles.headerContainer}>
@@ -41,11 +41,11 @@ const styles = StyleSheet.create({
     paddingTop: 24,
   },
   image: {
-    width: 44, 
+    width: 44,
     height: 44,
     marginRight: 8
   },
-  screenNameStyle:{
+  screenNameStyle: {
     paddingTop: 8,
     color: colors.violetaPrimario
   }

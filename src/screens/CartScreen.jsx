@@ -12,7 +12,7 @@ const CartScreen = () => {
   const cart = useSelector((state) => state.cartReducer.value.cartItems);
   const [deleteItemModalVisible, setDeleteItemModalVisible] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
- 
+
   const dispatch = useDispatch();
 
   const openDeleteItemModal = (item) => {
@@ -26,21 +26,21 @@ const CartScreen = () => {
   };
 
   const handleIncrease = (item) => {
-    if (item.quantity < item.stock) { 
+    if (item.quantity < item.stock) {
       dispatch(increaseQuantity({ id: item.id, stock: item.stock }));
     }
   };
 
   const handleDecrease = (item) => {
-    if (item.quantity > 1) { 
+    if (item.quantity > 1) {
       dispatch(decreaseQuantity({ id: item.id }));
     }
   };
 
   const handleDeleteItem = () => {
-  if (itemToDelete) {
-    dispatch(removeItem(itemToDelete.id));
-  }
+    if (itemToDelete) {
+      dispatch(removeItem(itemToDelete.id));
+    }
     closeDeleteItemModal();
   };
 
@@ -99,7 +99,7 @@ const CartScreen = () => {
             <Pressable onPress={() => handleDecrease(item)} style={styles.lessItem}>
               <Icon name="minus-square" color={colors.violetaSecundario} size={32} />
             </Pressable>
-            
+
             <Pressable onPress={() => handleIncrease(item)} style={styles.plusItem}>
               <Icon name="plus-square" color={colors.violetaSecundario} size={32} />
             </Pressable>
@@ -121,7 +121,7 @@ const CartScreen = () => {
 
   return (
     <>
-    <Text style={styles.cartScreenTitle}>Mi carrito:</Text>
+      <Text style={styles.cartScreenTitle}>Mi carrito:</Text>
 
       {cart.length > 0 ? (
         <>
@@ -203,68 +203,68 @@ const styles = StyleSheet.create({
 
   //MODAL
 
-      modalContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    },
-    modalContent: {
-        width: '80%',
-        backgroundColor: colors.blanco,
-        padding: 20,
-        borderRadius: 10,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5,
-        alignItems: 'center',
-    },
-    modalText: {
-        fontSize: 16,
-        color: colors.violetaPrimario,
-        textAlign: 'center',
-        marginBottom: 20,
-    },
-    modalButtons: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: '100%',
-    },
-    modalCancelButton: {
-        flex: 1,
-        marginRight: 10,
-        backgroundColor: colors.fucsiaAcento,
-        padding: 10,
-        borderRadius: 5,
-        alignItems: 'center',
-    },
-    modalConfirmButton: {
-        flex: 1,
-        marginLeft: 10,
-        backgroundColor: colors.violetaPrimario,
-        padding: 10,
-        borderRadius: 5,
-        alignItems: 'center',
-    },
-    modalButtonText: {
-        color: colors.blanco,
-        fontWeight: 'bold',
-        fontSize: 14,
-    },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    width: '80%',
+    backgroundColor: colors.blanco,
+    padding: 20,
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+    alignItems: 'center',
+  },
+  modalText: {
+    fontSize: 16,
+    color: colors.violetaPrimario,
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  modalButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  modalCancelButton: {
+    flex: 1,
+    marginRight: 10,
+    backgroundColor: colors.fucsiaAcento,
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  modalConfirmButton: {
+    flex: 1,
+    marginLeft: 10,
+    backgroundColor: colors.violetaPrimario,
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  modalButtonText: {
+    color: colors.blanco,
+    fontWeight: 'bold',
+    fontSize: 14,
+  },
 
 
   //Screen
 
-  cartScreenTitle:{
-      fontFamily: 'PressStart',
-      color: colors.violetaPrimario,
-      fontSize: 16,
-      marginLeft: 24,
-      marginTop: 12
+  cartScreenTitle: {
+    fontFamily: 'PressStart',
+    color: colors.violetaPrimario,
+    fontSize: 16,
+    marginLeft: 24,
+    marginTop: 12
   },
-  eventContainer:{
+  eventContainer: {
     flexDirection: 'row',
     paddingHorizontal: 16,
     paddingVertical: 2,
@@ -272,52 +272,52 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     marginVertical: 8
   },
-  eventImage:{
+  eventImage: {
     width: 72,
     height: 72,
     marginTop: 12,
     marginRight: 18,
   },
-  eventDescription:{
+  eventDescription: {
     paddingHorizontal: 2,
     width: '32%',
     flex: 1
   },
-  stockStyle:{
+  stockStyle: {
     color: colors.fucsiaAcento,
     fontFamily: 'Roboto',
     fontSize: 14,
     marginTop: 2
   },
-  priceStyle:{
+  priceStyle: {
     color: colors.violetaPrimario,
     fontSize: 12,
     fontFamily: 'PressStart',
     paddingTop: 8
   },
-  priceStyle1:{
+  priceStyle1: {
     color: colors.violetaPrimario,
     textDecorationLine: 'line-through',
     fontSize: 16,
     paddingTop: 4
   },
-  titleStyle:{
+  titleStyle: {
     color: colors.violetaPrimario,
     fontSize: 17,
     fontFamily: 'Roboto',
     fontWeight: 'bold',
     paddingTop: 8
   },
-  tagsStyle:{
+  tagsStyle: {
     alignItems: 'center',
     color: colors.violetaSecundario,
     fontStyle: 'italic'
   },
-  tagsStyleDirection:{
+  tagsStyleDirection: {
     flexDirection: 'row',
     gap: 6
   },
-  discountStyle:{
+  discountStyle: {
     backgroundColor: colors.violetaSecundario,
     fontWeight: 'bold',
     fontSize: 16,
@@ -336,32 +336,32 @@ const styles = StyleSheet.create({
     fontSize: 13,
     marginTop: 2
   },
-  column3Style:{
+  column3Style: {
     paddingVertical: 10,
     alignItems: 'flex-end'
   },
-  subtotalStyle:{
+  subtotalStyle: {
     color: colors.violetaPrimario,
     fontSize: 13,
     fontWeight: '500',
     marginBottom: 8
   },
-  quantityStyle:{
+  quantityStyle: {
     marginTop: 2,
     color: colors.violetaPrimario,
   },
-  trashStyle:{
+  trashStyle: {
     marginTop: 16,
     alignSelf: 'center',
     marginRight: 18,
     marginBottom: 2,
     paddingHorizontal: 16,
   },
-  trashAllEvents:{
+  trashAllEvents: {
     marginTop: 16,
     alignSelf: 'center',
   },
-  confirmButton:{
+  confirmButton: {
     borderRadius: 100,
     padding: 12,
     shadowColor: colors.violetaSombra,
@@ -371,49 +371,49 @@ const styles = StyleSheet.create({
     marginVertical: 12,
     marginBottom: 16
   },
-  confirmButtonText:{
+  confirmButtonText: {
     color: colors.blanco,
     fontFamily: 'PressStart',
     fontSize: 12,
     alignSelf: 'center',
     paddingTop: 4
   },
-  footerTotal:{
+  footerTotal: {
     alignSelf: 'center',
     color: colors.violetaPrimario,
     marginTop: 24,
     fontSize: 18,
     fontWeight: '600'
   },
-  lessPlusContainer:{
+  lessPlusContainer: {
     flexDirection: 'row',
     gap: 16,
     marginTop: 4,
   },
-  deleteText:{
+  deleteText: {
     alignSelf: 'center',
     color: colors.fucsiaAcento,
     marginTop: 2,
     fontSize: 18,
     fontWeight: '600'
   },
-  deleteEventText:{
+  deleteEventText: {
     alignSelf: 'center',
     color: colors.fucsiaAcento,
     fontSize: 12,
     fontWeight: '600',
     marginRight: 16,
   },
-  errorText:{
-      fontSize: 18,
-      color: colors.blanco,
-      fontWeight: 'bold',
-      backgroundColor: colors.fucsiaAcento,
-      borderRadius: 16,
-      padding: 24,
-      marginHorizontal: 16,
-      marginVertical: 64,
-      textAlign: 'center'
+  errorText: {
+    fontSize: 18,
+    color: colors.blanco,
+    fontWeight: 'bold',
+    backgroundColor: colors.fucsiaAcento,
+    borderRadius: 16,
+    padding: 24,
+    marginHorizontal: 16,
+    marginVertical: 40,
+    textAlign: 'center'
   },
 
 })

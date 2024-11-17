@@ -18,18 +18,18 @@ const CategoriesScreen = ({ navigation }) => {
             <Pressable onPress={() => {
                 dispatch(setCategory(item.title));
                 navigation.navigate('Eventos');
-              }}>
+            }}>
 
                 <CardGeneral style={
-                    index % 2 === 0 ? 
-                    { ...styles.cardGeneralContainer, ...styles.row } 
-                    : 
-                    { ...styles.cardGeneralContainer, ...styles.rowReverse }
-                    }>
+                    index % 2 === 0 ?
+                        { ...styles.cardGeneralContainer, ...styles.row }
+                        :
+                        { ...styles.cardGeneralContainer, ...styles.rowReverse }
+                }>
 
                     <Image
                         source={{ uri: item.image }}
-                        style={ styles.image }
+                        style={styles.image}
                         resizeMode='contain'
                     />
 
@@ -45,29 +45,29 @@ const CategoriesScreen = ({ navigation }) => {
         <>
             {
                 isLoading
-                ?
-                <ActivityIndicator size={80} color={colors.fucsiaAcento} style={styles.spinner} />
-                :
-                error
-                ?
-                <Text style={styles.errorText}>
-                    Ha ocurrido un error al cargar las categorías, lo sentimos mucho 🙇‍♀️, prueba nuevamente.
-                </Text>
-                :
-                <>
-                    <Text style={styles.subtitle}>
-                        Bienvenid@s a la única App de Argentina de búsqueda y compra de tickets de eventos y locales del universo geek!!  
-                    </Text>
+                    ?
+                    <ActivityIndicator size={80} color={colors.fucsiaAcento} style={styles.spinner} />
+                    :
+                    error
+                        ?
+                        <Text style={styles.errorText}>
+                            Ha ocurrido un error al cargar las categorías, lo sentimos mucho 🙇‍♀️, prueba nuevamente.
+                        </Text>
+                        :
+                        <>
+                            <Text style={styles.subtitle}>
+                                Bienvenid@s a la única App de Argentina de búsqueda y compra de tickets de eventos y locales del universo geek!!
+                            </Text>
 
-                    <FlatList
-                        data={categories}
-                        keyExtractor={item => item.id}
-                        renderItem={renderCategoryItem}
-                    />
-                </>
+                            <FlatList
+                                data={categories}
+                                keyExtractor={item => item.id}
+                                renderItem={renderCategoryItem}
+                            />
+                        </>
             }
 
-            
+
         </>
     );
 }
@@ -77,7 +77,7 @@ export default CategoriesScreen;
 const styles = StyleSheet.create({
 
 
-    subtitle:{
+    subtitle: {
         color: colors.violetaPrimario,
         fontSize: 18,
         fontWeight: '600',
@@ -106,10 +106,10 @@ const styles = StyleSheet.create({
     rowReverse: {
         flexDirection: "row-reverse",
     },
-    spinner:{
+    spinner: {
         marginTop: 160
     },
-    errorText:{
+    errorText: {
         fontSize: 18,
         color: colors.blanco,
         fontWeight: 'bold',

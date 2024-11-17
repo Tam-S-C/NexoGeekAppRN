@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { calculate_total_price } from "../../utils/functions";
 
-
 export const cartSlice = createSlice({
   name: "cart",
   initialState: {
@@ -48,7 +47,7 @@ export const cartSlice = createSlice({
 
     decreaseQuantity: (state, action) => {
       const { id } = action.payload;
-      const item = state.value.cartItems.find(item => item.id === id);
+      const item = state.value.cartItems.find((item) => item.id === id);
 
       if (item && item.quantity > 1) {
         item.quantity -= 1;
@@ -59,7 +58,7 @@ export const cartSlice = createSlice({
 
     increaseQuantity: (state, action) => {
       const { id, stock } = action.payload;
-      const item = state.value.cartItems.find(item => item.id === id);
+      const item = state.value.cartItems.find((item) => item.id === id);
 
       if (item && item.quantity < stock) {
         item.quantity += 1;
@@ -67,11 +66,14 @@ export const cartSlice = createSlice({
         state.value.updatedAt = new Date().toLocaleString();
       }
     },
-
-
   },
 });
 
-export const { addItem, removeItem, clearCart, decreaseQuantity, increaseQuantity } = cartSlice.actions;
+export const {
+  addItem,
+  removeItem,
+  clearCart,
+  decreaseQuantity,
+  increaseQuantity,
+} = cartSlice.actions;
 export default cartSlice.reducer;
-

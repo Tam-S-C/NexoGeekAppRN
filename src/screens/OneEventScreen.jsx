@@ -9,9 +9,9 @@ import { useGetEventQuery } from '../services/shopService';
 
 const OneEventScreen = ({ navigation }) => {
 
-  const [modalVisible, setModalVisible] = useState(false); 
+  const [modalVisible, setModalVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-  
+
   const eventId = useSelector(state => state.shopReducer.value.eventId);
 
   const { data: eventFound, error, isLoading } = useGetEventQuery(eventId)
@@ -23,8 +23,8 @@ const OneEventScreen = ({ navigation }) => {
     dispatch(addItem({ ...eventFound, quantity: 1 }));
     setTimeout(() => {
       setModalVisible(false);
-      navigation.navigate('Cart'); 
-    }, 1500);
+      navigation.navigate('Cart');
+    }, 1300);
   };
 
   const handleImagePress = (imageUri) => {
@@ -32,141 +32,141 @@ const OneEventScreen = ({ navigation }) => {
   };
 
   return (
-    
+
     <>
       {
         isLoading
-        ?
-        <ActivityIndicator size={80} color={colors.fucsiaAcento} style={styles.spinner} /> 
-          :
-          error 
           ?
-          <Text style={styles.errorText}>
-            Ha ocurrido un error al cargar el evento, lo sentimos mucho 🙇‍♀️. Prueba nuevamente.
-          </Text>
+          <ActivityIndicator size={80} color={colors.fucsiaAcento} style={styles.spinner} />
           :
-          <>
-
-      <View style={styles.backTitleContainer}>
-        <Pressable onPress={() => navigation.goBack()}>
-          <Icon style={styles.backArrow} name="angle-left" size={32} color={colors.fucsiaAcento} />
-        </Pressable>
-        <Text style={styles.eventSelected}>{eventFound.title}</Text>
-      </View>
-
-
-      <ScrollView horizontal={true} style={styles.imageScrollContainer}>
-        <Pressable onPress={() => handleImagePress(eventFound.mainImage)}>
-          <Image
-            source={{ uri: eventFound.mainImage }}
-            alt={eventFound.title}
-            style={styles.scrollImage}
-          />
-        </Pressable>
-        <Pressable onPress={() => handleImagePress(eventFound.mainImage2)}>
-          <Image
-            source={{ uri: eventFound.mainImage2 }}
-            alt={eventFound.title}
-            style={styles.scrollImage}
-          />
-        </Pressable>
-        <Pressable onPress={() => handleImagePress(eventFound.mainImage3)}>
-          <Image
-            source={{ uri: eventFound.mainImage3 }}
-            alt={eventFound.title}
-            style={styles.scrollImage}
-          />
-        </Pressable>
-      </ScrollView>
-
-
-      <Text style={styles.eventDescription}>{eventFound.description}</Text>
-
-      <View style={styles.tagsStyleDirection}>
-        {
-          eventFound.tags?.map(tag => <Text key={Math.random()} style={styles.tagsStyle}>{tag}</Text>)
-        }
-      </View>
-
-      <View style={styles.dateContainer}>
-        <Text style={styles.dateTextStyle}>FECHA Y LUGAR: </Text>
-        <Text style={styles.dateStyle}>{eventFound.dateAndPlace}</Text>
-      </View>
-
-      {
-        eventFound.stock > 0 ? 
-          <Text style={styles.stockStyle}>Stock: {eventFound.stock} </Text>
-          :
-          <Text style={styles.stockStyle2}>AGOTADO </Text>
-      }
-
-      <View style={styles.discountContainer}>
-        <Text style={styles.discountTextStyle}>DESCUENTO: </Text>
-        <Text style={styles.discountStyle}>{eventFound.discount}%</Text>
-      </View>
-
-      <View style={styles.priceContainer}>
-        <Text style={styles.priceTextStyle}>PRECIO: </Text>
-        <Text style={styles.priceStyle}>${eventFound.price}</Text>
-      </View>
-
-      <View style={styles.priceContainer}>
-        <Text style={styles.priceTextStyle}>TOTAL: </Text>
-        <Text style={styles.priceStyle2}>${(eventFound.price - (eventFound.price * (eventFound.discount / 100)))}</Text>
-      </View>
-
-
-          {
-            eventFound.stock > 0 
+          error
             ?
-            <Pressable
-            style={({ pressed }) => [
-              { backgroundColor: pressed ? colors.violetaSombra : colors.violetaPrimario },
-              styles.addToCardButton
-            ]}
-            onPress={handleAddToCart}
-          >
-            <Text style={styles.addToCardText}>
-              Agregar al Carrito <FontAwesome name="ticket" size={24} />
+            <Text style={styles.errorText}>
+              Ha ocurrido un error al cargar el evento, lo sentimos mucho 🙇‍♀️. Prueba nuevamente.
             </Text>
-          </Pressable>
-          :
-          <Pressable style={({ pressed }) => [{ backgroundColor: pressed ? colors.fucsiaSombra : colors.fucsiaAcento }, styles.addToCardButton2]}
-            onPress={null}>
-            <Text style={styles.addToCardText2}>Evento Sin Stock</Text>
-          </Pressable>
-        }
+            :
+            <>
+
+              <View style={styles.backTitleContainer}>
+                <Pressable onPress={() => navigation.goBack()}>
+                  <Icon style={styles.backArrow} name="angle-left" size={32} color={colors.fucsiaAcento} />
+                </Pressable>
+                <Text style={styles.eventSelected}>{eventFound.title}</Text>
+              </View>
 
 
-      <Modal
-        visible={modalVisible}
-        transparent={true}
-        animationType="fade"
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalText}>¡Evento agregado con éxito al carrito!</Text>
-          </View>
-        </View>
-      </Modal>
+              <ScrollView horizontal={true} style={styles.imageScrollContainer}>
+                <Pressable onPress={() => handleImagePress(eventFound.mainImage)}>
+                  <Image
+                    source={{ uri: eventFound.mainImage }}
+                    alt={eventFound.title}
+                    style={styles.scrollImage}
+                  />
+                </Pressable>
+                <Pressable onPress={() => handleImagePress(eventFound.mainImage2)}>
+                  <Image
+                    source={{ uri: eventFound.mainImage2 }}
+                    alt={eventFound.title}
+                    style={styles.scrollImage}
+                  />
+                </Pressable>
+                <Pressable onPress={() => handleImagePress(eventFound.mainImage3)}>
+                  <Image
+                    source={{ uri: eventFound.mainImage3 }}
+                    alt={eventFound.title}
+                    style={styles.scrollImage}
+                  />
+                </Pressable>
+              </ScrollView>
 
-      <Modal
-        visible={selectedImage !== null}
-        transparent={true}
-        animationType="fade"
-        onRequestClose={() => setSelectedImage(null)}
-      >
-        <Pressable style={styles.modalContainer} onPress={() => setSelectedImage(null)}>
-          <Image
-            source={{ uri: selectedImage }}
-            style={styles.modalImage}
-          />
-        </Pressable>
-      </Modal>
 
-      </>
-    }
+              <Text style={styles.eventDescription}>{eventFound.description}</Text>
+
+              <View style={styles.tagsStyleDirection}>
+                {
+                  eventFound.tags?.map(tag => <Text key={Math.random()} style={styles.tagsStyle}>{tag}</Text>)
+                }
+              </View>
+
+              <View style={styles.dateContainer}>
+                <Text style={styles.dateTextStyle}>FECHA Y LUGAR: </Text>
+                <Text style={styles.dateStyle}>{eventFound.dateAndPlace}</Text>
+              </View>
+
+              {
+                eventFound.stock > 0 ?
+                  <Text style={styles.stockStyle}>Stock: {eventFound.stock} </Text>
+                  :
+                  <Text style={styles.stockStyle2}>AGOTADO </Text>
+              }
+
+              <View style={styles.discountContainer}>
+                <Text style={styles.discountTextStyle}>DESCUENTO: </Text>
+                <Text style={styles.discountStyle}>{eventFound.discount}%</Text>
+              </View>
+
+              <View style={styles.priceContainer}>
+                <Text style={styles.priceTextStyle}>PRECIO: </Text>
+                <Text style={styles.priceStyle}>${eventFound.price}</Text>
+              </View>
+
+              <View style={styles.priceContainer}>
+                <Text style={styles.priceTextStyle}>TOTAL: </Text>
+                <Text style={styles.priceStyle2}>${(eventFound.price - (eventFound.price * (eventFound.discount / 100)))}</Text>
+              </View>
+
+
+              {
+                eventFound.stock > 0
+                  ?
+                  <Pressable
+                    style={({ pressed }) => [
+                      { backgroundColor: pressed ? colors.violetaSombra : colors.violetaPrimario },
+                      styles.addToCardButton
+                    ]}
+                    onPress={handleAddToCart}
+                  >
+                    <Text style={styles.addToCardText}>
+                      Agregar al Carrito <FontAwesome name="ticket" size={24} />
+                    </Text>
+                  </Pressable>
+                  :
+                  <Pressable style={({ pressed }) => [{ backgroundColor: pressed ? colors.fucsiaSombra : colors.fucsiaAcento }, styles.addToCardButton2]}
+                    onPress={null}>
+                    <Text style={styles.addToCardText2}>Evento Sin Stock</Text>
+                  </Pressable>
+              }
+
+
+              <Modal
+                visible={modalVisible}
+                transparent={true}
+                animationType="fade"
+                onRequestClose={() => setModalVisible(false)}
+              >
+                <View style={styles.modalContainer}>
+                  <View style={styles.modalContent}>
+                    <Text style={styles.modalText}>¡Evento agregado con éxito al carrito!</Text>
+                  </View>
+                </View>
+              </Modal>
+
+              <Modal
+                visible={selectedImage !== null}
+                transparent={true}
+                animationType="fade"
+                onRequestClose={() => setSelectedImage(null)}
+              >
+                <Pressable style={styles.modalContainer} onPress={() => setSelectedImage(null)}>
+                  <Image
+                    source={{ uri: selectedImage }}
+                    style={styles.modalImage}
+                  />
+                </Pressable>
+              </Modal>
+
+            </>
+      }
     </>
   );
 };
@@ -328,8 +328,8 @@ const styles = StyleSheet.create({
     marginVertical: 4,
   },
   scrollImage: {
-    width: 180, 
-    height: 180, 
+    width: 180,
+    height: 180,
     marginHorizontal: 16,
     borderRadius: 60
   },
@@ -361,19 +361,19 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
 
-  spinner:{
+  spinner: {
     marginTop: 80
   },
-  errorText:{
-      fontSize: 18,
-      color: colors.blanco,
-      fontWeight: 'bold',
-      backgroundColor: colors.fucsiaAcento,
-      borderRadius: 16,
-      padding: 24,
-      marginHorizontal: 16,
-      marginVertical: 64,
-      textAlign: 'center'
+  errorText: {
+    fontSize: 18,
+    color: colors.blanco,
+    fontWeight: 'bold',
+    backgroundColor: colors.fucsiaAcento,
+    borderRadius: 16,
+    padding: 24,
+    marginHorizontal: 16,
+    marginVertical: 64,
+    textAlign: 'center'
   },
-  
+
 });

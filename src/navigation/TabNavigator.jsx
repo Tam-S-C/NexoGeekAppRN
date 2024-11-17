@@ -5,51 +5,51 @@ import CartNavigator from "./CartNavigator"
 import OrdersNavigator from './OrdersNavigator';
 import { StyleSheet } from 'react-native';
 import { colors } from '../global/colors';
-import  Icon  from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 
 const Tab = createBottomTabNavigator()
 
 const TabNavigator = () => {
-  return (
-    <NavigationContainer>
-        <Tab.Navigator 
-            initialRouteName='Home'
-            screenOptions={{
-                headerShown: false,
-                tabBarStyle: styles.tabBar,
-                tabBarShowLabel: false
-            }}
-        >
-
-            <Tab.Screen 
-                name="Home" 
-                component={ShopNavigator} 
-                options={{
-                    tabBarIcon: ({focused}) => (<Icon name="store" marginBottom={16} size={24} color={focused? colors.blanco : colors.violetaSecundario} />)
+    return (
+        <NavigationContainer>
+            <Tab.Navigator
+                initialRouteName='Home'
+                screenOptions={{
+                    headerShown: false,
+                    tabBarStyle: styles.tabBar,
+                    tabBarShowLabel: false
                 }}
-            />
+            >
 
-            <Tab.Screen 
-                name="Cart" 
-                component={CartNavigator} 
-                options={{
-                    tabBarIcon: ({focused}) => (<Icon name="shopping-cart" marginBottom={16} size={24} color={focused? colors.blanco : colors.violetaSecundario} />)
-                }}
-            />
+                <Tab.Screen
+                    name="Home"
+                    component={ShopNavigator}
+                    options={{
+                        tabBarIcon: ({ focused }) => (<Icon name="store" marginBottom={16} size={24} color={focused ? colors.blanco : colors.violetaSecundario} />)
+                    }}
+                />
 
-            <Tab.Screen 
-                name="Orders"
+                <Tab.Screen
+                    name="Cart"
+                    component={CartNavigator}
+                    options={{
+                        tabBarIcon: ({ focused }) => (<Icon name="shopping-cart" marginBottom={16} size={24} color={focused ? colors.blanco : colors.violetaSecundario} />)
+                    }}
+                />
 
-                component={OrdersNavigator} 
-                options={{
-                    tabBarIcon: ({focused}) => (<Icon name="receipt" marginBottom={16} size={24} color={focused? colors.blanco : colors.violetaSecundario} />)
-                }}
-            />
+                <Tab.Screen
+                    name="Orders"
 
-        </Tab.Navigator>
-    </NavigationContainer>
-  )
+                    component={OrdersNavigator}
+                    options={{
+                        tabBarIcon: ({ focused }) => (<Icon name="receipt" marginBottom={16} size={24} color={focused ? colors.blanco : colors.violetaSecundario} />)
+                    }}
+                />
+
+            </Tab.Navigator>
+        </NavigationContainer>
+    )
 }
 
 export default TabNavigator

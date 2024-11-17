@@ -7,12 +7,12 @@ const CartStack = createNativeStackNavigator()
 const CartNavigator = () => {
   return (
     <CartStack.Navigator
-        screenOptions={{
-          header: ({route})=> <Header screenName={route.name} />
+      screenOptions={{
+        header: ({ route }) => <Header screenName={route.name} />
       }}
     >
 
-        <CartStack.Screen component={CartScreen} name="Carrito" />
+      <CartStack.Screen component={CartScreen} name="Carrito" />
 
     </CartStack.Navigator>
   )

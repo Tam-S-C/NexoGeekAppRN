@@ -6,21 +6,21 @@ const Stack = createNativeStackNavigator()
 
 
 const ShopNavigator = () => {
-  return (
+    return (
 
         <Stack.Navigator
             screenOptions={{
-                header: ({route})=> <Header screenName={route.name} />
+                header: ({ route }) => <Header screenName={route.name} />
             }}
         >
 
-            <Stack.Screen name="Categorías" component={CategoriesScreen}/>
-            <Stack.Screen name="Eventos" component={EventsScreen}/>
-            <Stack.Screen name="Evento" component={OneEventScreen}/>
+            <Stack.Screen name="Categorías" component={CategoriesScreen} />
+            <Stack.Screen name="Eventos" component={EventsScreen} />
+            <Stack.Screen name="Evento" component={OneEventScreen} />
 
         </Stack.Navigator>
 
-  )
+    )
 }
 
 export default ShopNavigator;

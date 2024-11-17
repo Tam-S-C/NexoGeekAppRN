@@ -5,7 +5,7 @@ const Search = ({ style, setSearch }) => {
   return (
     <View style={[styles.container, style]}>
       <TextInput
-        placeholder= "Busca tu evento o local"
+        placeholder="Busca tu evento o local"
         onChangeText={(text) => setSearch(text)} style={styles.searchInput}
       />
     </View>
