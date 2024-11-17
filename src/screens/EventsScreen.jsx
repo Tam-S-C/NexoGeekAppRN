@@ -25,8 +25,7 @@ const EventsScreen = ({navigation}) => {
   
 //SEARCH LÓGICA
 useEffect(() => {
-  console.log("Eventos filtrados por categoría:", eventsFilteredByCategory);
-  console.log("Texto de búsqueda:", search);
+
   if (!search.trim()) {
       setEventsFiltered(eventsFilteredByCategory || []);
       return;
@@ -38,7 +37,7 @@ useEffect(() => {
       dateAndPlace.toLowerCase().includes(searchLowerCase) || 
       tags.some(tag => tag.toLowerCase().includes(searchLowerCase))
   );
-  console.log("Eventos filtrados:", filteredEvents);
+
   setEventsFiltered(filteredEvents);
 }, [search, eventsFilteredByCategory]);
 

@@ -24,7 +24,7 @@ const OneEventScreen = ({ navigation }) => {
     setTimeout(() => {
       setModalVisible(false);
       navigation.navigate('Cart'); 
-    }, 2000);
+    }, 1500);
   };
 
   const handleImagePress = (imageUri) => {

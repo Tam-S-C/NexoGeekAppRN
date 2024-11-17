@@ -10,19 +10,38 @@ const CartScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const total = useSelector((state) => state.cartReducer.value.total);
   const cart = useSelector((state) => state.cartReducer.value.cartItems);
-  const cartItems = useSelector((state) => state.cart.value.cartItems);
+  const [deleteItemModalVisible, setDeleteItemModalVisible] = useState(false);
+  const [itemToDelete, setItemToDelete] = useState(null);
+ 
   const dispatch = useDispatch();
 
+  const openDeleteItemModal = (item) => {
+    setItemToDelete(item);
+    setDeleteItemModalVisible(true);
+  };
+
+  const closeDeleteItemModal = () => {
+    setDeleteItemModalVisible(false);
+    setItemToDelete(null);
+  };
+
   const handleIncrease = (item) => {
-    dispatch(increaseQuantity({ id: item.id, stock: item.stock }));
+    if (item.quantity < item.stock) { 
+      dispatch(increaseQuantity({ id: item.id, stock: item.stock }));
+    }
   };
 
   const handleDecrease = (item) => {
-    dispatch(decreaseQuantity({ id: item.id }));
+    if (item.quantity > 1) { 
+      dispatch(decreaseQuantity({ id: item.id }));
+    }
   };
 
-  const handleRemoveItem = (id) => {
-    dispatch(removeItem(id));
+  const handleDeleteItem = () => {
+  if (itemToDelete) {
+    dispatch(removeItem(itemToDelete.id));
+  }
+    closeDeleteItemModal();
   };
 
   const deleteAllEvents = () => {
@@ -49,13 +68,14 @@ const CartScreen = () => {
   );
 
   const renderCartItem = ({ item }) => {
+
     const discountedPrice = item.price - item.price * (item.discount / 100);
 
     return (
       <CardGeneral style={styles.eventContainer}>
         <View>
           <Image source={{ uri: item.mainImage }} style={styles.eventImage} resizeMode="contain" />
-          <Pressable onPress={() => handleRemoveItem(item.id)}>
+          <Pressable onPress={() => openDeleteItemModal(item)}>
             <Icon name="trash" size={28} color={colors.fucsiaAcento} style={styles.trashStyle} />
           </Pressable>
           <Text style={styles.deleteEventText}>Eliminar</Text>
@@ -71,16 +91,16 @@ const CartScreen = () => {
             renderItem={({ item }) => <Text style={styles.tagsStyle}>{item}</Text>}
           />
           <Text style={styles.stockStyle}>
-            {item.stock > 0 ? `Stock: ${item.stock}` : 'AGOTADO'}
+            {item.stock > 0 ? `Stock: ${item.stock - item.quantity}` : 'AGOTADO'}
           </Text>
           <Text style={styles.quantityStyle}>Cantidad: {item.quantity}</Text>
           <View style={styles.lessPlusContainer}>
 
-            <Pressable style={styles.lessItem}>
+            <Pressable onPress={() => handleDecrease(item)} style={styles.lessItem}>
               <Icon name="minus-square" color={colors.violetaSecundario} size={32} />
             </Pressable>
             
-            <Pressable style={styles.plusItem}>
+            <Pressable onPress={() => handleIncrease(item)} style={styles.plusItem}>
               <Icon name="plus-square" color={colors.violetaSecundario} size={32} />
             </Pressable>
 
@@ -102,6 +122,7 @@ const CartScreen = () => {
   return (
     <>
     <Text style={styles.cartScreenTitle}>Mi carrito:</Text>
+
       {cart.length > 0 ? (
         <>
           <FlatList
@@ -110,12 +131,14 @@ const CartScreen = () => {
             renderItem={renderCartItem}
             ListFooterComponent={<FooterComponent />}
           />
+
           <Modal
             visible={modalVisible}
             transparent
             animationType="slide"
             onRequestClose={() => setModalVisible(false)}
           >
+
             <View style={styles.modalContainer}>
               <View style={styles.modalContent}>
                 <Text style={styles.modalText}>¿Seguro quiere vaciar todo el carrito?</Text>
@@ -139,6 +162,30 @@ const CartScreen = () => {
               </View>
             </View>
           </Modal>
+
+          <Modal
+            visible={deleteItemModalVisible}
+            transparent
+            animationType="slide"
+            onRequestClose={closeDeleteItemModal}
+          >
+            <View style={styles.modalContainer}>
+              <View style={styles.modalContent}>
+                <Text style={styles.modalText}>¿Seguro quieres eliminar este ítem del carrito?</Text>
+                <View style={styles.modalButtons}>
+                  <Pressable style={styles.modalCancelButton} onPress={closeDeleteItemModal}>
+                    <Text style={styles.modalButtonText}>Cancelar</Text>
+                  </Pressable>
+                  <Pressable style={styles.modalConfirmButton} onPress={handleDeleteItem}>
+                    <Text style={styles.modalButtonText}>Sí, eliminar</Text>
+                  </Pressable>
+                </View>
+              </View>
+            </View>
+          </Modal>
+
+
+
         </>
       ) : (
         <View style={styles.cartEmpty}>

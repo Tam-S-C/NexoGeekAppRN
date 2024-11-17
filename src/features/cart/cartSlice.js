@@ -47,24 +47,22 @@ export const cartSlice = createSlice({
     },
 
     decreaseQuantity: (state, action) => {
-      const itemInCart = state.value.cartItems.find(
-        (item) => item.id === action.payload.id
-      );
-      
-      if (itemInCart && itemInCart.quantity > 1) {
-        itemInCart.quantity -= 1;
+      const { id } = action.payload;
+      const item = state.value.cartItems.find(item => item.id === id);
+
+      if (item && item.quantity > 1) {
+        item.quantity -= 1;
         state.value.total = calculate_total_price(state.value.cartItems);
         state.value.updatedAt = new Date().toLocaleString();
       }
     },
 
     increaseQuantity: (state, action) => {
-      const itemInCart = state.value.cartItems.find(
-        (item) => item.id === action.payload.id
-      );
-      
-      if (itemInCart && itemInCart.quantity < action.payload.stock) {
-        itemInCart.quantity += 1;
+      const { id, stock } = action.payload;
+      const item = state.value.cartItems.find(item => item.id === id);
+
+      if (item && item.quantity < stock) {
+        item.quantity += 1;
         state.value.total = calculate_total_price(state.value.cartItems);
         state.value.updatedAt = new Date().toLocaleString();
       }
