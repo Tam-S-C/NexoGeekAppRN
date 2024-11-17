@@ -5,13 +5,18 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import { useState } from 'react';
 import { clearCart, removeItem, increaseQuantity, decreaseQuantity } from '../features/cart/cartSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { usePostOrderMutation } from '../services/ordersService';
 
-const CartScreen = () => {
+const CartScreen = ({ navigation }) => {
+
+  const [thanksModalVisible, setThanksModalVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const total = useSelector((state) => state.cartReducer.value.total);
   const cart = useSelector((state) => state.cartReducer.value.cartItems);
   const [deleteItemModalVisible, setDeleteItemModalVisible] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
+
+  const [triggerPost, result] = usePostOrderMutation()
 
   const dispatch = useDispatch();
 
@@ -48,11 +53,28 @@ const CartScreen = () => {
     dispatch(clearCart());
   };
 
+  const handleConfirmOrder = () => {
+    triggerPost({ cart, total, createdAt: Date.now() });
+    dispatch(clearCart());
+    setThanksModalVisible(true);
+    setTimeout(() => {
+      setThanksModalVisible(false);
+      navigation.navigate('Orders');
+    }, 1300); s
+  };
+
   const FooterComponent = () => (
 
     <View style={styles.footerContainer}>
+
       <Text style={styles.footerTotal}>Total: ${total}</Text>
-      <Pressable
+
+      <Pressable onPress={() => {
+        triggerPost({ cart, total, createdAt: Date.now() })
+        dispatch(clearCart())
+        navigation.navigate("Orders"),
+          handleConfirmPurchase()
+      }}
         style={({ pressed }) => [
           { backgroundColor: pressed ? colors.violetaSombra : colors.violetaPrimario },
           styles.confirmButton,
@@ -60,10 +82,12 @@ const CartScreen = () => {
       >
         <Text style={styles.confirmButtonText}>CONFIRMAR COMPRA</Text>
       </Pressable>
+
       <Pressable onPress={() => setModalVisible(true)}>
         <Icon name="trash" size={28} color={colors.fucsiaAcento} style={styles.trashAllEvents} />
       </Pressable>
       <Text style={styles.deleteText}>Vaciar Carrito</Text>
+
     </View>
   );
 
@@ -184,7 +208,11 @@ const CartScreen = () => {
             </View>
           </Modal>
 
-
+          <Modal visible={thanksModalVisible} transparent animationType="fade">
+            <View style={styles.thanksModalContainer}>
+              <Text style={styles.thanksText}>¡Gracias por tu compra!</Text>
+            </View>
+          </Modal>
 
         </>
       ) : (
@@ -235,7 +263,7 @@ const styles = StyleSheet.create({
   modalCancelButton: {
     flex: 1,
     marginRight: 10,
-    backgroundColor: colors.fucsiaAcento,
+    backgroundColor: colors.violetaPrimario,
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',
@@ -243,7 +271,7 @@ const styles = StyleSheet.create({
   modalConfirmButton: {
     flex: 1,
     marginLeft: 10,
-    backgroundColor: colors.violetaPrimario,
+    backgroundColor: colors.fucsiaAcento,
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',
@@ -252,6 +280,21 @@ const styles = StyleSheet.create({
     color: colors.blanco,
     fontWeight: 'bold',
     fontSize: 14,
+  },
+  thanksModalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  thanksText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: colors.blanco,
+    backgroundColor: colors.violetaPrimario,
+    padding: 20,
+    borderRadius: 10,
+    textAlign: 'center',
   },
 
 

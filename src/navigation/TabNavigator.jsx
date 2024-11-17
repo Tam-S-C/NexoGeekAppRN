@@ -40,7 +40,6 @@ const TabNavigator = () => {
 
                 <Tab.Screen
                     name="Orders"
-
                     component={OrdersNavigator}
                     options={{
                         tabBarIcon: ({ focused }) => (<Icon name="receipt" marginBottom={16} size={24} color={focused ? colors.blanco : colors.violetaSecundario} />)
