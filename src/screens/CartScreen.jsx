@@ -1,208 +1,156 @@
-import { StyleSheet, Text, FlatList, View, Image, Pressable, Modal } from 'react-native'
-import cart from '../data/cart.json'
-import { colors } from '../global/colors'
-import CardGeneral from '../components/CardGeneral'
-import Icon from 'react-native-vector-icons/FontAwesome5'
-import { useState, useEffect } from 'react'
+import { StyleSheet, Text, FlatList, View, Image, Pressable, Modal } from 'react-native';
+import { colors } from '../global/colors';
+import CardGeneral from '../components/CardGeneral';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import { useState } from 'react';
+import { clearCart, removeItem, increaseQuantity, decreaseQuantity } from '../features/cart/cartSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const CartScreen = () => {
-  
-  const [total, setTotal] = useState(0)
-  const [modalVisible, setModalVisible] = useState(false); 
-  const [eventToDelete, setEventToDelete] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
+  const total = useSelector((state) => state.cartReducer.value.total);
+  const cart = useSelector((state) => state.cartReducer.value.cartItems);
+  const cartItems = useSelector((state) => state.cart.value.cartItems);
+  const dispatch = useDispatch();
 
+  const handleIncrease = (item) => {
+    dispatch(increaseQuantity({ id: item.id, stock: item.stock }));
+  };
 
-  useEffect(() => {
-    const newTotal = cart.reduce((acu, item) => {
-      const discountedPrice = item.price - (item.price * (item.discount / 100));
-      return acu + discountedPrice * item.quantity;
-    }, 0);
-    setTotal(newTotal.toFixed(2));
-  }, [cart]);
+  const handleDecrease = (item) => {
+    dispatch(decreaseQuantity({ id: item.id }));
+  };
+
+  const handleRemoveItem = (id) => {
+    dispatch(removeItem(id));
+  };
+
+  const deleteAllEvents = () => {
+    dispatch(clearCart());
+  };
 
   const FooterComponent = () => (
-      <View style={styles.footerContainer}>
-        <Text style={styles.footerTotal}>Total: ${total} </Text>
-        <Pressable style={({ pressed }) => [{ backgroundColor: pressed ? colors.violetaSombra : colors.violetaPrimario }, styles.confirmButton]}  >
-          <Text style={styles.confirmButtomText}>CONFIRMAR COMPRA</Text>
-        </Pressable>
 
-        <Pressable
-        onPress={() => {
-          setEventToDelete(null);
-          setModalVisible(true); 
-        }}
-        style={({ pressed }) => [styles.trashAllEvents]}
+    <View style={styles.footerContainer}>
+      <Text style={styles.footerTotal}>Total: ${total}</Text>
+      <Pressable
+        style={({ pressed }) => [
+          { backgroundColor: pressed ? colors.violetaSombra : colors.violetaPrimario },
+          styles.confirmButton,
+        ]}
       >
-        {({ pressed }) => (
-          <Icon
-            name="trash"
-            size={28}
-            color={pressed ? colors.fucsiaSombra : colors.fucsiaAcento}
-          />
-        )}
+        <Text style={styles.confirmButtonText}>CONFIRMAR COMPRA</Text>
       </Pressable>
-        <Text style={styles.deleteText}>Vaciar Carrito</Text>
-
-      </View>
-  )
-
+      <Pressable onPress={() => setModalVisible(true)}>
+        <Icon name="trash" size={28} color={colors.fucsiaAcento} style={styles.trashAllEvents} />
+      </Pressable>
+      <Text style={styles.deleteText}>Vaciar Carrito</Text>
+    </View>
+  );
 
   const renderCartItem = ({ item }) => {
-    
-    const discountedPrice = item.price - (item.price * (item.discount / 100));
+    const discountedPrice = item.price - item.price * (item.discount / 100);
 
     return (
       <CardGeneral style={styles.eventContainer}>
-
         <View>
-          <Image
-            source={{ uri: item.mainImage }}
-            style={styles.eventImage}
-            resizeMode='contain'
-          />
-            <Pressable  onPress={() => {
-                    setEventToDelete(item.id);
-                    setModalVisible(false);
-                }}
-                style={({ pressed }) => [styles.trashStyle]} >
-               {({ pressed }) => (
-                      <Icon
-                          name="trash"
-                          size={28}
-                          color={pressed ? colors.fucsiaSombra : colors.fucsiaAcento}
-                      />
-                  )}
-            </Pressable>
-            <Text style={styles.deleteEventText}>Eliminar</Text>
-            <Text style={styles.deleteEventText}>Evento</Text>
+          <Image source={{ uri: item.mainImage }} style={styles.eventImage} resizeMode="contain" />
+          <Pressable onPress={() => handleRemoveItem(item.id)}>
+            <Icon name="trash" size={28} color={colors.fucsiaAcento} style={styles.trashStyle} />
+          </Pressable>
+          <Text style={styles.deleteEventText}>Eliminar</Text>
+          <Text style={styles.deleteEventText}>Evento</Text>
         </View>
-
         <View style={styles.eventDescription}>
           <Text style={styles.titleStyle}>{item.title}</Text>
           <Text>{item.dateAndPlace}</Text>
-
           <FlatList
             style={styles.tagsStyleDirection}
             data={item.tags}
-            keyExtractor={() => Math.random().toString()}
+            keyExtractor={(tag) => tag}
             renderItem={({ item }) => <Text style={styles.tagsStyle}>{item}</Text>}
           />
-
-          {item.stock > 0 ? (
-            <Text style={styles.stockStyle}>Stock: {item.stock} </Text>
-          ) : (
-            <Text style={styles.stockStyle}>AGOTADO </Text>
-          )}
-
+          <Text style={styles.stockStyle}>
+            {item.stock > 0 ? `Stock: ${item.stock}` : 'AGOTADO'}
+          </Text>
           <Text style={styles.quantityStyle}>Cantidad: {item.quantity}</Text>
-
           <View style={styles.lessPlusContainer}>
-            <Pressable style={styles.lessItem} >
-              <Icon name='minus-square' color={colors.violetaSecundario} size={32}/>
+
+            <Pressable style={styles.lessItem}>
+              <Icon name="minus-square" color={colors.violetaSecundario} size={32} />
             </Pressable>
-            <Pressable style={styles.plusItem} >
-              <Icon name='plus-square' color={colors.violetaSecundario} size={32} />
-            </Pressable>  
+            
+            <Pressable style={styles.plusItem}>
+              <Icon name="plus-square" color={colors.violetaSecundario} size={32} />
+            </Pressable>
+
           </View>
-
         </View>
-
         <View style={styles.column3Style}>
           <Text style={styles.discountTextStyle}>¡DESCUENTO!</Text>
           <Text style={styles.discountStyle}>{item.discount}%</Text>
           <Text style={styles.priceStyle1}>${item.price}</Text>
           <Text style={styles.priceStyle}>${discountedPrice}</Text>
           <Text style={styles.subtotalStyle}>
-            SUBTOTAL: ${(discountedPrice * item.quantity)}
+            SUBTOTAL: ${(discountedPrice * item.quantity).toFixed(2)}
           </Text>
         </View>
       </CardGeneral>
-
-          
-
-
     );
   };
 
   return (
     <>
-      <FlatList
-        data={cart}
-        keyExtractor={item => item.id}
-        renderItem={renderCartItem}
-        ListHeaderComponent={<Text style={styles.cartScreenTitle}>Mi carrito:</Text>}
-        ListFooterComponent={<FooterComponent />}
-      />
-
-      <Modal
-        visible={eventToDelete !== null}
-        transparent={true}
-        animationType="slide"
-        onRequestClose={() => setEventToDelete(null)}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalText}>
-              ¿Seguro quiere eliminar este evento del carrito?
-            </Text>
-            <View style={styles.modalButtons}>
-              <Pressable
-                style={styles.modalCancelButton}
-                onPress={() => setEventToDelete(null)}
-              >
-                <Text style={styles.modalButtonText}>Cancelar</Text>
-              </Pressable>
-              <Pressable
-                style={styles.modalConfirmButton}
-                onPress={() => {
-                  deleteEvent(eventToDelete);
-                  setEventToDelete(null);
-                }}
-              >
-                <Text style={styles.modalButtonText}>Sí, eliminar</Text>
-              </Pressable>
+    <Text style={styles.cartScreenTitle}>Mi carrito:</Text>
+      {cart.length > 0 ? (
+        <>
+          <FlatList
+            data={cart}
+            keyExtractor={(item) => item.id}
+            renderItem={renderCartItem}
+            ListFooterComponent={<FooterComponent />}
+          />
+          <Modal
+            visible={modalVisible}
+            transparent
+            animationType="slide"
+            onRequestClose={() => setModalVisible(false)}
+          >
+            <View style={styles.modalContainer}>
+              <View style={styles.modalContent}>
+                <Text style={styles.modalText}>¿Seguro quiere vaciar todo el carrito?</Text>
+                <View style={styles.modalButtons}>
+                  <Pressable
+                    style={styles.modalCancelButton}
+                    onPress={() => setModalVisible(false)}
+                  >
+                    <Text style={styles.modalButtonText}>Cancelar</Text>
+                  </Pressable>
+                  <Pressable
+                    style={styles.modalConfirmButton}
+                    onPress={() => {
+                      deleteAllEvents();
+                      setModalVisible(false);
+                    }}
+                  >
+                    <Text style={styles.modalButtonText}>Sí, eliminar</Text>
+                  </Pressable>
+                </View>
+              </View>
             </View>
-          </View>
+          </Modal>
+        </>
+      ) : (
+        <View style={styles.cartEmpty}>
+          <Text style={styles.errorText}>Aún no hay eventos en tu carrito</Text>
         </View>
-      </Modal>
-
-      <Modal
-        visible={modalVisible}
-        transparent={true}
-        animationType="slide"
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalText}>
-              ¿Seguro quiere vaciar todo el carrito?
-            </Text>
-            <View style={styles.modalButtons}>
-              <Pressable
-                style={styles.modalCancelButton}
-                onPress={() => setModalVisible(false)}
-              >
-                <Text style={styles.modalButtonText}>Cancelar</Text>
-              </Pressable>
-              <Pressable
-                style={styles.modalConfirmButton}
-                onPress={() => {
-                  deleteAllEvents();
-                  setModalVisible(false);
-                }}
-              >
-                <Text style={styles.modalButtonText}>Sí, eliminar</Text>
-              </Pressable>
-            </View>
-          </View>
-        </View>
-      </Modal>
+      )}
     </>
   );
 };
 
-export default CartScreen
+export default CartScreen;
+
 
 const styles = StyleSheet.create({
 
@@ -376,7 +324,7 @@ const styles = StyleSheet.create({
     marginVertical: 12,
     marginBottom: 16
   },
-  confirmButtomText:{
+  confirmButtonText:{
     color: colors.blanco,
     fontFamily: 'PressStart',
     fontSize: 12,
@@ -408,6 +356,17 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '600',
     marginRight: 16,
+  },
+  errorText:{
+      fontSize: 18,
+      color: colors.blanco,
+      fontWeight: 'bold',
+      backgroundColor: colors.fucsiaAcento,
+      borderRadius: 16,
+      padding: 24,
+      marginHorizontal: 16,
+      marginVertical: 64,
+      textAlign: 'center'
   },
 
 })

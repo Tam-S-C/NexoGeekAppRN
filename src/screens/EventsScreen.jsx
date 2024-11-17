@@ -18,13 +18,15 @@ const EventsScreen = ({navigation}) => {
 
   const category = useSelector(state => state.shopReducer.value.categorySelected)
 
-  const { data: eventsFilteredByCategory, error, isLoading} = useGetEventsByCategoryQuery(category)
+  const { data: eventsFilteredByCategory, error, isLoading} = useGetEventsByCategoryQuery(category);
 
   dispatch = useDispatch()
 
   
 //SEARCH LÓGICA
 useEffect(() => {
+  console.log("Eventos filtrados por categoría:", eventsFilteredByCategory);
+  console.log("Texto de búsqueda:", search);
   if (!search.trim()) {
       setEventsFiltered(eventsFilteredByCategory || []);
       return;
@@ -36,21 +38,23 @@ useEffect(() => {
       dateAndPlace.toLowerCase().includes(searchLowerCase) || 
       tags.some(tag => tag.toLowerCase().includes(searchLowerCase))
   );
-
+  console.log("Eventos filtrados:", filteredEvents);
   setEventsFiltered(filteredEvents);
 }, [search, eventsFilteredByCategory]);
 
 
-
  const renderEventItem = ({ item }) => {
-  return (
 
+  return (
+    
       <>
-      <Pressable onPress={() => {
-        dispatch(setEventId(item.id)) 
-        navigation.navigate("Evento") 
-      }}>
-  
+          <Pressable
+            onPress={() => {
+              dispatch(setEventId(item.id));
+              navigation.navigate("Evento");
+            }}
+          >
+      
           <CardGeneral style= {styles.eventContainer}>
   
             <View>

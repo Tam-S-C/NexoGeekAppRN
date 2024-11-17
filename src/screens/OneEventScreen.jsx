@@ -1,31 +1,30 @@
-import { StyleSheet, Text, View, Pressable, Image, useWindowDimensions, ScrollView, Modal } from 'react-native';
+import { StyleSheet, Text, View, Pressable, Image, ActivityIndicator, ScrollView, Modal } from 'react-native';
 import { colors } from '../global/colors';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import events from '../data/events.json';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { addItem } from '../features/cart/cartSlice';
+import { useGetEventQuery } from '../services/shopService';
 
 const OneEventScreen = ({ navigation }) => {
 
-  const [eventFound, setEventFound] = useState({});
   const [modalVisible, setModalVisible] = useState(false); 
   const [selectedImage, setSelectedImage] = useState(null);
+  
   const eventId = useSelector(state => state.shopReducer.value.eventId);
 
-  useEffect(() => {
-    if (eventId) {
-      setEventFound(events.find(ev => ev.id === eventId));
-    }
-  }, [eventId]);
+  const { data: eventFound, error, isLoading } = useGetEventQuery(eventId)
 
-  dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const handleAddToCart = () => {
     setModalVisible(true);
+    dispatch(addItem({ ...eventFound, quantity: 1 }));
     setTimeout(() => {
       setModalVisible(false);
-    }, 2000); 
+      navigation.navigate('Cart'); 
+    }, 2000);
   };
 
   const handleImagePress = (imageUri) => {
@@ -33,7 +32,20 @@ const OneEventScreen = ({ navigation }) => {
   };
 
   return (
-    <View>
+    
+    <>
+      {
+        isLoading
+        ?
+        <ActivityIndicator size={80} color={colors.fucsiaAcento} style={styles.spinner} /> 
+          :
+          error 
+          ?
+          <Text style={styles.errorText}>
+            Ha ocurrido un error al cargar el evento, lo sentimos mucho 🙇‍♀️. Prueba nuevamente.
+          </Text>
+          :
+          <>
 
       <View style={styles.backTitleContainer}>
         <Pressable onPress={() => navigation.goBack()}>
@@ -41,6 +53,7 @@ const OneEventScreen = ({ navigation }) => {
         </Pressable>
         <Text style={styles.eventSelected}>{eventFound.title}</Text>
       </View>
+
 
       <ScrollView horizontal={true} style={styles.imageScrollContainer}>
         <Pressable onPress={() => handleImagePress(eventFound.mainImage)}>
@@ -66,6 +79,7 @@ const OneEventScreen = ({ navigation }) => {
         </Pressable>
       </ScrollView>
 
+
       <Text style={styles.eventDescription}>{eventFound.description}</Text>
 
       <View style={styles.tagsStyleDirection}>
@@ -81,9 +95,9 @@ const OneEventScreen = ({ navigation }) => {
 
       {
         eventFound.stock > 0 ? 
-          <Text style={styles.stockStyle} >Stock: {eventFound.stock} </Text>
+          <Text style={styles.stockStyle}>Stock: {eventFound.stock} </Text>
           :
-          <Text style={styles.stockStyle2} >AGOTADO </Text>
+          <Text style={styles.stockStyle2}>AGOTADO </Text>
       }
 
       <View style={styles.discountContainer}>
@@ -101,18 +115,28 @@ const OneEventScreen = ({ navigation }) => {
         <Text style={styles.priceStyle2}>${(eventFound.price - (eventFound.price * (eventFound.discount / 100)))}</Text>
       </View>
 
-      {
-        eventFound.stock > 0 ?
-          <Pressable style={({ pressed }) => [{ backgroundColor: pressed ? colors.violetaSombra : colors.violetaPrimario }, styles.addToCardButton]}
-            onPress={handleAddToCart}>
-            <Text style={styles.addToCardText}>Agregar al Carrito <FontAwesome name="ticket" size={24} /></Text>
+
+          {
+            eventFound.stock > 0 
+            ?
+            <Pressable
+            style={({ pressed }) => [
+              { backgroundColor: pressed ? colors.violetaSombra : colors.violetaPrimario },
+              styles.addToCardButton
+            ]}
+            onPress={handleAddToCart}
+          >
+            <Text style={styles.addToCardText}>
+              Agregar al Carrito <FontAwesome name="ticket" size={24} />
+            </Text>
           </Pressable>
           :
           <Pressable style={({ pressed }) => [{ backgroundColor: pressed ? colors.fucsiaSombra : colors.fucsiaAcento }, styles.addToCardButton2]}
             onPress={null}>
             <Text style={styles.addToCardText2}>Evento Sin Stock</Text>
           </Pressable>
-      }
+        }
+
 
       <Modal
         visible={modalVisible}
@@ -141,7 +165,9 @@ const OneEventScreen = ({ navigation }) => {
         </Pressable>
       </Modal>
 
-    </View>
+      </>
+    }
+    </>
   );
 };
 
@@ -334,4 +360,20 @@ const styles = StyleSheet.create({
     height: '80%',
     resizeMode: 'contain',
   },
+
+  spinner:{
+    marginTop: 80
+  },
+  errorText:{
+      fontSize: 18,
+      color: colors.blanco,
+      fontWeight: 'bold',
+      backgroundColor: colors.fucsiaAcento,
+      borderRadius: 16,
+      padding: 24,
+      marginHorizontal: 16,
+      marginVertical: 64,
+      textAlign: 'center'
+  },
+  
 });

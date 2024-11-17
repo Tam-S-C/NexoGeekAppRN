@@ -2,64 +2,78 @@ import { createSlice } from "@reduxjs/toolkit";
 import { calculate_total_price } from "../../utils/functions";
 
 
-
 export const cartSlice = createSlice({
   name: "cart",
   initialState: {
     value: {
       cartItems: [],
       user: "demo",
-      total: null,
-      cartLenght: 0,
-      updateAt: Date.now().toLocaleString(),
+      total: 0,
+      cartLength: 0,
+      updatedAt: new Date().toLocaleString(),
     },
   },
   reducers: {
     addItem: (state, action) => {
-      const eventInCart = state.value.cartItems.find(
+      const itemInCart = state.value.cartItems.find(
         (item) => item.id === action.payload.id
       );
-      if (!eventInCart) {
-        state.value.cartItems.push(action.payload);
-        state.value.cartLenght += 1;
+
+      if (!itemInCart) {
+        state.value.cartItems.push({ ...action.payload, quantity: 1 });
+        state.value.cartLength += 1;
       } else {
-        state.value.cartItems.map(item => {
-          if (item.id === action.payload.id) {
-            item.quantity += 1;
-            return item;
-          }
-          return item;
-        });
+        itemInCart.quantity += 1;
       }
 
-
-      const total = calculate_total_price(state.value.cartItems);
-
-      state.value = {
-        ...state.value,
-        total,
-        updatedAt: new Date().toLocaleString(),
-      };
+      state.value.total = calculate_total_price(state.value.cartItems);
+      state.value.updatedAt = new Date().toLocaleString();
     },
 
     removeItem: (state, action) => {
       state.value.cartItems = state.value.cartItems.filter(
-        (item = item.id !== action.payload)
+        (item) => item.id !== action.payload
       );
+      state.value.cartLength = state.value.cartItems.length;
       state.value.total = calculate_total_price(state.value.cartItems);
-      state.value.cartLenght -= 1;
+      state.value.updatedAt = new Date().toLocaleString();
     },
 
     clearCart: (state) => {
       state.value.cartItems = [];
-      state.value.total = null;
-      state.value.cartLenght = 0;
+      state.value.total = 0;
+      state.value.cartLength = 0;
+      state.value.updatedAt = new Date().toLocaleString();
     },
+
+    decreaseQuantity: (state, action) => {
+      const itemInCart = state.value.cartItems.find(
+        (item) => item.id === action.payload.id
+      );
+      
+      if (itemInCart && itemInCart.quantity > 1) {
+        itemInCart.quantity -= 1;
+        state.value.total = calculate_total_price(state.value.cartItems);
+        state.value.updatedAt = new Date().toLocaleString();
+      }
+    },
+
+    increaseQuantity: (state, action) => {
+      const itemInCart = state.value.cartItems.find(
+        (item) => item.id === action.payload.id
+      );
+      
+      if (itemInCart && itemInCart.quantity < action.payload.stock) {
+        itemInCart.quantity += 1;
+        state.value.total = calculate_total_price(state.value.cartItems);
+        state.value.updatedAt = new Date().toLocaleString();
+      }
+    },
+
 
   },
 });
 
-
-export const { addItem, removeItem, clearCart } = cartSlice.actions;
-
+export const { addItem, removeItem, clearCart, decreaseQuantity, increaseQuantity } = cartSlice.actions;
 export default cartSlice.reducer;
+
