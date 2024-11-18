@@ -1,4 +1,3 @@
-import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ShopNavigator from "./ShopNavigator"
 import CartNavigator from "./CartNavigator"
@@ -12,7 +11,7 @@ const Tab = createBottomTabNavigator()
 
 const TabNavigator = () => {
     return (
-        <NavigationContainer>
+ 
             <Tab.Navigator
                 initialRouteName='Home'
                 screenOptions={{
@@ -47,7 +46,7 @@ const TabNavigator = () => {
                 />
 
             </Tab.Navigator>
-        </NavigationContainer>
+
     )
 }
 

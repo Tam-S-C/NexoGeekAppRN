@@ -2,7 +2,7 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
-import TabNavigator from "./src/navigation/TabNavigator";
+import MainNavigator from "./src/navigation/MainNavigator";
 import { enableScreens } from "react-native-screens";
 
 import { store } from "./src/app/store";
@@ -29,7 +29,7 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <TabNavigator />
+      <MainNavigator />
       <StatusBar style="light" />
     </Provider>
   );
