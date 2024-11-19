@@ -1,15 +1,33 @@
 import { StyleSheet, Text, FlatList, Image, Pressable, ActivityIndicator } from 'react-native';
-import CardGeneral from '../components/CardGeneral.jsx';
 import { colors } from '../global/colors.js';
 import { useDispatch } from 'react-redux';
 import { setCategory } from '../features/shop/shopSlice.js';
 import { useGetCategoriesQuery } from '../services/shopService';
+import { useSelector} from 'react-redux';
+import { useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import CardGeneral from '../components/CardGeneral.jsx';
 
 const CategoriesScreen = ({ navigation }) => {
 
     const { data: categories, error, isLoading } = useGetCategoriesQuery()
 
     dispatch = useDispatch()
+
+    const { nickName } = useSelector((state) => state.authReducer.value);
+    useEffect(() => {
+        const loadUser = async () => {
+            try {
+                const storedUser = await AsyncStorage.getItem('user');
+                if (storedUser) {
+                    dispatch(loadUserFromStorage(JSON.parse(storedUser)));
+                }
+            } catch (error) {
+                console.error("Error cargando usuario desde AsyncStorage:", error);
+            }
+        };
+        loadUser();
+    }, [dispatch]);
 
     const renderCategoryItem = ({ item, index }) => {
 
@@ -56,9 +74,8 @@ const CategoriesScreen = ({ navigation }) => {
                         :
                         <>
                             <Text style={styles.subtitle}>
-                                Bienvenid@s a la única App de Argentina de búsqueda y compra de tickets de eventos y locales del universo geek!!
+                            Bienvenid@ {nickName || 'Invitado'} a la única App de Argentina de búsqueda y compra de tickets de eventos geek!
                             </Text>
-
                             <FlatList
                                 data={categories}
                                 keyExtractor={item => item.id}

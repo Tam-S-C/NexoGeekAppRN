@@ -1,11 +1,12 @@
 import { StyleSheet, Text, View, TextInput, Pressable, Dimensions, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { colors } from '../global/colors';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 import { useState, useEffect } from 'react';
 import { useSignupMutation } from '../services/authService';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../features/auth/authSlice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 const textInputWidth = Dimensions.get('window').width * 0.85;
 
@@ -15,32 +16,61 @@ const SignupScreen = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorAddUser, setErrorAddUser] = useState('');
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false); 
 
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const togglePasswordVisibility = () => {
-    setIsPasswordVisible(!isPasswordVisible); 
+    setIsPasswordVisible(!isPasswordVisible);
   };
 
   const [triggerSignup, result] = useSignupMutation();
   const dispatch = useDispatch();
 
-  const onsubmit = () => {
+//NickName en local
+  const saveNickNameLocally = async (nickName) => {
+    try {
+      await AsyncStorage.setItem('nickName', nickName);
+    } catch (error) {
+      console.error("Error guardando el nickName en AsyncStorage:", error);
+    }
+  };
+
+  const onsubmit = async () => {
     if (password !== confirmPassword) {
       setErrorAddUser('Las contraseñas no coinciden.');
       return;
     }
-    triggerSignup({ nickName, email, password });
+
+    await triggerSignup({ email, password });
+    await saveNickNameLocally(nickName);
   };
 
   useEffect(() => {
     if (result.status === 'rejected') {
-      console.log('Error al agregar el usuario', result.error);
+      console.log('Error al agregar el usuario:', result.error);
       setErrorAddUser('Ups! No se pudo agregar el usuario.');
     } else if (result.status === 'fulfilled') {
       console.log('Usuario agregado con éxito');
-      dispatch(setUser(result.data));
+
+      const { idToken, email } = result.data;
+
+      const fetchNickName = async () => {
+        try {
+          const savedNickName = await AsyncStorage.getItem('nickName');
+          dispatch(
+            setUser({
+              nickName: savedNickName,
+              email,
+              token: idToken,
+            })
+          );
+          navigation.navigate('Categories');
+        } catch (error) {
+          console.error('Error leyendo el nickName desde AsyncStorage:', error);
+        }
+      };
+      fetchNickName();
     }
-  }, [result]);
+  }, [result, dispatch, navigation]);
 
   return (
     <LinearGradient
@@ -54,13 +84,13 @@ const SignupScreen = ({ navigation }) => {
 
       <View style={styles.inputContainer}>
         <TextInput
-          onChangeText={(text) => setNickName(text)}
+          onChangeText={setNickName}
           placeholderTextColor={colors.violetaPrimario}
           placeholder="NickName"
           style={styles.textInput}
         />
         <TextInput
-          onChangeText={(text) => setEmail(text)}
+          onChangeText={setEmail}
           placeholderTextColor={colors.violetaPrimario}
           placeholder="Email"
           style={styles.textInput}
@@ -68,7 +98,7 @@ const SignupScreen = ({ navigation }) => {
 
         <View style={styles.passwordContainer}>
           <TextInput
-            onChangeText={(text) => setPassword(text)}
+            onChangeText={setPassword}
             placeholder="Password"
             placeholderTextColor={colors.violetaPrimario}
             style={styles.textInput}
@@ -85,7 +115,7 @@ const SignupScreen = ({ navigation }) => {
 
         <View style={styles.passwordContainer}>
           <TextInput
-            onChangeText={(text) => setConfirmPassword(text)}
+            onChangeText={setConfirmPassword}
             placeholder="Repetir password"
             placeholderTextColor={colors.violetaPrimario}
             style={styles.textInput}
@@ -104,23 +134,23 @@ const SignupScreen = ({ navigation }) => {
       {errorAddUser ? <Text style={styles.error}>{errorAddUser}</Text> : null}
 
       <View style={styles.footTextContainer}>
-        <Text style={styles.askText}>Completa tus datos y ... </Text>
+        <Text style={styles.askText}>Completa tus datos y...</Text>
         <Pressable style={styles.buttons} onPress={onsubmit}>
-          <Text style={styles.buttonText}>¡Crea tu cuenta!</Text>
+          <Text style={styles.buttonText}>Crear e Iniciar!</Text>
         </Pressable>
       </View>
 
       <View style={styles.footTextContainer}>
         <Text style={styles.askText}>¿Ya tienes una cuenta?</Text>
         <Pressable style={styles.buttons} onPress={() => navigation.navigate('Login')}>
-          <Text style={styles.buttonText}>¡Inicia sesión!</Text>
+          <Text style={styles.buttonText}>Inicia Sesión!</Text>
         </Pressable>
       </View>
 
       <View style={styles.footTextContainer}>
         <Text style={styles.askText}>O ingresa como invitado</Text>
         <Pressable onPress={() => dispatch(setUser({ email: 'invitado@nexogeek.com', token: 'demo' }))}>
-          <Text style={{ ...styles.buttons, ...styles.buttonText }}>Ingresar ahora</Text>
+          <Text style={{ ...styles.buttons, ...styles.buttonText }}>Ingresar Ahora</Text>
         </Pressable>
       </View>
     </LinearGradient>
@@ -173,10 +203,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 16,
     alignItems: 'center',
-  },
-  strongText: {
-    fontWeight: '900',
-    fontSize: 16,
+    marginTop: 16,
   },
   buttons: {
     padding: 10,
@@ -198,11 +225,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 12,
   },
-  guestOptionContainer: {
-    alignItems: 'center',
-    marginTop: 24,
-  },
   error: {
     color: colors.fucsiaClaro,
+    marginTop: 10,
   },
 });
+
