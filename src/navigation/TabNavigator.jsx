@@ -6,14 +6,14 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import ShopNavigator from "./ShopNavigator"
 import CartNavigator from "./CartNavigator"
 import OrdersNavigator from './OrdersNavigator';
-
+import FavsNavigator from './FavsNavigator';
+import ProfileNavigator from './ProfileNavigator';
 
 const Tab = createBottomTabNavigator()
 
 const TabNavigator = () => {
 
     const cartLength = useSelector(state => state.cartReducer.value.cartLength);
-
 
     return (
 
@@ -45,11 +45,10 @@ const TabNavigator = () => {
                         color: colors.blanco,
                         fontSize: 12,
                         fontWeight: 'bold',
-                        paddingBottom: 2, 
+                        paddingBottom: 2,
                         borderRadius: 10,
                         marginTop: -8
-                      },
-
+                    },
                 }}
             />
 
@@ -58,6 +57,23 @@ const TabNavigator = () => {
                 component={OrdersNavigator}
                 options={{
                     tabBarIcon: ({ focused }) => (<Icon name="receipt" marginBottom={16} size={24} color={focused ? colors.blanco : colors.violetaSecundario} />)
+                }}
+            />
+
+            <Tab.Screen
+                name="Favs"
+                component={FavsNavigator}
+                options={{
+                    tabBarIcon: ({ focused }) => (<Icon name="heart" solid marginBottom={16} size={24} color={focused ? colors.blanco : colors.violetaSecundario} />)
+                }}
+            />
+
+
+            <Tab.Screen
+                name="Profile"
+                component={ProfileNavigator}
+                options={{
+                    tabBarIcon: ({ focused }) => (<Icon name="user-astronaut" marginBottom={16} size={24} color={focused ? colors.blanco : colors.violetaSecundario} />)
                 }}
             />
 

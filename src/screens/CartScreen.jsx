@@ -53,28 +53,24 @@ const CartScreen = ({ navigation }) => {
     dispatch(clearCart());
   };
 
-  const handleConfirmOrder = () => {
-    triggerPost({ cart, total, createdAt: Date.now() });
-    dispatch(clearCart());
-    setThanksModalVisible(true);
+  const handleCheckout = () => {
+    setThanksModalVisible(true); 
     setTimeout(() => {
       setThanksModalVisible(false);
+      dispatch(clearCart());
       navigation.navigate('Orders');
-    }, 1300); 
+    }, 1300);
   };
 
   const FooterComponent = () => (
 
     <View style={styles.footerContainer}>
 
+      <Text style={styles.itemsText}>Tienes {cart.length} producto/os del mismo evento/local en tu carrito.</Text>
       <Text style={styles.footerTotal}>Total: ${total}</Text>
 
-      <Pressable onPress={() => {
-        triggerPost({ cart, total, createdAt: Date.now() })
-        dispatch(clearCart())
-        navigation.navigate("Orders"),
-          handleConfirmOrder()
-      }}
+      <Pressable
+        onPress={handleCheckout}
         style={({ pressed }) => [
           { backgroundColor: pressed ? colors.violetaSombra : colors.violetaPrimario },
           styles.confirmButton,
@@ -171,7 +167,7 @@ const CartScreen = ({ navigation }) => {
                     style={styles.modalCancelButton}
                     onPress={() => setModalVisible(false)}
                   >
-                    <Text style={styles.modalButtonText}>Cancelar</Text>
+                    <Text style={styles.modalButtonText}>No, cancelar</Text>
                   </Pressable>
                   <Pressable
                     style={styles.modalConfirmButton}
@@ -180,7 +176,7 @@ const CartScreen = ({ navigation }) => {
                       setModalVisible(false);
                     }}
                   >
-                    <Text style={styles.modalButtonText}>Sí, eliminar</Text>
+                    <Text style={styles.modalButtonText}>Sí, vaciar</Text>
                   </Pressable>
                 </View>
               </View>
@@ -198,7 +194,7 @@ const CartScreen = ({ navigation }) => {
                 <Text style={styles.modalText}>¿Seguro quieres eliminar este ítem del carrito?</Text>
                 <View style={styles.modalButtons}>
                   <Pressable style={styles.modalCancelButton} onPress={closeDeleteItemModal}>
-                    <Text style={styles.modalButtonText}>Cancelar</Text>
+                    <Text style={styles.modalButtonText}>No, cancelar</Text>
                   </Pressable>
                   <Pressable style={styles.modalConfirmButton} onPress={handleDeleteItem}>
                     <Text style={styles.modalButtonText}>Sí, eliminar</Text>
@@ -208,9 +204,13 @@ const CartScreen = ({ navigation }) => {
             </View>
           </Modal>
 
-          <Modal visible={thanksModalVisible} transparent animationType="fade">
+          <Modal 
+            visible={thanksModalVisible}
+            transparent={true} 
+            animationType="fade"
+            onRequestClose={() => setModalVisible(false)}>
             <View style={styles.thanksModalContainer}>
-              <Text style={styles.thanksText}>¡Gracias por tu compra!</Text>
+              <Text style={styles.thanksText}>¡GRACIAS POR TU COMPRA!</Text>
             </View>
           </Modal>
 
@@ -288,12 +288,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   thanksText: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: 'bold',
     color: colors.blanco,
     backgroundColor: colors.violetaPrimario,
-    padding: 20,
-    borderRadius: 10,
+    padding: 16,
+    borderRadius: 16,
     textAlign: 'center',
   },
 
@@ -324,7 +324,8 @@ const styles = StyleSheet.create({
   eventDescription: {
     paddingHorizontal: 2,
     width: '32%',
-    flex: 1
+    flex: 1,
+    color: colors.violetaPrimario
   },
   stockStyle: {
     color: colors.fucsiaAcento,
@@ -401,7 +402,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   trashAllEvents: {
-    marginTop: 16,
+    marginTop: 12,
     alignSelf: 'center',
   },
   confirmButton: {
@@ -424,7 +425,7 @@ const styles = StyleSheet.create({
   footerTotal: {
     alignSelf: 'center',
     color: colors.violetaPrimario,
-    marginTop: 24,
+    marginTop: 12,
     fontSize: 18,
     fontWeight: '600'
   },
@@ -451,13 +452,20 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: colors.blanco,
     fontWeight: 'bold',
-    backgroundColor: colors.fucsiaAcento,
+    backgroundColor: colors.violetaPrimario,
     borderRadius: 16,
     padding: 24,
     marginHorizontal: 16,
     marginVertical: 40,
     textAlign: 'center'
   },
+  itemsText:{
+    alignSelf: 'center',
+    color: colors.violetaPrimario,
+    fontSize: 12,
+    fontWeight: '600',
+    marginTop: 16
+  }
 
 })
 

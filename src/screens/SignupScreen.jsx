@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { useSignupMutation } from '../services/authService';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../features/auth/authSlice';
+import { validationSchema } from '../validations/validationSchema';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 const textInputWidth = Dimensions.get('window').width * 0.85;
@@ -23,17 +24,16 @@ const SignupScreen = ({ navigation }) => {
   const [errorEmail, setErrorEmail] = useState("")
   const [errorPassword, setErrorPassword] = useState("")
   const [errorConfirmPassword, setErrorConfirmPassword] = useState("")
-  //const [genericValidationError, setGenericValidationError] = useState("")
+  const [genericValidationError, setGenericValidationError] = useState("")
   const [errorAddUser,setErrorAddUser] = useState(false)
 
   const [triggerSignup, result] = useSignupMutation()
 
   const dispatch = useDispatch()
 
-  
   useEffect(() => {
     if (result.status === 'rejected') {
-        setErrorAddUser('Ups! No se pudo agregar el usuario.');
+        setErrorAddUser('No se pudo agregar el usuario. Prueba nuevamente o ve a iniciar sesión si ya estabas registrado con ese mail.');
     } else if (result.status === 'fulfilled') {
         console.log('Usuario agregado con éxito', result.data);
         const { idToken, email } = result.data;
@@ -46,18 +46,14 @@ const SignupScreen = ({ navigation }) => {
     }
   }, [result, dispatch]);
   
-
-
   const onsubmit = () => {
-    /*try {
+    try {
         validationSchema.validateSync({ email, password, confirmPassword });
         setErrorEmail("");
         setErrorPassword("");
         setErrorConfirmPassword("");
-        console.log("Validación exitosa, enviando datos...");
         triggerSignup({ email, password });
     } catch (error) {
-        console.log("Error de validación:", error);
         switch (error.path) {
             case "email":
                 setErrorEmail(error.message);
@@ -69,11 +65,10 @@ const SignupScreen = ({ navigation }) => {
                 setErrorConfirmPassword(error.message);
                 break;
             default:
-                console.log('Error desconocido:', error.message);
+                setGenericValidationError(error.message);
                 break;
         }
-    }*/
-        triggerSignup({ email, password });
+    }
     };
   
 
@@ -131,6 +126,7 @@ const SignupScreen = ({ navigation }) => {
             />
           </TouchableOpacity>
         </View>
+
         {errorConfirmPassword && <Text style={styles.error}>{errorConfirmPassword}</Text>}
 
       </View>
@@ -144,7 +140,8 @@ const SignupScreen = ({ navigation }) => {
       >
         <Text style={styles.buttonText}>CREAR E INICIAR</Text>
       </Pressable>
-      {errorAddUser && <Text style={styles.error}>{errorMessage}</Text>}
+
+      {errorAddUser && <Text style={styles.error}>{errorAddUser}</Text>}
 
       <View style={styles.footTextContainer}>
         <Text style={styles.askText}>¿Ya tienes una cuenta?</Text>
@@ -231,7 +228,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '700',
     borderRadius: 16,
-    marginTop: 8,
+    marginTop: 4,
     shadowColor: colors.violetaSecundario,
     shadowOpacity: 1,
     elevation: 4,
@@ -250,7 +247,8 @@ const styles = StyleSheet.create({
   },
   error: {
     color: colors.fucsiaClaro,
-    marginTop: 10,
+    marginTop: 8,
+    marginHorizontal: 20
   },
 });
 

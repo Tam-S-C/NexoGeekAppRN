@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: colors.blanco,
     fontWeight: 'bold',
-    backgroundColor: colors.fucsiaAcento,
+    backgroundColor: colors.violetaPrimario,
     borderRadius: 16,
     padding: 24,
     marginHorizontal: 16,
