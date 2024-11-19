@@ -60,7 +60,7 @@ const CartScreen = ({ navigation }) => {
     setTimeout(() => {
       setThanksModalVisible(false);
       navigation.navigate('Orders');
-    }, 1300); s
+    }, 1300); 
   };
 
   const FooterComponent = () => (
@@ -73,7 +73,7 @@ const CartScreen = ({ navigation }) => {
         triggerPost({ cart, total, createdAt: Date.now() })
         dispatch(clearCart())
         navigation.navigate("Orders"),
-          handleConfirmPurchase()
+          handleConfirmOrder()
       }}
         style={({ pressed }) => [
           { backgroundColor: pressed ? colors.violetaSombra : colors.violetaPrimario },

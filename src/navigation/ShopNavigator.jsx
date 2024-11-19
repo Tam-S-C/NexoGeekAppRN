@@ -12,7 +12,6 @@ const ShopNavigator = () => {
                 header: ({route})=> <Header screenName={route.name} />
             }}
         >
-
             <Stack.Screen name="Categorías" component={CategoriesScreen}/>
             <Stack.Screen name="Eventos" component={EventsScreen}/>
             <Stack.Screen name="Evento" component={OneEventScreen}/>

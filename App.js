@@ -8,6 +8,7 @@ import { enableScreens } from "react-native-screens";
 import { store } from "./src/app/store";
 import { Provider } from "react-redux";
 
+
 enableScreens();
 SplashScreen.preventAutoHideAsync();
 

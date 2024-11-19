@@ -15,6 +15,7 @@ const CategoriesScreen = ({ navigation }) => {
     dispatch = useDispatch()
 
     const { nickName } = useSelector((state) => state.authReducer.value);
+    
     useEffect(() => {
         const loadUser = async () => {
             try {

@@ -4,24 +4,20 @@ export const authSlice = createSlice({
     name: 'auth',
     initialState: {
         value: {
-            nickName:null,
             email:null,
             token:null,
         }
     },
     reducers: {
         setUser:(state,action)=>{
-            state.value.nickName = action.payload.nickName
             state.value.email = action.payload.email
             state.value.token = action.payload.idToken
         },
-        clearUser: (state)=>{
-            state.value.nickName = null
+        clearUser: (state)=>{ll
             state.value.email = null
             state.value.token = null
         },
         loadUserFromStorage: (state, action) => {
-            state.value.nickName = action.payload.nickName;
             state.value.email = action.payload.email;
             state.value.token = action.payload.token;
         },
