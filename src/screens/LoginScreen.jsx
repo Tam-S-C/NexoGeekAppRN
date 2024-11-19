@@ -4,7 +4,7 @@ import { colors } from '../global/colors';
 import { useState, useEffect } from 'react';
 import { useLoginMutation } from '../services/authService';
 import { useDispatch } from 'react-redux';
-import { setUser } from '../features/auth/authSlice';
+import { setUser, clearUser, loadUserFromStorage } from '../features/auth/authSlice';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 const textInputWidth = Dimensions.get('window').width * 0.85;
@@ -12,57 +12,42 @@ const textInputWidth = Dimensions.get('window').width * 0.85;
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [errorEmail, setErrorEmail] = useState("")
-  const [errorPassword, setErrorPassword] = useState("")
-  const [errorConfirmPassword, setErrorConfirmPassword] = useState("")
-  //const [genericValidationError, setGenericValidationError] = useState("")
-  const [errorAddUser, setErrorAddUser] = useState(false)
-
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const togglePasswordVisibility = () => {
-    setIsPasswordVisible(!isPasswordVisible);
-  };
+  const [rememberMe, setRememberMe] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [triggerLogin, result] = useLoginMutation();
   const dispatch = useDispatch();
 
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+  };
+
+    const onsubmit = () => {     
+      triggerLogin({ email, password })
+  }
+
   useEffect(() => {
-    if (result.status === "rejected") {
-      console.log("Error al agregar el usuario", result)
-      setErrorAddUser("Ups! No se pudo agregar el usuario")
-    } else if (result.status === "fulfilled") {
-      console.log("Usuario agregado con éxito")
-      dispatch(setUser(result.data))
+    if (result.isSuccess) {
+      dispatch(setUser(result.data));
+      if (rememberMe) {
+        dispatch(clearUser());
+        loadUserFromStorage({
+          email: result.data.email,
+          token: result.data.idToken
+        });
+      }
+      setIsLoggedIn(true);
     }
-  }, [result])
-
-  const onsubmit = () => {
-    try {
-        validationSchema.validateSync({ email, password, confirmPassword });
-        setErrorEmail(""); 
-        setErrorPassword("");
-        setErrorConfirmPassword("");
-
-        triggerLogin({ email, password })
-    } catch (error) {
-        switch (error.path) {
-            case "email":
-                setErrorEmail(error.message);
-                break;
-            case "password":
-                setErrorPassword(error.message);
-                break;
-            case "confirmPassword":
-                setErrorConfirmPassword(error.message);
-                break;
-            default:
-                //setGenericValidationError(error.message);
-                break;
-        }
+  }, [result, rememberMe, dispatch]);
+  
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigation.navigate('Categorías');
     }
-}
-
+  }, [isLoggedIn, navigation]);
+  
+  
 
   return (
     <LinearGradient
@@ -72,7 +57,7 @@ const LoginScreen = ({ navigation }) => {
       style={styles.gradient}
     >
       <Text style={styles.title}>NEXO GEEK</Text>
-      <Text style={styles.subTitle}>Registrate</Text>
+      <Text style={styles.subTitle}>Inicia Sesión</Text>
 
       <View style={styles.inputContainer}>
         <TextInput
@@ -81,8 +66,6 @@ const LoginScreen = ({ navigation }) => {
           placeholder="Email"
           style={styles.textInput}
         />
-        {(errorEmail && !errorPassword) && <Text style={styles.error}>{errorEmail}</Text>}
-
         <View style={styles.passwordContainer}>
           <TextInput
             onChangeText={setPassword}
@@ -98,67 +81,57 @@ const LoginScreen = ({ navigation }) => {
               color={colors.violetaPrimario}
             />
           </TouchableOpacity>
-          {errorPassword && <Text style={styles.error}>{errorPassword}</Text>}
-        </View>
-
-        <View style={styles.passwordContainer}>
-          <TextInput
-            onChangeText={setConfirmPassword}
-            placeholder="Repetir password"
-            placeholderTextColor={colors.violetaPrimario}
-            style={styles.textInput}
-            secureTextEntry={!isPasswordVisible}
-          />
-          <TouchableOpacity onPress={togglePasswordVisibility} style={styles.icon}>
-            <Icon
-              name={isPasswordVisible ? 'eye' : 'eye-slash'}
-              size={24}
-              color={colors.violetaPrimario}
-            />
-          </TouchableOpacity>
-          {errorConfirmPassword && <Text style={styles.error}>{errorConfirmPassword}</Text>}
         </View>
       </View>
 
-      {errorAddUser ? <Text style={styles.error}>{errorAddUser}</Text> : null}
-
-      <View style={styles.footTextContainer}>
-        <Text style={styles.askText}>Completa tus datos y...</Text>
-        <Pressable
-          onPress={onsubmit}
-          style={({ pressed }) => [
-            styles.buttons,
-            { backgroundColor: pressed ? colors.violetaSombra : colors.violetaPrimario }
-          ]}
-        >
-          <Text style={styles.buttonText}>CREAR E INICIAR</Text>
-        </Pressable>
+      <View style={styles.rememberMeContainer}>
+        <Text style={styles.buttonText}>Mantener sesión iniciada</Text>
+        {rememberMe ? (
+          <Pressable onPress={() => setRememberMe(!rememberMe)}>
+            <Icon name="toggle-on" size={36} color={colors.violetaSecundario} />
+          </Pressable>
+        ) : (
+          <Pressable onPress={() => setRememberMe(!rememberMe)}>
+            <Icon name="toggle-off" size={36} color={colors.fucsiaAcento} />
+          </Pressable>
+        )}
       </View>
 
+      <Pressable
+        onPress={onsubmit}
+        style={({ pressed }) => [
+          styles.buttons,
+          { backgroundColor: pressed ? colors.violetaSombra : colors.violetaPrimario }
+        ]}
+      >
+        <Text style={styles.buttonText}>INICIAR SESIÓN</Text>
+      </Pressable>
+
       <View style={styles.footTextContainer}>
-        <Text style={styles.askText}>¿Ya tienes una cuenta?</Text>
+        <Text style={styles.askText}>¿No tienes una cuenta?</Text>
         <Pressable
           onPress={() => navigation.navigate('Signup')}
           style={({ pressed }) => [
             styles.buttons,
             { backgroundColor: pressed ? colors.violetaSombra : colors.violetaPrimario }
-          ]}>
-          <Text style={styles.buttonText}>Inicia Sesión</Text>
+          ]}
+        >
+          <Text style={styles.buttonText}>Crear cuenta</Text>
         </Pressable>
       </View>
 
       <View style={styles.footTextContainer}>
-        <Text style={styles.askText}>O entra sin iniciar sesión</Text>
+        <Text style={styles.askText}>O inicia sesión como invitado</Text>
         <Pressable
           onPress={() => dispatch(setUser({ email: "invitado@nekogeek.com", token: "invitado" }))}
           style={({ pressed }) => [
             styles.buttons,
             { backgroundColor: pressed ? colors.violetaSombra : colors.violetaPrimario }
-          ]}>
+          ]}
+        >
           <Text style={styles.buttonText}>Ingresar</Text>
         </Pressable>
       </View>
-
     </LinearGradient>
   );
 };
@@ -209,7 +182,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 16,
     alignItems: 'center',
-    marginTop: 16,
+    marginTop: 8,
   },
   buttons: {
     padding: 10,
@@ -224,6 +197,19 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     elevation: 4,
   },
+  buttons2: {
+    padding: 10,
+    paddingHorizontal: 24,
+    backgroundColor: colors.violetaPrimario,
+    color: colors.blanco,
+    fontSize: 16,
+    fontWeight: '700',
+    borderRadius: 16,
+    shadowColor: colors.violetaSecundario,
+    shadowOpacity: 1,
+    elevation: 4,
+    marginBottom: 4
+  },
   buttonText: {
     color: colors.blanco,
     fontSize: 14,
@@ -232,7 +218,7 @@ const styles = StyleSheet.create({
   askText: {
     color: colors.blanco,
     alignItems: 'center',
-    marginTop: 12,
+    marginTop: 8,
     fontSize: 14,
     fontWeight: '700',
   },
@@ -240,5 +226,16 @@ const styles = StyleSheet.create({
     color: colors.fucsiaClaro,
     marginTop: 10,
   },
+  guestOptionContainer: {
+    alignItems: 'center',
+    marginTop: 64
+  },
+  rememberMeContainer: {
+    flexDirection: "row",
+    gap: 5,
+    justifyContent: "space-around",
+    alignItems: "center",
+    marginVertical: 2,
+  }
 });
 
