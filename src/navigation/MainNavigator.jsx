@@ -23,7 +23,7 @@ const MainNavigator = () => {
                         dispatch(setUser(session[0]))
                     }
                 }catch(error){
-                    console.log("Error al obtener la sesión", error)
+                    //console.log("Error al obtener la sesión", error)
                 }    
             })()
         }

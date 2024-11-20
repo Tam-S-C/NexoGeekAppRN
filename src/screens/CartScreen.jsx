@@ -1,11 +1,11 @@
 import { StyleSheet, Text, FlatList, View, Image, Pressable, Modal } from 'react-native';
 import { colors } from '../global/colors';
-import CardGeneral from '../components/CardGeneral';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 import { useState } from 'react';
 import { clearCart, removeItem, increaseQuantity, decreaseQuantity } from '../features/cart/cartSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { usePostOrderMutation } from '../services/ordersService';
+import CardGeneral from '../components/CardGeneral';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 const CartScreen = ({ navigation }) => {
 
@@ -16,7 +16,7 @@ const CartScreen = ({ navigation }) => {
   const [deleteItemModalVisible, setDeleteItemModalVisible] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
 
-  const [triggerPost, result] = usePostOrderMutation()
+  const [triggerPost, result] = usePostOrderMutation();
 
   const dispatch = useDispatch();
 
@@ -53,14 +53,16 @@ const CartScreen = ({ navigation }) => {
     dispatch(clearCart());
   };
 
-  const handleCheckout = () => {
-    setThanksModalVisible(true); 
-    setTimeout(() => {
+  const confirmBtn = () => {
+   setThanksModalVisible(true);
+   setTimeout(() => {
       setThanksModalVisible(false);
       dispatch(clearCart());
       navigation.navigate('Orders');
-    }, 1300);
+      triggerPost({ cart, total, createdAt: Date.now() });
+   }, 1300);
   };
+  
 
   const FooterComponent = () => (
 
@@ -69,8 +71,9 @@ const CartScreen = ({ navigation }) => {
       <Text style={styles.itemsText}>Tienes {cart.length} producto/os del mismo evento/local en tu carrito.</Text>
       <Text style={styles.footerTotal}>Total: ${total}</Text>
 
-      <Pressable
-        onPress={handleCheckout}
+      <Pressable onPress={() => {
+          confirmBtn()
+      }}
         style={({ pressed }) => [
           { backgroundColor: pressed ? colors.violetaSombra : colors.violetaPrimario },
           styles.confirmButton,

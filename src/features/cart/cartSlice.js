@@ -10,6 +10,7 @@ export const cartSlice = createSlice({
       total: 0,
       cartLength: 0,
       updatedAt: new Date().toLocaleString(),
+      orders: [],
     },
   },
   reducers: {
@@ -66,6 +67,9 @@ export const cartSlice = createSlice({
         state.value.updatedAt = new Date().toLocaleString();
       }
     },
+    addOrder: (state, action) => {
+      state.value.orders.push(action.payload);
+    },
   },
 });
 
@@ -75,5 +79,6 @@ export const {
   clearCart,
   decreaseQuantity,
   increaseQuantity,
+  addOrder
 } = cartSlice.actions;
 export default cartSlice.reducer;

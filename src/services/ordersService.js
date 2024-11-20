@@ -4,6 +4,7 @@ import { base_url } from "../firebase/dataBase";
 export const orderApi = createApi({
     reducerPath: "ordersApi",
     baseQuery: fetchBaseQuery({ baseUrl: base_url }),
+    tagTypes: ["Orders"],
     endpoints: (builder) => ({
         postOrder: builder.mutation({
             query: ({...order})=>({
@@ -11,6 +12,7 @@ export const orderApi = createApi({
                 method: 'POST',
                 body: order,
             }),
+            invalidatesTags: ["Orders"],
         }),
         getOrders: builder.query({
             query: () => 'orders.json',
@@ -21,6 +23,7 @@ export const orderApi = createApi({
                 ...response[key],
               }));
             },
+            providesTags: ["Orders"],
           }),
         }),
       });

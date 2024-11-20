@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { StyleSheet, Text, View, FlatList, Modal, Pressable, Image } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import { useGetOrdersQuery } from '../services/ordersService';
 import { colors } from '../global/colors';
 import CardGeneral from '../components/CardGeneral';
-import { useGetOrdersQuery } from '../services/ordersService';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+
 
 const OrdersScreen = () => {
   const { data: orders, isLoading, isError } = useGetOrdersQuery();
@@ -30,6 +31,7 @@ const OrdersScreen = () => {
       hour12: false,
     };
 
+
     return (
       <CardGeneral style={styles.orderContainer}>
         <View style={styles.row}>
@@ -49,6 +51,7 @@ const OrdersScreen = () => {
 
   if (isLoading) return <Text style={styles.loadingText}>Cargando órdenes...</Text>;
   if (isError) return <Text style={styles.errorText}>Ha ocurrido un error al cargar las órdenes de compra, lo sentimos mucho 🙇‍♀️. Prueba nuevamente.</Text>;
+
 
   return (
     <View>
