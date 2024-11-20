@@ -7,6 +7,7 @@ import shopReducer from "../features/shop/shopSlice";
 import cartReducer from "../features/cart/cartSlice";
 import authReducer from "../features/auth/authSlice";
 
+
 export const store = configureStore({
   reducer: {
     shopReducer,
