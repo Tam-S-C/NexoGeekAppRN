@@ -7,7 +7,6 @@ import Search from '../components/Search';
 import { useSelector, useDispatch } from 'react-redux';
 import { setEventId } from '../features/shop/shopSlice';
 import { useGetEventsByCategoryQuery } from '../services/shopService';
-import { addItem } from '../features/cart/cartSlice';
 
 
 const EventsScreen = ({ navigation }) => {

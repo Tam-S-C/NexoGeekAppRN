@@ -6,6 +6,7 @@ export const authSlice = createSlice({
         value: {
             email: null,
             token: null,
+            localId: "",
             profilePicture: ""
         }
     },
@@ -13,10 +14,12 @@ export const authSlice = createSlice({
         setUser:(state,action)=>{
             state.value.email = action.payload.email
             state.value.token = action.payload.idToken
+            state.value.localId = action.payload.localId
         },
         clearUser: (state)=>{
             state.value.email = null
             state.value.token = null
+            state.value.localId = null
         },
         loadUserFromStorage: (state, action) => {
             state.value.email = action.payload.email;
