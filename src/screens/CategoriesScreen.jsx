@@ -1,6 +1,6 @@
 import { StyleSheet, Text, FlatList, Image, Pressable, ActivityIndicator } from 'react-native';
 import { colors } from '../global/colors.js';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setCategory } from '../features/shop/shopSlice.js';
 import { useGetCategoriesQuery } from '../services/shopService';
 import CardGeneral from '../components/CardGeneral.jsx';
@@ -10,6 +10,8 @@ const CategoriesScreen = ({ navigation }) => {
     const { data: categories, error, isLoading } = useGetCategoriesQuery()
 
     dispatch = useDispatch()
+
+    const nickName = useSelector(state => state.authReducer.value.nickName);
 
     const renderCategoryItem = ({ item, index }) => {
 
@@ -56,8 +58,13 @@ const CategoriesScreen = ({ navigation }) => {
                         :
                         <>
                             <Text style={styles.subtitle}>
-                            Bienvenid@ a la única App de Argentina de búsqueda y compra de tickets de eventos geek!
+                                Bienvenid@{' '}
+                                <Text style={styles.nickName}>
+                                    {nickName ? `${nickName}` : 'invitad@ '}
+                                </Text>
+                                {' '}a la única App de Argentina de búsqueda y compra de tickets de eventos geek!
                             </Text>
+
                             <FlatList
                                 data={categories}
                                 keyExtractor={item => item.id}
@@ -89,6 +96,9 @@ const styles = StyleSheet.create({
         marginHorizontal: 16,
         marginVertical: 8,
         padding: 24,
+    },
+    nickName:{
+        color: colors.fucsiaAcento
     },
     image: {
         width: 60,
