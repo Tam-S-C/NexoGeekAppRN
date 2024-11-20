@@ -1,11 +1,13 @@
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { colors } from '../global/colors';
 import { setProfilePicture } from '../features/auth/authSlice';
 import { usePutProfilePictureMutation } from '../services/userService';
 import { usePutNickNameMutation, usePutEdadMutation, usePutCiudadMutation } from '../services/userService';
 import { updateNickName, updateEdad, updateCiudad } from '../features/auth/authSlice'; 
+import { useGetNickNameQuery,useGetEdadQuery, useGetCiudadQuery } from '../services/userService';
+import { updateProfile } from '../features/auth/authSlice';
 import EditModal from '../components/EditModal';
 import CameraIcon from '../components/CameraIcon';
 import * as ImagePicker from 'expo-image-picker';
@@ -30,6 +32,22 @@ const ProfileScreen = () => {
 
     const [modalVisible, setModalVisible] = useState(false);
     const [editingField, setEditingField] = useState(null);
+
+    const { data: nickNameData } = useGetNickNameQuery(localId);
+    const { data: edadData } = useGetEdadQuery(localId);
+    const { data: ciudadData } = useGetCiudadQuery(localId);
+
+    useEffect(() => {
+        if (nickNameData || edadData || ciudadData) {
+          dispatch(
+            updateProfile({
+              nickName: nickNameData?.nickName || null,
+              edad: edadData?.edad || null,
+              ciudad: ciudadData?.ciudad || null,
+            })
+          );
+        }
+      }, [nickNameData, edadData, ciudadData, dispatch]);
 
     const [formData, setFormData] = useState({ nickName, edad, ciudad });
 

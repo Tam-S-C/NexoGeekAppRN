@@ -51,7 +51,10 @@ export const authSlice = createSlice({
       state.value.ciudad = action.payload;
     },
     updateProfile: (state, action) => {
-      state.value = { ...state.value, ...action.payload };
+      const { nickName, edad, ciudad } = action.payload;
+            state.value.nickName = nickName;
+            state.value.edad = edad;
+            state.value.ciudad = ciudad;
     },
   },
 });
@@ -63,7 +66,8 @@ export const {
   setProfilePicture, 
   updateNickName, 
   updateEdad, 
-  updateCiudad 
+  updateCiudad,
+  updateProfile, 
 } = authSlice.actions;
 
 export default authSlice.reducer;
