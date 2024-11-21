@@ -405,7 +405,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   trashAllEvents: {
-    marginTop: 12,
+    marginTop: 10,
     alignSelf: 'center',
   },
   confirmButton: {
@@ -416,7 +416,7 @@ const styles = StyleSheet.create({
     elevation: 4,
     marginHorizontal: 16,
     marginVertical: 12,
-    marginBottom: 16
+    marginBottom: 12
   },
   confirmButtonText: {
     color: colors.blanco,
