@@ -62,8 +62,32 @@
 
 * Stack de "ProfileNavigator: Perfil (ProfileScreen).
 
-Los screens últimos de screens sólo se pueden ver si se está registrado.
+(Los últimos 2 screens sólo se pueden ver si se está registrado.)
 
 * TabNavigator: maneja los stacks de Shop, Carrito, Órdenes, Favs y Perfil.
 
 * MainNavigator: Principal navegador, maneja la lógica de peguntar si hay usuario registrado, pasar a mostrar la TabNavigator o la AuthNavigator.
+
+
+------
+
+<br>
+
+| **Splash** | **Signup** | **Login** | **Home** | **Evento** | **Zoom a Foto** |
+|:--:|:--:|:--:|:--:|:--:|:--:|
+| ![Splash](https://i.postimg.cc/6q8rTTXT/Whats-App-Image-2024-11-21-at-01-23-03.jpg) | ![Signup](https://i.postimg.cc/9XkPKPd9/Whats-App-Image-2024-11-21-at-01-23-02-2.jpg) | ![Login](https://i.postimg.cc/7hjgzDH9/Whats-App-Image-2024-11-21-at-01-23-02-3.jpg) | ![Home](https://i.postimg.cc/fT07N3Cr/Whats-App-Image-2024-11-21-at-01-23-02-1.jpg) | ![Evento](https://i.postimg.cc/Pf03YnF0/Whats-App-Image-2024-11-21-at-01-22-59-1.jpg) | ![ZoomFoto](https://i.postimg.cc/qMnmGDPq/Whats-App-Image-2024-11-21-at-01-22-59.jpg) |
+
+<br>
+
+| **Carrito Vacío** | **Carrito** | **Modal** | **Checkout** | **Órdenes** | **Zoom a Órden** | 
+|:--:|:--:|:--:|:--:|:--:|:--:|
+![Carrito Vacío](https://i.postimg.cc/J7sYszKb/Whats-App-Image-2024-11-21-at-01-23-00.jpg) | ![Carrito](https://i.postimg.cc/wj8XT6bT/Whats-App-Image-2024-11-21-at-01-23-02.jpg) | ![Modal](https://i.postimg.cc/vmG5f0sJ/Whats-App-Image-2024-11-21-at-01-23-01-3.jpg) | ![Checkout](https://i.postimg.cc/mgYQP003/Whats-App-Image-2024-11-21-at-01-23-01-2.jpg) | ![ordenes](https://i.postimg.cc/bvLkT1Ys/Whats-App-Image-2024-11-21-at-01-23-01-1.jpg) | ![Zoom a Órden](https://i.postimg.cc/T15bfSVD/Whats-App-Image-2024-11-21-at-01-23-01.jpg) | 
+
+<br>
+
+
+| **Sin acceso** | **Perfil** | **Edit** | **Favs** | **ver** | **ver** | 
+|:--:|:--:|:--:|:--:|:--:|:--:|
+![Sin Acceso](https://i.postimg.cc/B66DwttN/Whats-App-Image-2024-11-21-at-01-23-00-3.jpg) | ![Perfil](https://i.postimg.cc/G25Y0ryR/Whats-App-Image-2024-11-21-at-01-23-00-2.jpg) | ![Edit](https://i.postimg.cc/nM8Dzk2w/Whats-App-Image-2024-11-21-at-01-23-00-1.jpg) | ![Favs](https://i.postimg.cc/nM8Dzk2w/Whats-App-Image-2024-11-21-at-01-23-00-1.jpg) | ![ver](https://i.postimg.cc/nM8Dzk2w/Whats-App-Image-2024-11-21-at-01-23-00-1.jpg) | ![ver](https://i.postimg.cc/nM8Dzk2w/Whats-App-Image-2024-11-21-at-01-23-00-1.jpg) | 
+
+<br>
