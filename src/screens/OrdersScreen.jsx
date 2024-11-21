@@ -2,14 +2,29 @@ import { useState } from 'react';
 import { StyleSheet, Text, View, FlatList, Modal, Pressable, Image } from 'react-native';
 import { useGetOrdersQuery } from '../services/ordersService';
 import { colors } from '../global/colors';
+import { useSelector } from 'react-redux';
 import CardGeneral from '../components/CardGeneral';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 
 const OrdersScreen = () => {
+
+  const token = useSelector((state) => state.authReducer.value.token);
   const { data: orders, isLoading, isError } = useGetOrdersQuery();
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+
+
+  if (!token) {
+    return (
+      <>
+        <View>
+          <Text style={styles.errorText}>Esta sección es solo para usuarios registrados. Reinicia la app para registrarte y poder usar esta sección. Gracias.</Text>
+        </View>
+
+      </>
+    );
+  }
 
   const openModal = (order) => {
     setSelectedOrder(order);

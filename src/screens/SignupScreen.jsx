@@ -35,7 +35,6 @@ const SignupScreen = ({ navigation }) => {
     if (result.status === 'rejected') {
         setErrorAddUser('No se pudo agregar el usuario. Prueba nuevamente o ve a iniciar sesión si ya estabas registrado con ese mail.');
     } else if (result.status === 'fulfilled') {
-        console.log('Usuario agregado con éxito', result.data);
         const { idToken, email } = result.data;
         dispatch(
             setUser({

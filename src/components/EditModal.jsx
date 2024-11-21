@@ -8,6 +8,7 @@ const EditModal = ({ visible, onClose, onSave, initialValue, field }) => {
     const handleSave = () => {
         onSave(value);
         onClose();
+        setValue('')
     };
 
     return (
