@@ -1,12 +1,11 @@
 import { useFonts } from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
-import MainNavigator from "./src/navigation/MainNavigator";
 import { enableScreens } from "react-native-screens";
-
 import { store } from "./src/app/store";
 import { Provider } from "react-redux";
+import MainNavigator from "./src/navigation/MainNavigator";
+import * as SplashScreen from "expo-splash-screen";
 
 
 enableScreens();
