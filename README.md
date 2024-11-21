@@ -18,16 +18,55 @@
 ---
 
 > [!IMPORTANT]
-> Herramientas Utilizadas:
+> Herramientas Utilizadas / Dependencias:
 
-* Redux =>
+* expo/metro-runtime => Proporciona un entorno para el bundling de aplicaciones en Expo.
 
-* Firebase => RealTime DataBase / Authentication
+* react-native-async-storage/async-storage: Permite almacenar datos de manera persistente en el dispositivo.
 
-* Features => Uso de Cámara / ...
+* react-navigation/bottom-tabs => Para realizar la barra de navegación inferior.
 
-* YUP => para validaciones
+* react-navigation/native => Proporciona las funcionalidades básicas de navegación.
 
+* react-navigation/native-stack: Para la implementación de una pila/stack de navegación.
+
+* reduxjs/toolkit: Simplifica el uso de Redux para la gestión del estado de la aplicación.
+
+* expo: Marco de trabajo para crear aplicaciones móviles usando React Native con herramientas de Expo.
+
+* expo-font: Para cargar fuentes personalizadas, "PressStart2P".
+
+* expo-linear-gradient: Componente para crear degradados lineales, en Login, Signup y el Header.
+
+* expo-splash-screen: Controla la pantalla de inicio (splash screen).
+
+* expo-status-bar: Maneja la barra de estado, (modo: light)
+
+* firebase: SDK de Firebase para integrar funcionalidades como autenticación y bases de datos con RealTime DataBase.
+  
+* react: Biblioteca principal de JavaScript para construir la interface de usuario.
+
+* react-dom: Proporciona funcionalidades para renderizar componentes de React en el DOM (para web).
+
+* react-native: Framework principal para desarrollar la app móvile nativa con React.
+
+* react-native-safe-area-context: Proporciona el contexto para gestionar las áreas seguras en pantallas de dispositivos.
+
+* react-native-screens: Optimiza la navegación mediante un manejo eficiente de las pantallas.
+
+* react-native-vector-icons: Ofrece iconos vectoriales, utilizados: FontAwesome5
+
+* react-native-web: Permite usar componentes de React Native en aplicaciones web.
+
+* react-redux: Conecta Redux con React para gestionar el estado de la aplicación.
+
+* yup: Biblioteca de validación de esquemas para JavaScript.
+
+* expo-image-picker: Permite seleccionar imágenes y videos desde el dispositivo.
+
+* Redux Toolkit + RTK Query + Solititudes HTTP
+
+<br>
 
 ---
 
@@ -68,8 +107,11 @@
 
 * MainNavigator: Principal navegador, maneja la lógica de peguntar si hay usuario registrado, pasar a mostrar la TabNavigator o la AuthNavigator.
 
+<br>
 
 ------
+
+<h4>CAPTURAS</h4>
 
 <br>
 
@@ -91,3 +133,43 @@
 ![Sin Acceso](https://i.postimg.cc/B66DwttN/Whats-App-Image-2024-11-21-at-01-23-00-3.jpg) | ![Perfil](https://i.postimg.cc/G25Y0ryR/Whats-App-Image-2024-11-21-at-01-23-00-2.jpg) | ![Edit](https://i.postimg.cc/nM8Dzk2w/Whats-App-Image-2024-11-21-at-01-23-00-1.jpg) | ![Favs](https://i.postimg.cc/nM8Dzk2w/Whats-App-Image-2024-11-21-at-01-23-00-1.jpg) | ![ver](https://i.postimg.cc/nM8Dzk2w/Whats-App-Image-2024-11-21-at-01-23-00-1.jpg) | ![ver](https://i.postimg.cc/nM8Dzk2w/Whats-App-Image-2024-11-21-at-01-23-00-1.jpg) | 
 
 <br>
+
+------
+
+> [!IMPORTANT]
+> ¿CÓMO INSTALAR LA APP?
+
+1. Instalar Node.js: https://nodejs.org/en/download/package-manager
+
+2. En la consola instalar Expo CLI con:
+```
+npm install -g expo-cli
+```
+
+3. Clonar el repositorio: 
+```
+git clone https://github.com/Tam-S-C/NexoGeekAppRN.git
+```
+
+4. Instalar dependencias en la carpeta del proyecto:
+```
+npm install
+```
+
+5. Ejecutar el proyecto con:
+```
+npx expo start
+```
+
+Esto abrirá un código QR y las opciones para emuladores.
+
+* Desde un celular:
+Instalar Expo Go (versión 51): Descarga e instala la app Expo Go desde la App Store (iOS) o Google Play (Android).
+Escanea el qr y listo!
+
+* Usar un emulador:
+Descargar e instalar Android Studio, inicia el emulador desde la interfaz de Android Studio y seleccionar la opción "Run on Android device/emulator"/ a en consola.
+
+<br>
+
+
