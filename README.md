@@ -2,7 +2,7 @@
 
 <h3>App para la compra de tickets de eventos del mundo Geek</h3>
 
-<h3>Realizada con:  <img src="https://img.shields.io/badge/ReactNative-61DAFB?logo=React&logoColor=black&style=flat"/> </h3>
+<h3>Realizada con:  <img src="https://img.shields.io/badge/ReactNative-61DAFB?logo=React&logoColor=black&style=flat" width="120" /> </h3>
 
 
 ---
