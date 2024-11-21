@@ -38,15 +38,15 @@
 
 - [x] Carpeta 'Firebase' => contiene las conecciones con la base de datos.
 
-- [x] Carpeta 'Features' => contiene las 'porciones' o 'slices' que manejan globalmente con Redux la data de cada ítem de la app.
+- [x] Carpeta 'Components' => contiene la creación de componentes reutilizables en toda la app para no generar código repetido, como el estilo de los Modals, el Header, Search, CameraIcon y las Cards.
 
-- [x] Carpeta 'Components' => contiene la creación de componentes reutilizables en toda la app para no generar código repetido, como el estilo de los Modals, el Header y las Cards.
+- [x] Carpeta 'App' => contiene 'store.js' que es el contenedor global del estado de la app utilizando Redux Toolkit en combinación con RTK Query para manejar la lógica relacionada con las API. Su funcionalidad principal es combinar todos los reducers y middleware para que el estado global sea accesible.
 
-- [x] Carpeta 'App' => contiene la 'store.js'
+- [x] Archivos 'Services' => en Redux Toolkit permiten definir y gestionar endpoints de APIs dentro de la app (consultas y mutations). Automáticamente manejan solicitudes HTTP y el estado relacionado (carga, éxito, error), del user, shop y órdenes de compra.
+
+- [x] Carpeta 'Features' => contiene las 'porciones' o 'slices' que poseen las acciones para establecer, cargar/actualizar y borrar información del shop, del carrito y del usuario.
 
 - [x] Archivos 'Validations' => Se utilizó la librería Yup para la validación de los formularios de SigupScreen.
-
-- [x] Archivos 'Services' => contiene las consultas para gestionar los datos del usuario, perfil, login, eventos, y órdenes de compra.
 
 - [x] Carpeta 'Screens' y 'Navigator' => Con todas las vistas y stacks de cada pantalla: 
 
