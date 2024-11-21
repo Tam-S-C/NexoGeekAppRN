@@ -1,7 +1,9 @@
-<h1>NEXO GEEK</h1>
+<h1><img src="https://img.shields.io/badge/NEXO GEEK-32286E?logo=null&logoColor=black&style=flat" width="240" height="60"/></h1>
+
 <h3>App para la compra de tickets de eventos del mundo Geek</h3>
 
-<h3>Realizada integramente con React Native</h3>
+<h3>Realizada con:  <img src="https://img.shields.io/badge/ReactNative-61DAFB?logo=React&logoColor=black&style=flat"/> </h3>
+
 
 ---
 
