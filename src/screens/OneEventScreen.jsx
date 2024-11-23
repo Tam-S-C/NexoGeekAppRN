@@ -5,18 +5,24 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addItem } from '../features/cart/cartSlice';
 import { useGetEventQuery } from '../services/shopService';
 import { clearUser } from '../features/auth/authSlice';
+import { useAddFavMutation, useRemoveFavMutation } from "../services/favsService";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Toast from 'react-native-toast-message';
 
 const OneEventScreen = ({ navigation }) => {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const eventId = useSelector(state => state.shopReducer.value.eventId);
   const token = useSelector(state => state.authReducer.value.token);
 
   const { data: eventFound, error, isLoading } = useGetEventQuery(eventId)
+  
+  const [addFav] = useAddFavMutation();
+  const [removeFav] = useRemoveFavMutation();
 
   const dispatch = useDispatch();
 
@@ -33,6 +39,49 @@ const OneEventScreen = ({ navigation }) => {
       navigation.navigate('Cart');
     }, 1300);
   };
+
+
+  const handleAddToFavs = async () => {
+    if (!token) {
+      Toast.show({
+        type: 'success',
+        text1: 'Debes iniciar sesión para poder guardar los eventos como Favoritos',
+        visibilityTime: 2000,
+      });
+      return;
+    }
+    try {
+      if (isFavorite) {
+        await removeFav(eventFound.id); 
+        setIsFavorite(false); 
+        Toast.show({
+          type: 'success',
+          text1: '¡El evento ha sido removido de tus Favoritos!',
+          visibilityTime: 2000,
+        });
+      } else {
+        await addFav({
+          id: eventFound.id,
+          title: eventFound.title,
+          mainImage: eventFound.mainImage,
+          dateAndPlace: eventFound.dateAndPlace,
+        });
+        setIsFavorite(true); 
+        Toast.show({
+          type: 'success',
+          text1: '¡Se ha guardado el evento en la lista de tus Favoritos!',
+          visibilityTime: 2000,
+        });
+      }
+    } catch (error) {
+      Toast.show({
+        type: 'error',
+        text1: 'Hubo un error al guardar el evento, prueba nuevamente más tarde.',
+        visibilityTime: 2000,
+      });
+    }
+  };
+
 
   const handleImagePress = (imageUri) => {
     setSelectedImage(imageUri);
@@ -89,8 +138,19 @@ const OneEventScreen = ({ navigation }) => {
                 </Pressable>
               </ScrollView>
 
-
+            <View style={styles.descriptionFavContainer}>
               <Text style={styles.eventDescription}>{eventFound.description}</Text>
+              
+              <Pressable onPress={handleAddToFavs}>
+              <FontAwesome
+                name={isFavorite ? "heart" : "heart-o"}                 
+                size={32}
+                color={isFavorite ? colors.fucsiaAcento : colors.violetaPrimario}
+                style={styles.favIcon}
+              />
+            </Pressable>
+
+            </View>
 
               <View style={styles.tagsStyleDirection}>
                 {
@@ -137,14 +197,14 @@ const OneEventScreen = ({ navigation }) => {
                     onPress={handleAddToCart}
                   >
                     <Text style={styles.addToCardText}>
-                      {token ? 'Agregar al Carrito' : 'Iniciar Sesión'}
-                      <FontAwesome name="ticket" size={24} />
+                      {token ? 'Agregar al Carrito ' : 'Iniciar Sesión '}
+                      <FontAwesome name="ticket" size={24}/>
                     </Text>
                   </Pressable>
                   :
                   <Pressable style={({ pressed }) => [{ backgroundColor: pressed ? colors.fucsiaSombra : colors.fucsiaAcento }, styles.addToCardButton2]}
                     onPress={null}>
-                    <Text style={styles.addToCardText2}>Evento Sin Stock</Text>
+                    <Text style={styles.addToCardText2}>Evento Sin Stock </Text>
                   </Pressable>
               }
 
@@ -257,9 +317,19 @@ const styles = StyleSheet.create({
   },
   eventDescription: {
     color: colors.violetaPrimario,
-    marginHorizontal: 16,
     marginTop: 16,
     fontSize: 16
+  },
+  favIcon: {
+    marginRight: 24,
+    marginTop: 16
+  },
+  descriptionFavContainer:{
+    flexDirection: 'row',
+    gap: 16,
+    justifyContent: 'space-between',
+    marginLeft: 16,
+    marginBottom: 16
   },
   priceTextStyle: {
     marginLeft: 16,

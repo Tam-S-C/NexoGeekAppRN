@@ -3,6 +3,7 @@ import { shopApi } from "../services/shopService";
 import { orderApi } from "../services/ordersService";
 import { authApi } from "../services/authService";
 import { userApi } from "../services/userService";
+import { favsApi } from "../services/favsService";
 import shopReducer from "../features/shop/shopSlice";
 import cartReducer from "../features/cart/cartSlice";
 import authReducer from "../features/auth/authSlice";
@@ -17,6 +18,7 @@ export const store = configureStore({
     [orderApi.reducerPath]: orderApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
+    [favsApi.reducerPath]: favsApi.reducer,
   },
 
   middleware: (getDefaultMiddleware) =>
@@ -25,4 +27,5 @@ export const store = configureStore({
       .concat(orderApi.middleware)
       .concat(authApi.middleware)
       .concat(userApi.middleware)
+      .concat(favsApi.middleware),
 });

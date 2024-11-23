@@ -219,7 +219,7 @@ const CartScreen = ({ navigation }) => {
 
         </>
       ) : (
-        <View style={styles.cartEmpty}>
+        <View>
           <Text style={styles.errorText}>Aún no hay eventos en tu carrito</Text>
         </View>
       )}
