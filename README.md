@@ -18,13 +18,15 @@
 ---
 
 > [!IMPORTANT]
-> Herramientas Utilizadas / Dependencias:
+> Herramientas Utilizadas / Dependencias / Librerías:
+
+* react-native-toast-message => Para la visualización de un Toast/mensaje en la creación exitosa del usuario en el Signup.
 
 * expo/metro-runtime => Proporciona un entorno para el bundling de aplicaciones en Expo.
 
 * react-native-async-storage/async-storage: Permite almacenar datos de manera persistente en el dispositivo.
 
-* react-navigation/bottom-tabs => Para realizar la barra de navegación inferior.
+* react-navigation/bottom-tabs => Para realizar la barra de navegación inferior / la TabNavigation.
 
 * react-navigation/native => Proporciona las funcionalidades básicas de navegación.
 
@@ -34,7 +36,7 @@
 
 * expo: Marco de trabajo para crear aplicaciones móviles usando React Native con herramientas de Expo.
 
-* expo-font: Para cargar fuentes personalizadas, "PressStart2P".
+* expo-font: Para cargar fuentes personalizadas, como la usada en los títulos: "PressStart2P", en el resto se utilizó "Roboto" la cual, según MaterialDesign, es la más aconsejada para apps Android.
 
 * expo-linear-gradient: Componente para crear degradados lineales, en Login, Signup y el Header.
 
@@ -42,7 +44,7 @@
 
 * expo-status-bar: Maneja la barra de estado, (modo: light)
 
-* firebase: SDK de Firebase para integrar funcionalidades como autenticación y bases de datos con RealTime DataBase.
+* firebase: SDK de Firebase para integrar funcionalidades como autenticación y bases de datos con RealTime DataBase para las categorías, eventos, usuarios.
   
 * react: Biblioteca principal de JavaScript para construir la interface de usuario.
 
@@ -54,17 +56,19 @@
 
 * react-native-screens: Optimiza la navegación mediante un manejo eficiente de las pantallas.
 
-* react-native-vector-icons: Ofrece iconos vectoriales, utilizados: FontAwesome5
+* react-native-vector-icons: Ofrece íconos vectoriales, utilizados: 'FontAwesome5' y 'FontAwesome'.
 
 * react-native-web: Permite usar componentes de React Native en aplicaciones web.
 
 * react-redux: Conecta Redux con React para gestionar el estado de la aplicación.
 
-* yup: Biblioteca de validación de esquemas para JavaScript.
+* yup: Biblioteca de validación de esquemas usado para las validaciones en los inputs del registro de usuarios nuevos.
 
 * expo-image-picker: Permite seleccionar imágenes y videos desde el dispositivo.
 
 * Redux Toolkit + RTK Query + Solititudes HTTP
+
+* Iconos de las categorías obtenidos de: <a href="https://www.flaticon.es/iconos-gratis/comercio-y-compras" title="comercio y compras iconos">Comercio y compras iconos creados por Freepik - Flaticon</a>
 
 <br>
 
@@ -85,9 +89,15 @@
 
 - [x] Carpeta 'Features' => contiene las 'porciones' o 'slices' que poseen las acciones para establecer, cargar/actualizar y borrar información del shop, del carrito y del usuario.
 
-- [x] Archivos 'Validations' => Se utilizó la librería Yup para la validación de los formularios de SigupScreen.
+- [x] Archivos 'Validations' => Se utilizó la librería Yup para la validación de los formularios de SignupScreen.
 
 - [x] Carpeta 'Screens' y 'Navigator' => Con todas las vistas y stacks de cada pantalla: 
+
+* Stacks de "AuthNavigator: SignupScreen y LoginScreen.
+
+* TabNavigator: maneja los stacks de Shop, Carrito, Órdenes, Favs y Perfil.
+
+* MainNavigator: Principal navegador, maneja la lógica de peguntar si hay usuario registrado, pasar a mostrar la TabNavigator o la AuthNavigator.
 
 * Stacks de "ShopNavigator": Categorías(CategoriesScreen), Lista de Eventos(EventsScreen), Vista detalle del evento elegido (OneEventScreen).
 
@@ -95,17 +105,12 @@
 
 * Stack de "OrdersNavigator": Mis órdenes de compra (OrdersScreen).
 
-* Stacks de "AuthNavigator: SignupScreen y LoginScreen.
-
 * Stack de "FavNavigator": Eventos favoritos (FavsScreen).
 
 * Stack de "ProfileNavigator: Perfil (ProfileScreen).
 
-(Los últimos 2 screens sólo se pueden ver si se está registrado.)
+> (Los últimos 3 screens, y en 'OneEventScreen' sólo se pueden ver si se está registrado.)
 
-* TabNavigator: maneja los stacks de Shop, Carrito, Órdenes, Favs y Perfil.
-
-* MainNavigator: Principal navegador, maneja la lógica de peguntar si hay usuario registrado, pasar a mostrar la TabNavigator o la AuthNavigator.
 
 <br>
 
@@ -128,9 +133,9 @@
 <br>
 
 
-| **Sin acceso** | **Perfil** | **Edit** | **Favs** | **ver** | **ver** | 
+| **Sin acceso** | **Perfil** | **Edit** | **Favs** | **ver** | **Toast** | 
 |:--:|:--:|:--:|:--:|:--:|:--:|
-![Sin Acceso](https://i.postimg.cc/B66DwttN/Whats-App-Image-2024-11-21-at-01-23-00-3.jpg) | ![Perfil](https://i.postimg.cc/G25Y0ryR/Whats-App-Image-2024-11-21-at-01-23-00-2.jpg) | ![Edit](https://i.postimg.cc/nM8Dzk2w/Whats-App-Image-2024-11-21-at-01-23-00-1.jpg) | ![Favs](https://i.postimg.cc/nM8Dzk2w/Whats-App-Image-2024-11-21-at-01-23-00-1.jpg) | ![ver](https://i.postimg.cc/nM8Dzk2w/Whats-App-Image-2024-11-21-at-01-23-00-1.jpg) | ![ver](https://i.postimg.cc/nM8Dzk2w/Whats-App-Image-2024-11-21-at-01-23-00-1.jpg) | 
+![Sin Acceso](https://i.postimg.cc/B66DwttN/Whats-App-Image-2024-11-21-at-01-23-00-3.jpg) | ![Perfil](https://i.postimg.cc/G25Y0ryR/Whats-App-Image-2024-11-21-at-01-23-00-2.jpg) | ![Edit](https://i.postimg.cc/nM8Dzk2w/Whats-App-Image-2024-11-21-at-01-23-00-1.jpg) | ![Favs](https://i.postimg.cc/nM8Dzk2w/Whats-App-Image-2024-11-21-at-01-23-00-1.jpg) | ![ver](https://i.postimg.cc/nM8Dzk2w/Whats-App-Image-2024-11-21-at-01-23-00-1.jpg) | ![Toast](https://i.postimg.cc/7LxDnWHk/Whats-App-Image-2024-11-23-at-03-25-33.jpg) | 
 
 <br>
 
@@ -164,11 +169,11 @@ npx expo start
 Esto abrirá un código QR y las opciones para emuladores.
 
 * Desde un celular:
-Instalar Expo Go (versión 51): Descarga e instala la app Expo Go desde la App Store (iOS) o Google Play (Android).
-Escanea el qr y listo!
+Instalar Expo Go (versión 51): Descargar e instalar la app Expo Go desde la App Store (iOS) o Google Play (Android).
+Escanea el QR y listo!
 
 * Usar un emulador:
-Descargar e instalar Android Studio, inicia el emulador desde la interfaz de Android Studio y seleccionar la opción "Run on Android device/emulator"/ a en consola.
+Descargar e instalar Android Studio, iniciar el emulador desde la interfaz de Android Studio y seleccionar la opción "Run on Android device/emulator" o "a" en consola.
 
 <br>
 
@@ -177,7 +182,7 @@ Descargar e instalar Android Studio, inicia el emulador desde la interfaz de And
 <br>
 
 <a href="https://postimg.cc/DmZp57LX">
-   <img src="https://i.postimg.cc/DfdVvZzB/gracias.png" width="800" />
+   <img src="https://i.postimg.cc/DfdVvZzB/gracias.png" width="810" />
 </a>
 
 
