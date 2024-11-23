@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, Pressable, Dimensions, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Pressable, Dimensions, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { colors } from '../global/colors';
 import { useState, useEffect } from 'react';
@@ -6,6 +6,7 @@ import { useSignupMutation } from '../services/authService';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../features/auth/authSlice';
 import { validationSchema } from '../validations/validationSchema';
+import Toast from 'react-native-toast-message';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 const textInputWidth = Dimensions.get('window').width * 0.85;
@@ -16,6 +17,8 @@ const SignupScreen = ({ navigation }) => {
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -30,25 +33,26 @@ const SignupScreen = ({ navigation }) => {
 
   const dispatch = useDispatch()
 
+
   useEffect(() => {
     if (result.status === 'rejected') {
+      setIsLoading(false);
       setErrorAddUser('No se pudo agregar el usuario. Prueba nuevamente o ve a iniciar sesión si ya estabas registrado con ese mail.');
     } else if (result.status === 'fulfilled') {
-      Alert.alert(
-        "¡Registro exitoso!",
-        "Tu cuenta ha sido creada. Por favor, inicia sesión.",
-        [
-          { 
-            text: "OK", 
-            onPress: () => navigation.replace('LoginScreen')
-          }
-        ]
-      );
+      setIsLoading(false);
+      Toast.show({
+        type: 'success',
+        text1: '¡Registro exitoso!',
+        text2: 'Tu cuenta ha sido creada. Por favor, inicia sesión.',
+        visibilityTime: 2000,
+        onHide: () => navigation.replace('LoginScreen'),
+      });
     }
   }, [result, navigation]);
   
 
-  const onsubmit = () => {
+  const onsubmit = async () => {
+    setIsLoading(true);
     try {
         validationSchema.validateSync({ email, password, confirmPassword });
         setErrorEmail("");
@@ -56,6 +60,7 @@ const SignupScreen = ({ navigation }) => {
         setErrorConfirmPassword("");
         triggerSignup({ email, password });
     } catch (error) {
+      setIsLoading(false);
         switch (error.path) {
             case "email":
                 setErrorEmail(error.message);
@@ -139,8 +144,13 @@ const SignupScreen = ({ navigation }) => {
           styles.buttons,
           { backgroundColor: pressed ? colors.violetaSombra : colors.violetaPrimario }
         ]}
+        disabled={isLoading}
       >
-        <Text style={styles.buttonText}>CREAR USUARIO</Text>
+        { isLoading ? ( 
+          <ActivityIndicator size="small" color={colors.blanco} />
+        ) : (
+          <Text style={styles.buttonText}>CREAR USUARIO</Text>
+        )}
       </Pressable>
 
       {errorAddUser && <Text style={styles.error}>{errorAddUser}</Text>}
