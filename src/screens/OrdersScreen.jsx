@@ -177,6 +177,7 @@ const styles = StyleSheet.create({
     width: 140,
     height: 140,
     marginBottom: 20,
+    borderRadius: 16
   },
   modalTitle: {
     fontSize: 16,

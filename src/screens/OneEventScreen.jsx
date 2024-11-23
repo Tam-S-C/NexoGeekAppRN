@@ -184,9 +184,9 @@ const OneEventScreen = ({ navigation }) => {
                 </Pressable>
 
                 <Pressable onPress={handleMapPress}>
-                  <FontAwesome
-                    name="map-marker"
-                    size={32}
+                  <Icon
+                    name="map-marked-alt"
+                    size={31}
                     color={colors.violetaPrimario}
                     style={styles.mapIcon}
                   />
@@ -399,17 +399,17 @@ const styles = StyleSheet.create({
   eventDescription: {
     color: colors.violetaPrimario,
     fontSize: 16,
-    width: '66%'
+    width: '66%',
   },
   favIcon: {
     marginRight: 4,
-    marginTop: 16
+    marginTop: 4
   },
   descriptionFavContainer: {
     flexDirection: 'row',
     gap: 4,
     justifyContent: 'space-between',
-    marginLeft: 8,
+    marginLeft: 16,
   },
   priceTextStyle: {
     marginLeft: 16,
@@ -458,7 +458,7 @@ const styles = StyleSheet.create({
   },
   dateStyle: {
     color: colors.violetaPrimario,
-    marginLeft: 2,
+    marginLeft: 16,
     marginTop: 2,
   },
   dateTextStyle: {
@@ -466,9 +466,6 @@ const styles = StyleSheet.create({
     color: colors.violetaPrimario,
     fontWeight: 'bold',
     fontSize: 16,
-  },
-  dateContainer: {
-    flexDirection: 'row'
   },
   tagsStyle: {
     alignItems: 'center',
@@ -480,13 +477,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 16,
     marginLeft: 16,
-    marginVertical: 8,
+    marginVertical: 6,
   },
   scrollImage: {
-    width: 180,
-    height: 180,
+    width: 200,
+    height: 190,
     marginHorizontal: 16,
     borderRadius: 60,
+    marginTop: 12,
   },
 
   //Modal
@@ -509,7 +507,7 @@ const styles = StyleSheet.create({
   map: {
     width: '100%',
     height: '90%',
-    borderRadius: 15,
+    borderRadius: 16,
   },
   closeMapButton: {
     marginTop: 10,
@@ -525,8 +523,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   mapIcon: {
-    marginRight: 24,
-    marginTop: 16
+    marginRight: 16,
+    marginTop: 4
   },
 
   modalContainer: {

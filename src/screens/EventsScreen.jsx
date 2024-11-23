@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto',
     fontSize: 14,
     marginTop: 2,
-    marginBottom: 2
+    marginBottom: 4
   },
   priceStyle: {
     color: colors.violetaPrimario,
