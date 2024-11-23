@@ -26,9 +26,9 @@ const FavsScreen = ({ navigation }) => {
   };
 
   
-  const handleRemoveFav = async (favId) => {
+  const handleRemoveFav = async (id) => {
     try {
-      await removeFavMutation(favId);
+      await removeFavMutation(id).unwrap();
       Toast.show({
         type: 'success',
         text1: '¡Evento eliminado de favoritos con éxito!',
@@ -36,6 +36,7 @@ const FavsScreen = ({ navigation }) => {
       });
       refetch();
     } catch (error) {
+      console.error("Error removing favorite:", error);
       Toast.show({
         type: 'error',
         text1: 'Hubo un error al eliminar el favorito.',
@@ -43,7 +44,6 @@ const FavsScreen = ({ navigation }) => {
       });
     }
   };
-
 
 
   const renderFavItem = ({ item }) => (
@@ -57,7 +57,7 @@ const FavsScreen = ({ navigation }) => {
           <Text>{item.dateAndPlace}</Text>
         </View>
         <Pressable onPress={() => handleRemoveFav(item.id)} style={styles.removeFavButton}>
-          <Icon name="trash" size={24} color={colors.fucsiaAcento} />
+          <Icon name="trash" size={28} color={colors.fucsiaAcento} />
         </Pressable>
       </CardGeneral>
     </Pressable>
@@ -71,9 +71,11 @@ const FavsScreen = ({ navigation }) => {
 
   if (!token) {
     return (
-      <>
+      <View style={styles.mainContainer}>
         <View style={styles.errorContainer}>
-          <Text style={styles.errorText}>Esta sección es solo para usuarios registrados. Inicia sesión para poder usar esta sección. Gracias.</Text>
+          <Text style={styles.errorText}>
+            Esta sección es solo para usuarios registrados. Inicia sesión para poder usar esta sección. Gracias.
+          </Text>
         </View>
 
         <Pressable
@@ -83,137 +85,125 @@ const FavsScreen = ({ navigation }) => {
           ]}
           onPress={handleLoginRedirect}
         >
-          <Text style={styles.errorText}> Volver al Login </Text>
+          <Text style={styles.errorText}>Volver al Login</Text>
         </Pressable>
-      </>
+      </View>
     );
   }
 
-  if (isLoading) return <Text style={styles.loadingText}>Cargando favoritos...</Text>;
-  if (isError) return <Text style={styles.errorText}>Error al cargar favoritos. Inténtalo nuevamente.</Text>;
+  if (isLoading) return (
+    <View style={styles.mainContainer}>
+      <Text style={styles.loadingText}>Cargando favoritos...</Text>
+    </View>
+  );
+  
+  if (isError) return (
+    <View style={styles.mainContainer}>
+      <Text style={styles.errorText}>Error al cargar favoritos. Inténtalo nuevamente.</Text>
+    </View>
+  );
 
   return (
-    <>
-      <View style={styles.container2}>
-        <Text style={styles.cartScreenTitle}>Mis Eventos Favs:</Text>
-      </View>
-
-      <View style={styles.container2}>
+    <View style={styles.mainContainer}>
+      <Text style={styles.screenTitle}>Mis Eventos Favs:</Text>
+      
       {favs.length === 0 ? (
-        <View>
-        <Text style={styles.errorText2}>Aún no hay eventos favoritos.</Text>
-      </View>
+        <View style={styles.emptyContainer}>
+          <Text style={styles.emptyText}>Aún no hay eventos favoritos.</Text>
+        </View>
       ) : (
-        <View style={styles.container}>
         <FlatList
-          contentContainerStyle={styles.flatListContainer}
+          contentContainerStyle={styles.listContainer}
           data={uniqueFavs}
           keyExtractor={(item) => item.id.toString()}
           renderItem={renderFavItem}
         />
-        </View>
       )}
     </View>
-    </>
   );
 };
 
-export default FavsScreen;
-
 const styles = StyleSheet.create({
-
-  flatListContainer: {
-    paddingBottom: 20,
-  },
-  container: {
+  mainContainer: {
     flex: 1,
-    padding: 16,
-    marginTop:-280
-  },
-  container2: {
-    flex: 1,
-    padding: 16,
-  },
-  cartScreenTitle: {
-    fontFamily: 'PressStart',
-    color: colors.violetaPrimario,
-    fontSize: 16,
-    marginLeft: 4,
-    marginTop: 4
-  },
-  errorContainer: {
-    backgroundColor: colors.violetaPrimario,
-    borderRadius: 16,
-    padding: 24,
-    marginHorizontal: 16,
-    marginTop: 64,
-    textAlign: 'center'
-  },
-  errorText: {
-    fontSize: 18,
-    color: colors.blanco,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    backgroundColor: colors.white,
     paddingHorizontal: 16,
   },
-  btnContainer: {
-    borderRadius: 16,
-    padding: 16,
-    marginVertical: 24,
-    marginHorizontal: 80
-  },
-  favItem: {
-    padding: 12,
-    backgroundColor: colors.violetaSecundario,
-    borderRadius: 8,
-    marginBottom: 8,
-  },
-  favTitle: {
-    color: colors.blanco,
+  screenTitle: {
     fontSize: 16,
-  },
-  loadingText: {
-    textAlign: "center",
-    marginTop: 16,
+    fontFamily: 'PressStart',
     color: colors.violetaPrimario,
+    marginVertical: 16,
+  },
+  listContainer: {
+    flexGrow: 1, 
+    paddingBottom: 16,
   },
   eventContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 12,
     marginVertical: 8,
-    borderRadius: 8,
     backgroundColor: colors.violetaSecundario,
+    borderRadius: 16,
+    shadowColor: colors.violetaSombra,
+    shadowOpacity: 0.25,
+    shadowRadius: 16,
+    elevation: 4,
   },
   eventImage: {
-    width: 96,
-    height: 96,
+    width: 80,
+    height: 80,
     borderRadius: 8,
+    marginRight: 4
   },
   eventDescription: {
     flex: 1,
-    paddingHorizontal: 16,
-    justifyContent: "center",
+    marginLeft: 12,
   },
   titleStyle: {
-    fontSize: 16,
-    fontWeight: "bold",
+    fontSize: 12,
+    fontFamily: 'PressStart',
+    marginBottom: 4,
     color: colors.violetaPrimario,
   },
   removeFavButton: {
-    justifyContent: "center",
-    alignItems: "center",
-    marginRight: 8
+    padding: 8,
+    marginRight: 4
   },
-  errorText2: {
-    fontSize: 18,
-    color: colors.blanco,
-    fontWeight: 'bold',
-    backgroundColor: colors.violetaPrimario,
-    borderRadius: 16,
-    padding: 24,
-    marginVertical: -260,
-    textAlign: 'center'
+  errorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 20,
   },
-
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  errorText: {
+    textAlign: 'center',
+    fontSize: 16,
+    color: colors.violetaPrimario,
+    marginBottom: 20,
+  },
+  emptyText: {
+    fontSize: 16,
+    color: colors.violetaPrimario,
+    textAlign: 'center',
+  },
+  loadingText: {
+    textAlign: 'center',
+    fontSize: 16,
+    color: colors.violetaPrimario,
+  },
+  btnContainer: {
+    padding: 12,
+    borderRadius: 8,
+    marginHorizontal: 20,
+    marginBottom: 20,
+  },
 });
+
+export default FavsScreen;

@@ -21,11 +21,10 @@ const OneEventScreen = ({ navigation }) => {
   const favs = useSelector(state => state.favsReducer.value);
   const { data: eventFound, error, isLoading } = useGetEventQuery(eventId)
   
-  const [addFav] = useAddFavMutation();
-  const [removeFav] = useRemoveFavMutation();
-
   const dispatch = useDispatch();
 
+  const [addFav] = useAddFavMutation();
+  const [removeFav] = useRemoveFavMutation();
 
   useEffect(() => {
     const favorite = favs.some(fav => fav.id === eventFound?.id);
@@ -53,40 +52,41 @@ const OneEventScreen = ({ navigation }) => {
       Toast.show({
         type: 'success',
         text1: 'Debes iniciar sesión para poder guardar los eventos como Favoritos',
-        visibilityTime: 2000,
+        visibilityTime: 1500,
       });
       return;
     }
     try {
       if (isFavorite) {
-        await removeFav(eventFound.id);
-        dispatch(removeFav(eventFound.id)); 
-        setIsFavorite(false); 
-        Toast.show({
-          type: 'success',
-          text1: '¡El evento ha sido removido de tus Favoritos!',
-          visibilityTime: 2000,
-        });
+      await removeFav(eventFound.id).unwrap();
+      setIsFavorite(false);
+      Toast.show({
+        type: 'success',
+        text1: '¡El evento ha sido eliminado de tus Favoritos!',
+        visibilityTime: 1500,
+      });
       } else {
-        await addFav({
+        const newFav = {
           id: eventFound.id,
           title: eventFound.title,
           mainImage: eventFound.mainImage,
-          dateAndPlace: eventFound.dateAndPlace,
-        });
-        dispatch(addFav({ id: eventFound.id, title: eventFound.title }));
-        setIsFavorite(true); 
+          dateAndPlace: eventFound.dateAndPlace
+        };
+        
+        await addFav(newFav).unwrap();
+        setIsFavorite(true);
         Toast.show({
-          type: 'success',
-          text1: '¡Se ha guardado el evento en la lista de tus Favoritos!',
-          visibilityTime: 2000,
-        });
+        type: 'success',
+        text1: '¡Se ha guardado el evento en la lista de tus Favoritos!',
+        visibilityTime: 1500,
+      });
       }
     } catch (error) {
+      console.error("Error managing favorite:", error);
       Toast.show({
-        type: 'success',
+        type: 'error', 
         text1: 'Hubo un error al guardar el evento, prueba nuevamente más tarde.',
-        visibilityTime: 2000,
+        visibilityTime: 1500,
       });
     }
   };

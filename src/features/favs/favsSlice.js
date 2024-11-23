@@ -10,10 +10,13 @@ export const favsSlice = createSlice({
       state.value = action.payload; 
     },
     addFav: (state, action) => {
-      state.value.push(action.payload); 
+      const exists = state.value.some(fav => fav.id === action.payload.id);
+      if (!exists) {
+        state.value = [...state.value, action.payload];
+      }
     },
     removeFav: (state, action) => {
-      state.value = state.value.filter(fav => fav.id !== action.payload); // Elimina un favorito
+      state.value = state.value.filter(fav => fav.id !== action.payload);
     },
   },
 });

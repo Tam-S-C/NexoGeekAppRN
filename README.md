@@ -79,7 +79,7 @@
 
 - [x] Carpeta 'Global' => en este caso sólo se utilizó para manejar globalmente y de forma mas efectiva y prolija los colores de la app.
 
-- [x] Carpeta 'Firebase' => contiene las conecciones con la base de datos.
+- [x] Archivo .env para ocultar las Api Key/url de FireBase.
 
 - [x] Carpeta 'Components' => contiene la creación de componentes reutilizables en toda la app para no generar código repetido, como el estilo de los Modals, el Header, Search, CameraIcon y las Cards.
 
