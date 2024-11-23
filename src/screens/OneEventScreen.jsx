@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addItem } from '../features/cart/cartSlice';
 import { useGetEventQuery } from '../services/shopService';
 import { clearUser } from '../features/auth/authSlice';
+import MapView, { Marker } from 'react-native-maps';
+import * as Location from 'expo-location';
 import { useAddFavMutation, useRemoveFavMutation } from "../services/favsService";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -20,7 +22,7 @@ const OneEventScreen = ({ navigation }) => {
   const token = useSelector(state => state.authReducer.value.token);
   const favs = useSelector(state => state.favsReducer.value);
   const { data: eventFound, error, isLoading } = useGetEventQuery(eventId)
-  
+
   const dispatch = useDispatch();
 
   const [addFav] = useAddFavMutation();
@@ -58,13 +60,13 @@ const OneEventScreen = ({ navigation }) => {
     }
     try {
       if (isFavorite) {
-      await removeFav(eventFound.id).unwrap();
-      setIsFavorite(false);
-      Toast.show({
-        type: 'success',
-        text1: '¡El evento ha sido eliminado de tus Favoritos!',
-        visibilityTime: 1500,
-      });
+        await removeFav(eventFound.id).unwrap();
+        setIsFavorite(false);
+        Toast.show({
+          type: 'success',
+          text1: '¡El evento ha sido eliminado de tus Favoritos!',
+          visibilityTime: 1500,
+        });
       } else {
         const newFav = {
           id: eventFound.id,
@@ -72,19 +74,19 @@ const OneEventScreen = ({ navigation }) => {
           mainImage: eventFound.mainImage,
           dateAndPlace: eventFound.dateAndPlace
         };
-        
+
         await addFav(newFav).unwrap();
         setIsFavorite(true);
         Toast.show({
-        type: 'success',
-        text1: '¡Se ha guardado el evento en la lista de tus Favoritos!',
-        visibilityTime: 1500,
-      });
+          type: 'success',
+          text1: '¡Se ha guardado el evento en la lista de tus Favoritos!',
+          visibilityTime: 1500,
+        });
       }
     } catch (error) {
       console.error("Error managing favorite:", error);
       Toast.show({
-        type: 'error', 
+        type: 'error',
         text1: 'Hubo un error al guardar el evento, prueba nuevamente más tarde.',
         visibilityTime: 1500,
       });
@@ -94,6 +96,28 @@ const OneEventScreen = ({ navigation }) => {
 
   const handleImagePress = (imageUri) => {
     setSelectedImage(imageUri);
+  };
+
+
+  //location-maps
+  const [mapModalVisible, setMapModalVisible] = useState(false);
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+    })();
+  }, []);
+
+  const handleMapPress = () => {
+    setMapModalVisible(true);
   };
 
 
@@ -147,19 +171,66 @@ const OneEventScreen = ({ navigation }) => {
                 </Pressable>
               </ScrollView>
 
-            <View style={styles.descriptionFavContainer}>
-              <Text style={styles.eventDescription}>{eventFound.description}</Text>
-              
-              <Pressable onPress={handleAddToFavs}>
-              <FontAwesome
-                name={isFavorite ? "heart" : "heart-o"}                 
-                size={32}
-                color={isFavorite ? colors.fucsiaAcento : colors.violetaPrimario}
-                style={styles.favIcon}
-              />
-            </Pressable>
+              <View style={styles.descriptionFavContainer}>
+                <Text style={styles.eventDescription}>{eventFound.description}</Text>
 
-            </View>
+                <Pressable onPress={handleAddToFavs}>
+                  <FontAwesome
+                    name={isFavorite ? "heart" : "heart-o"}
+                    size={32}
+                    color={isFavorite ? colors.fucsiaAcento : colors.violetaPrimario}
+                    style={styles.favIcon}
+                  />
+                </Pressable>
+
+                <Pressable onPress={handleMapPress}>
+                  <FontAwesome
+                    name="map-marker"
+                    size={32}
+                    color={colors.violetaPrimario}
+                    style={styles.mapIcon}
+                  />
+                </Pressable>
+
+                <Modal
+                  visible={mapModalVisible}
+                  transparent={true}
+                  animationType="slide"
+                  onRequestClose={() => setMapModalVisible(false)}
+                >
+                  <View style={styles.mapModalContainer}>
+                    <View style={styles.mapModalContent}>
+                      {eventFound?.coordinates && (
+                        <MapView
+                          style={styles.map}
+                          initialRegion={{
+                            latitude: eventFound.coordinates.latitude,
+                            longitude: eventFound.coordinates.longitude,
+                            latitudeDelta: 0.0922,
+                            longitudeDelta: 0.0421,
+                          }}
+                        >
+                          <Marker
+                            coordinate={{
+                              latitude: eventFound.coordinates.latitude,
+                              longitude: eventFound.coordinates.longitude,
+                            }}
+                            title={eventFound.title}
+                            description={eventFound.dateAndPlace}
+                          />
+                        </MapView>
+                      )}
+                      <Pressable
+                        style={styles.closeMapButton}
+                        onPress={() => setMapModalVisible(false)}
+                      >
+                        <Text style={styles.closeMapButtonText}>Cerrar</Text>
+                      </Pressable>
+                    </View>
+                  </View>
+                </Modal>
+
+              </View>
 
               <View style={styles.tagsStyleDirection}>
                 {
@@ -207,7 +278,7 @@ const OneEventScreen = ({ navigation }) => {
                   >
                     <Text style={styles.addToCardText}>
                       {token ? 'Agregar al Carrito ' : 'Iniciar Sesión '}
-                      <FontAwesome name="ticket" size={24}/>
+                      <FontAwesome name="ticket" size={24} />
                     </Text>
                   </Pressable>
                   :
@@ -277,8 +348,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     paddingHorizontal: 16,
-    marginBottom: 8,
-    marginTop: 16,
+    marginTop: 12,
   },
   stockStyle2: {
     color: colors.fucsiaAcento,
@@ -286,8 +356,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     paddingHorizontal: 16,
-    marginBottom: 8,
-    marginTop: 16,
+    marginTop: 12,
   },
   priceStyle: {
     color: colors.fucsiaAcento,
@@ -316,9 +385,12 @@ const styles = StyleSheet.create({
     color: colors.blanco,
     width: 'contain'
   },
+  discountContainer: {
+    flexDirection: 'row'
+  },
   discountTextStyle: {
     marginLeft: 16,
-    marginTop: 12,
+    marginTop: 16,
     marginHorizontal: 4,
     color: colors.violetaPrimario,
     fontWeight: 'bold',
@@ -326,19 +398,18 @@ const styles = StyleSheet.create({
   },
   eventDescription: {
     color: colors.violetaPrimario,
-    marginTop: 16,
-    fontSize: 16
+    fontSize: 16,
+    width: '66%'
   },
   favIcon: {
-    marginRight: 24,
+    marginRight: 4,
     marginTop: 16
   },
-  descriptionFavContainer:{
+  descriptionFavContainer: {
     flexDirection: 'row',
-    gap: 16,
+    gap: 4,
     justifyContent: 'space-between',
-    marginLeft: 16,
-    marginBottom: 16
+    marginLeft: 8,
   },
   priceTextStyle: {
     marginLeft: 16,
@@ -346,9 +417,6 @@ const styles = StyleSheet.create({
     color: colors.violetaPrimario,
     fontWeight: 'bold',
     fontSize: 16
-  },
-  discountContainer: {
-    flexDirection: 'row'
   },
   priceContainer: {
     flexDirection: 'row'
@@ -412,19 +480,54 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 16,
     marginLeft: 16,
-    marginBottom: 16
-  },
-  imageScrollContainer: {
-    marginVertical: 4,
+    marginVertical: 8,
   },
   scrollImage: {
     width: 180,
     height: 180,
     marginHorizontal: 16,
-    borderRadius: 60
+    borderRadius: 60,
   },
 
   //Modal
+
+  mapModalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  mapModalContent: {
+    backgroundColor: colors.blanco,
+    width: '90%',
+    height: '80%',
+    borderRadius: 20,
+    padding: 20,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  map: {
+    width: '100%',
+    height: '90%',
+    borderRadius: 15,
+  },
+  closeMapButton: {
+    marginTop: 10,
+    backgroundColor: colors.violetaPrimario,
+    padding: 15,
+    borderRadius: 10,
+    width: '100%',
+  },
+  closeMapButtonText: {
+    color: colors.blanco,
+    textAlign: 'center',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  mapIcon: {
+    marginRight: 24,
+    marginTop: 16
+  },
 
   modalContainer: {
     flex: 1,

@@ -172,21 +172,26 @@ const styles = StyleSheet.create({
     marginRight: 4
   },
   errorContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-  },
+    backgroundColor: colors.violetaPrimario,
+    borderRadius: 16,
+    marginTop: 64,
+    padding: 8,
+    textAlign: 'center'
+},
   emptyContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
   errorText: {
-    textAlign: 'center',
-    fontSize: 16,
-    color: colors.violetaPrimario,
-    marginBottom: 20,
+    fontSize: 18,
+    color: colors.blanco,
+    fontWeight: 'bold',
+    backgroundColor: colors.violetaPrimario,
+    borderRadius: 16,
+    padding: 16,
+    marginHorizontal: 14,
+    textAlign: 'center'
   },
   emptyText: {
     fontSize: 16,
@@ -199,11 +204,10 @@ const styles = StyleSheet.create({
     color: colors.violetaPrimario,
   },
   btnContainer: {
-    padding: 12,
-    borderRadius: 8,
-    marginHorizontal: 20,
-    marginBottom: 20,
-  },
+    borderRadius: 16,
+    marginTop: 24, 
+    marginHorizontal: 64
+},
 });
 
 export default FavsScreen;
