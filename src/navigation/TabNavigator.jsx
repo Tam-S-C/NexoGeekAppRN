@@ -14,7 +14,7 @@ const Tab = createBottomTabNavigator()
 const TabNavigator = () => {
 
     const cartLength = useSelector(state => state.cartReducer.value.cartLength);
-
+    
     return (
 
         <Tab.Navigator

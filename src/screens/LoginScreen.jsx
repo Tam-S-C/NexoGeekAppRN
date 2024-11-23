@@ -19,14 +19,6 @@ const LoginScreen = ({ navigation }) => {
   const [triggerLogin, result] = useLoginMutation();
   const dispatch = useDispatch();
 
-  const togglePasswordVisibility = () => {
-    setIsPasswordVisible(!isPasswordVisible);
-  };
-
-    const onsubmit = () => {     
-      triggerLogin({ email, password })
-  }
-
   useEffect(() => {
     if (result.isSuccess) {
       dispatch(setUser(result.data));
@@ -38,16 +30,28 @@ const LoginScreen = ({ navigation }) => {
         });
       }
       setIsLoggedIn(true);
+    } else if (result.isError) {
     }
   }, [result, rememberMe, dispatch]);
   
+
+
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+  };
+
+  const onsubmit = () => {
+    triggerLogin({ email, password })
+  }
+
+
   useEffect(() => {
     if (isLoggedIn) {
-      navigation.navigate('Categorías');
+      setIsLoggedIn(false);
     }
   }, [isLoggedIn, navigation]);
-  
-  
+
+
 
   return (
     <LinearGradient
@@ -110,7 +114,7 @@ const LoginScreen = ({ navigation }) => {
       <View style={styles.footTextContainer}>
         <Text style={styles.askText}>¿No tienes una cuenta?</Text>
         <Pressable
-          onPress={() => navigation.navigate('Signup')}
+          onPress={() => navigation.navigate('SignupScreen')}
           style={({ pressed }) => [
             styles.buttons,
             { backgroundColor: pressed ? colors.violetaSombra : colors.violetaPrimario }
@@ -132,6 +136,10 @@ const LoginScreen = ({ navigation }) => {
           <Text style={styles.buttonText}>Ingresar</Text>
         </Pressable>
       </View>
+
+      <Text style={styles.subTitle2}>IMPORTANTE!</Text>
+      <Text style={styles.askText2}>Si deseas comprar y poder usar todas las secciones te sugerimos que inicies sesión. Gracias. </Text>
+   
     </LinearGradient>
   );
 };
@@ -155,11 +163,19 @@ const styles = StyleSheet.create({
     color: colors.blanco,
     fontWeight: '700',
     letterSpacing: 6,
+    marginBottom: 4
+  },
+  subTitle2: {
+    fontSize: 18,
+    color: colors.blanco,
+    fontWeight: '700',
+    letterSpacing: 6,
+    marginTop: 12
   },
   inputContainer: {
     gap: 14,
     margin: 8,
-    marginTop: 10,
+    marginTop: 8,
     alignItems: 'center',
   },
   textInput: {
@@ -218,9 +234,18 @@ const styles = StyleSheet.create({
   askText: {
     color: colors.blanco,
     alignItems: 'center',
-    marginTop: 8,
+    marginTop: 4,
     fontSize: 14,
     fontWeight: '700',
+  },
+  askText2: {
+    color: colors.blanco,
+    alignItems: 'center',
+    marginTop: 4,
+    fontSize: 12,
+    fontWeight: '700',
+    marginHorizontal: 32,
+    textAlign: 'center'
   },
   error: {
     color: colors.fucsiaClaro,

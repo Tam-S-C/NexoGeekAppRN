@@ -1,17 +1,35 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { useSelector } from 'react-redux';
+import { StyleSheet, Text, View, Pressable } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 import { colors } from '../global/colors';
+import { clearUser } from '../features/auth/authSlice';
 
-const FavsScreen = () => {
-  const token = useSelector((state) => state.authReducer.value.token);
 
+const FavsScreen = ({ navigation }) => {
+  const { token } = useSelector((state) => state.authReducer.value);  
+  const dispatch = useDispatch();
+
+  const handleLoginRedirect = () => {
+    dispatch(clearUser());
+    navigation.navigate('InAppAuth', { screen: 'LoginScreen' });
+  };
+
+  
   if (!token) {
     return (
       <>
         <View style={styles.errorContainer}>
-          <Text style={styles.errorText}>Esta sección es solo para usuarios registrados. Reinicia la app para registrarte y poder usar esta sección. Gracias.</Text>
+          <Text style={styles.errorText}>Esta sección es solo para usuarios registrados. Inicia sesión para poder usar esta sección. Gracias.</Text>
         </View>
 
+        <Pressable
+          style={({ pressed }) => [
+            { backgroundColor: pressed ? colors.violetaSombra : colors.violetaPrimario },
+            styles.btnContainer
+          ]}
+          onPress={handleLoginRedirect}
+        >
+          <Text style={styles.errorText}> Volver al Login </Text>
+        </Pressable>
       </>
     );
   }
@@ -39,7 +57,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     padding: 24,
     marginHorizontal: 16,
-    marginVertical: 64,
+    marginTop: 64,
     textAlign: 'center'
   },
   errorText: {
@@ -48,6 +66,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     paddingHorizontal: 16,
+  },
+  btnContainer: {
+    borderRadius: 16,
+    padding: 16,
+    marginVertical: 24,
+    marginHorizontal: 80
   },
 
 

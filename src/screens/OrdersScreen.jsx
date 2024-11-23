@@ -3,11 +3,12 @@ import { StyleSheet, Text, View, FlatList, Modal, Pressable, Image } from 'react
 import { useGetOrdersQuery } from '../services/ordersService';
 import { colors } from '../global/colors';
 import { useSelector } from 'react-redux';
+import { clearUser } from '../features/auth/authSlice';
 import CardGeneral from '../components/CardGeneral';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 
-const OrdersScreen = () => {
+const OrdersScreen = ({navigation}) => {
 
   const token = useSelector((state) => state.authReducer.value.token);
   const { data: orders, isLoading, isError } = useGetOrdersQuery();
@@ -17,14 +18,27 @@ const OrdersScreen = () => {
 
   if (!token) {
     return (
-      <>
-        <View>
-          <Text style={styles.errorText}>Esta sección es solo para usuarios registrados. Reinicia la app para registrarte y poder usar esta sección. Gracias.</Text>
-        </View>
+        <>
+            <View style={styles.errorContainer}>
+                <Text style={styles.errorText}>Esta sección es solo para usuarios registrados. Inicia sesión para poder usar esta sección. Gracias.</Text>
+            </View>
 
-      </>
+            <Pressable
+                style={({ pressed }) => [
+                    { backgroundColor: pressed ? colors.violetaSombra : colors.violetaPrimario },
+                    styles.btnContainer
+                ]}
+                onPress={() => {
+                  navigation.navigate('InAppAuth', { screen: 'LoginScreen' });
+                  dispatch(clearUser());
+              }}
+            >
+                <Text style={styles.errorText}>Volver al Login</Text>
+            </Pressable>
+        </>
     );
-  }
+}
+
 
   const openModal = (order) => {
     setSelectedOrder(order);
@@ -214,9 +228,30 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     padding: 24,
     marginHorizontal: 16,
-    marginVertical: 40,
+    marginVertical: 64,
     textAlign: 'center'
   },
+  btnContainer: {
+    borderRadius: 16,
+    padding: 16,
+    marginVertical: 24,
+    marginHorizontal: 80
+},
+errorContainer: {
+    backgroundColor: colors.violetaPrimario,
+    borderRadius: 16,
+    padding: 24,
+    marginHorizontal: 16,
+    marginTop: 64,
+    textAlign: 'center'
+},
+errorText: {
+    fontSize: 18,
+    color: colors.blanco,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    paddingHorizontal: 16,
+},
 });
 
 export default OrdersScreen;

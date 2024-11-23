@@ -2,19 +2,18 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import OrdersScreen from "../screens/OrdersScreen"
 import Header from "../components/Header"
 
-const OrdersStack = createNativeStackNavigator()
+const Stack = createNativeStackNavigator()
 
 const OrdersNavigator = () => {
   return (
-    <OrdersStack.Navigator
+    <Stack.Navigator
       screenOptions={{
         header: ({ route }) => <Header screenName={route.name} />
       }}
     >
+      <Stack.Screen component={OrdersScreen} name="Mis Compras" />
 
-      <OrdersStack.Screen component={OrdersScreen} name="Mis Compras" />
-
-    </OrdersStack.Navigator>
+    </Stack.Navigator>
   )
 }
 

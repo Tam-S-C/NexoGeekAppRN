@@ -4,13 +4,14 @@ import Header from "../components/Header";
 
 const Stack = createNativeStackNavigator()
 
-const FavsNavigator = ()=>(
-    <Stack.Navigator 
+const FavsNavigator = () => (
+  <Stack.Navigator
     screenOptions={{
-        header: ({ route }) => <Header screenName={route.name} />
-      }}>
-        <Stack.Screen name="Favoritos" component={FavsScreen} />
-    </Stack.Navigator>
+      header: ({ route }) => <Header screenName={route.name} />
+    }}>
+    <Stack.Screen name="Favoritos" component={FavsScreen} />
+
+  </Stack.Navigator>
 )
 
 export default FavsNavigator;

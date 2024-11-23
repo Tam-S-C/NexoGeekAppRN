@@ -3,10 +3,11 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { colors } from '../global/colors';
 import { setProfilePicture } from '../features/auth/authSlice';
+import { clearUser } from '../features/auth/authSlice';
 import { usePutProfilePictureMutation } from '../services/userService';
 import { usePutNickNameMutation, usePutEdadMutation, usePutCiudadMutation } from '../services/userService';
-import { updateNickName, updateEdad, updateCiudad } from '../features/auth/authSlice'; 
-import { useGetNickNameQuery,useGetEdadQuery, useGetCiudadQuery } from '../services/userService';
+import { updateNickName, updateEdad, updateCiudad } from '../features/auth/authSlice';
+import { useGetNickNameQuery, useGetEdadQuery, useGetCiudadQuery } from '../services/userService';
 import { updateProfile } from '../features/auth/authSlice';
 import EditModal from '../components/EditModal';
 import CameraIcon from '../components/CameraIcon';
@@ -14,7 +15,7 @@ import * as ImagePicker from 'expo-image-picker';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 
-const ProfileScreen = () => {
+const ProfileScreen = ({ navigation }) => {
     const token = useSelector((state) => state.authReducer.value.token);
     const user = useSelector((state) => state.authReducer.value.email);
     const image = useSelector((state) => state.authReducer.value.profilePicture);
@@ -39,43 +40,43 @@ const ProfileScreen = () => {
 
     useEffect(() => {
         if (nickNameData || edadData || ciudadData) {
-          dispatch(
-            updateProfile({
-              nickName: nickNameData?.nickName || null,
-              edad: edadData?.edad || null,
-              ciudad: ciudadData?.ciudad || null,
-            })
-          );
+            dispatch(
+                updateProfile({
+                    nickName: nickNameData?.nickName || null,
+                    edad: edadData?.edad || null,
+                    ciudad: ciudadData?.ciudad || null,
+                })
+            );
         }
-      }, [nickNameData, edadData, ciudadData, dispatch]);
+    }, [nickNameData, edadData, ciudadData, dispatch]);
 
     const [formData, setFormData] = useState({ nickName, edad, ciudad });
 
     const saveProfileField = (value) => {
         switch (editingField) {
-          case "nickName":
-            triggerPutNickName({ localId, nickName: value });
-            dispatch(updateNickName(value));
-            break;
-          case "edad":
-            triggerPutEdad({ localId, edad: value });
-            dispatch(updateEdad(value));
-            break;
-          case "ciudad":
-            triggerPutCiudad({ localId, ciudad: value });
-            dispatch(updateCiudad(value));
-            break;
-          default:
-            break;
+            case "nickName":
+                triggerPutNickName({ localId, nickName: value });
+                dispatch(updateNickName(value));
+                break;
+            case "edad":
+                triggerPutEdad({ localId, edad: value });
+                dispatch(updateEdad(value));
+                break;
+            case "ciudad":
+                triggerPutCiudad({ localId, ciudad: value });
+                dispatch(updateCiudad(value));
+                break;
+            default:
+                break;
         }
     };
-    
+
 
     const openModal = (field) => {
         setEditingField(field);
-        setModalVisible(true); 
-      };
-      
+        setModalVisible(true);
+    };
+
     const verifyCameraPermissions = async () => {
         const { granted } = await ImagePicker.requestCameraPermissionsAsync()
         if (!granted) return false
@@ -101,14 +102,25 @@ const ProfileScreen = () => {
     }
 
 
-    //Verificacion de user, sino bloquea la sección
     if (!token) {
         return (
             <>
                 <View style={styles.errorContainer}>
-                    <Text style={styles.errorText}>Esta sección es solo para usuarios registrados. Reinicia la app para registrarte y poder usar esta sección. Gracias.</Text>
+                    <Text style={styles.errorText}>Esta sección es solo para usuarios registrados. Inicia sesión para poder usar esta sección. Gracias.</Text>
                 </View>
 
+                <Pressable
+                    style={({ pressed }) => [
+                        { backgroundColor: pressed ? colors.violetaSombra : colors.violetaPrimario },
+                        styles.btnContainer
+                    ]}
+                    onPress={() => {
+                        navigation.navigate('InAppAuth', { screen: 'LoginScreen' });
+                        dispatch(clearUser());
+                    }}
+                >
+                    <Text style={styles.errorText}>Volver al Login</Text>
+                </Pressable>
             </>
         );
     }
@@ -138,7 +150,7 @@ const ProfileScreen = () => {
                         size={20}
                         onPress={() => openModal("nickName")}
                         color={colors.fucsiaAcento}
-                        marginLeft= {8}
+                        marginLeft={8}
                     />
                 </View>
 
@@ -149,7 +161,7 @@ const ProfileScreen = () => {
                         size={20}
                         onPress={() => openModal("edad")}
                         color={colors.fucsiaAcento}
-                        marginLeft= {8}
+                        marginLeft={8}
                     />
                 </View>
 
@@ -160,7 +172,7 @@ const ProfileScreen = () => {
                         size={20}
                         onPress={() => openModal("ciudad")}
                         color={colors.fucsiaAcento}
-                        marginLeft= {8}
+                        marginLeft={8}
                     />
                 </View>
 
@@ -245,9 +257,30 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         alignItems: "center",
         marginVertical: 24,
-      },
-      textField:{
+    },
+    textField: {
         color: colors.violetaPrimario,
         fontSize: 18
-      }
+    },
+    btnContainer: {
+        borderRadius: 16,
+        padding: 16,
+        marginVertical: 24,
+        marginHorizontal: 80
+    },
+    errorContainer: {
+        backgroundColor: colors.violetaPrimario,
+        borderRadius: 16,
+        padding: 24,
+        marginHorizontal: 16,
+        marginTop: 64,
+        textAlign: 'center'
+    },
+    errorText: {
+        fontSize: 18,
+        color: colors.blanco,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        paddingHorizontal: 16,
+    },
 });

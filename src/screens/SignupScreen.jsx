@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, Pressable, Dimensions, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Pressable, Dimensions, TouchableOpacity, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { colors } from '../global/colors';
 import { useState, useEffect } from 'react';
@@ -20,7 +20,6 @@ const SignupScreen = ({ navigation }) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
-
   const [errorEmail, setErrorEmail] = useState("")
   const [errorPassword, setErrorPassword] = useState("")
   const [errorConfirmPassword, setErrorConfirmPassword] = useState("")
@@ -33,18 +32,22 @@ const SignupScreen = ({ navigation }) => {
 
   useEffect(() => {
     if (result.status === 'rejected') {
-        setErrorAddUser('No se pudo agregar el usuario. Prueba nuevamente o ve a iniciar sesión si ya estabas registrado con ese mail.');
+      setErrorAddUser('No se pudo agregar el usuario. Prueba nuevamente o ve a iniciar sesión si ya estabas registrado con ese mail.');
     } else if (result.status === 'fulfilled') {
-        const { idToken, email } = result.data;
-        dispatch(
-            setUser({
-                email,
-                token: idToken,
-            })
-        );
+      Alert.alert(
+        "¡Registro exitoso!",
+        "Tu cuenta ha sido creada. Por favor, inicia sesión.",
+        [
+          { 
+            text: "OK", 
+            onPress: () => navigation.replace('LoginScreen')
+          }
+        ]
+      );
     }
-  }, [result, dispatch]);
+  }, [result, navigation]);
   
+
   const onsubmit = () => {
     try {
         validationSchema.validateSync({ email, password, confirmPassword });
@@ -137,7 +140,7 @@ const SignupScreen = ({ navigation }) => {
           { backgroundColor: pressed ? colors.violetaSombra : colors.violetaPrimario }
         ]}
       >
-        <Text style={styles.buttonText}>CREAR E INICIAR</Text>
+        <Text style={styles.buttonText}>CREAR USUARIO</Text>
       </Pressable>
 
       {errorAddUser && <Text style={styles.error}>{errorAddUser}</Text>}
@@ -145,7 +148,7 @@ const SignupScreen = ({ navigation }) => {
       <View style={styles.footTextContainer}>
         <Text style={styles.askText}>¿Ya tienes una cuenta?</Text>
         <Pressable
-          onPress={() => navigation.navigate('Login')}
+          onPress={() => navigation.navigate('LoginScreen')}
           style={({ pressed }) => [
             styles.buttons,
             { backgroundColor: pressed ? colors.violetaSombra : colors.violetaPrimario }
@@ -167,6 +170,7 @@ const SignupScreen = ({ navigation }) => {
           <Text style={styles.buttonText}>Ingresar</Text>
         </Pressable>
       </View>
+
     </LinearGradient>
   );
 };

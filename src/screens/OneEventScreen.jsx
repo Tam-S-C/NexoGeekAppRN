@@ -1,11 +1,12 @@
 import { StyleSheet, Text, View, Pressable, Image, ActivityIndicator, ScrollView, Modal } from 'react-native';
 import { colors } from '../global/colors';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { addItem } from '../features/cart/cartSlice';
 import { useGetEventQuery } from '../services/shopService';
+import { clearUser } from '../features/auth/authSlice';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const OneEventScreen = ({ navigation }) => {
 
@@ -13,12 +14,18 @@ const OneEventScreen = ({ navigation }) => {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const eventId = useSelector(state => state.shopReducer.value.eventId);
+  const token = useSelector(state => state.authReducer.value.token);
 
   const { data: eventFound, error, isLoading } = useGetEventQuery(eventId)
 
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
+    if (!token) {
+      dispatch(clearUser());
+      navigation.navigate('InAppAuth', { screen: 'LoginScreen' });
+      return;
+    }
     setModalVisible(true);
     dispatch(addItem({ ...eventFound, quantity: 1 }));
     setTimeout(() => {
@@ -30,6 +37,7 @@ const OneEventScreen = ({ navigation }) => {
   const handleImagePress = (imageUri) => {
     setSelectedImage(imageUri);
   };
+
 
   return (
 
@@ -54,8 +62,8 @@ const OneEventScreen = ({ navigation }) => {
                 <Text style={styles.eventSelected}>{eventFound.title}</Text>
               </View>
 
-
               <ScrollView horizontal={true} style={styles.imageScrollContainer}>
+
                 <Pressable onPress={() => handleImagePress(eventFound.mainImage)}>
                   <Image
                     source={{ uri: eventFound.mainImage }}
@@ -63,6 +71,7 @@ const OneEventScreen = ({ navigation }) => {
                     style={styles.scrollImage}
                   />
                 </Pressable>
+
                 <Pressable onPress={() => handleImagePress(eventFound.mainImage2)}>
                   <Image
                     source={{ uri: eventFound.mainImage2 }}
@@ -70,6 +79,7 @@ const OneEventScreen = ({ navigation }) => {
                     style={styles.scrollImage}
                   />
                 </Pressable>
+
                 <Pressable onPress={() => handleImagePress(eventFound.mainImage3)}>
                   <Image
                     source={{ uri: eventFound.mainImage3 }}
@@ -127,7 +137,8 @@ const OneEventScreen = ({ navigation }) => {
                     onPress={handleAddToCart}
                   >
                     <Text style={styles.addToCardText}>
-                      Agregar al Carrito <FontAwesome name="ticket" size={24} />
+                      {token ? 'Agregar al Carrito' : 'Iniciar Sesión'}
+                      <FontAwesome name="ticket" size={24} />
                     </Text>
                   </Pressable>
                   :
@@ -374,6 +385,27 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     marginVertical: 64,
     textAlign: 'center'
+  },
+  btnContainer: {
+    borderRadius: 16,
+    padding: 16,
+    marginVertical: 24,
+    marginHorizontal: 80
+  },
+  errorContainer: {
+    backgroundColor: colors.violetaPrimario,
+    borderRadius: 16,
+    padding: 24,
+    marginHorizontal: 16,
+    marginTop: 64,
+    textAlign: 'center'
+  },
+  errorText2: {
+    fontSize: 18,
+    color: colors.blanco,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    paddingHorizontal: 16,
   },
 
 });
