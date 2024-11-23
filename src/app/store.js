@@ -7,6 +7,7 @@ import { favsApi } from "../services/favsService";
 import shopReducer from "../features/shop/shopSlice";
 import cartReducer from "../features/cart/cartSlice";
 import authReducer from "../features/auth/authSlice";
+import favsReducer from "../features/favs/favsSlice";
 
 
 export const store = configureStore({
@@ -14,6 +15,7 @@ export const store = configureStore({
     shopReducer,
     cartReducer,
     authReducer,
+    favsReducer,
     [shopApi.reducerPath]: shopApi.reducer,
     [orderApi.reducerPath]: orderApi.reducer,
     [authApi.reducerPath]: authApi.reducer,

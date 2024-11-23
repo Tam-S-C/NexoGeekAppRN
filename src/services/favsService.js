@@ -1,9 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { base_url } from "../firebase/dataBase";
 
 export const favsApi = createApi({
   reducerPath: "favsApi",
-  baseQuery: fetchBaseQuery({ baseUrl: base_url }),
+  baseQuery: fetchBaseQuery({ baseUrl: process.env.EXPO_PUBLIC_BASE_URL }),
   tagTypes: ["Favs"],
   endpoints: (builder) => ({
     addFav: builder.mutation({

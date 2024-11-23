@@ -12,8 +12,8 @@ import Toast from 'react-native-toast-message';
 const FavsScreen = ({ navigation }) => {
 
   const { token } = useSelector((state) => state.authReducer.value);
-  const { data: favs, isLoading, isError } = useGetFavsQuery();
-  const [removeFav] = useRemoveFavMutation();
+  const { data: favs, isLoading, isError, refetch } = useGetFavsQuery();
+  const [removeFavMutation] = useRemoveFavMutation();
   const dispatch = useDispatch();
 
   const uniqueFavs = favs ? favs.filter((value, index, self) =>
@@ -25,17 +25,26 @@ const FavsScreen = ({ navigation }) => {
     navigation.navigate("Evento");
   };
 
+  
   const handleRemoveFav = async (favId) => {
     try {
-      await removeFav(favId);
+      await removeFavMutation(favId);
       Toast.show({
         type: 'success',
         text1: '¡Evento eliminado de favoritos con éxito!',
-        visibilityTime: 2000,
+        visibilityTime: 1500,
       });
+      refetch();
     } catch (error) {
+      Toast.show({
+        type: 'error',
+        text1: 'Hubo un error al eliminar el favorito.',
+        visibilityTime: 1500,
+      });
     }
   };
+
+
 
   const renderFavItem = ({ item }) => (
     <Pressable onPress={() => handleNavigateToEvent(item.id)}>

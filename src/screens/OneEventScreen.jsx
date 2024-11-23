@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Pressable, Image, ActivityIndicator, ScrollView, Modal } from 'react-native';
 import { colors } from '../global/colors';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addItem } from '../features/cart/cartSlice';
 import { useGetEventQuery } from '../services/shopService';
@@ -18,13 +18,20 @@ const OneEventScreen = ({ navigation }) => {
 
   const eventId = useSelector(state => state.shopReducer.value.eventId);
   const token = useSelector(state => state.authReducer.value.token);
-
+  const favs = useSelector(state => state.favsReducer.value);
   const { data: eventFound, error, isLoading } = useGetEventQuery(eventId)
   
   const [addFav] = useAddFavMutation();
   const [removeFav] = useRemoveFavMutation();
 
   const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    const favorite = favs.some(fav => fav.id === eventFound?.id);
+    setIsFavorite(favorite);
+  }, [favs, eventFound?.id]);
+
 
   const handleAddToCart = () => {
     if (!token) {
@@ -52,7 +59,8 @@ const OneEventScreen = ({ navigation }) => {
     }
     try {
       if (isFavorite) {
-        await removeFav(eventFound.id); 
+        await removeFav(eventFound.id);
+        dispatch(removeFav(eventFound.id)); 
         setIsFavorite(false); 
         Toast.show({
           type: 'success',
@@ -66,6 +74,7 @@ const OneEventScreen = ({ navigation }) => {
           mainImage: eventFound.mainImage,
           dateAndPlace: eventFound.dateAndPlace,
         });
+        dispatch(addFav({ id: eventFound.id, title: eventFound.title }));
         setIsFavorite(true); 
         Toast.show({
           type: 'success',
@@ -75,7 +84,7 @@ const OneEventScreen = ({ navigation }) => {
       }
     } catch (error) {
       Toast.show({
-        type: 'error',
+        type: 'success',
         text1: 'Hubo un error al guardar el evento, prueba nuevamente más tarde.',
         visibilityTime: 2000,
       });
