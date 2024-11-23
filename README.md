@@ -85,7 +85,7 @@
 
 - [x] Carpeta 'App' => contiene 'store.js' que es el contenedor global del estado de la app utilizando Redux Toolkit en combinación con RTK Query para manejar la lógica relacionada con las API. Su funcionalidad principal es combinar todos los reducers y middleware para que el estado global sea accesible.
 
-- [x] Archivos 'Services' => en Redux Toolkit permiten definir y gestionar endpoints de APIs dentro de la app (consultas y mutations). Automáticamente manejan solicitudes HTTP y el estado relacionado (carga, éxito, error), del user, shop y órdenes de compra.
+- [x] Archivos 'Services' => en Redux Toolkit permiten definir y gestionar endpoints de APIs dentro de la app (consultas y mutations). Automáticamente manejan solicitudes HTTP y el estado relacionado (carga, éxito, error), del user, shop, favs y órdenes de compra.
 
 - [x] Carpeta 'Features' => contiene las 'porciones' o 'slices' que poseen las acciones para establecer, cargar/actualizar y borrar información del shop, del carrito y del usuario.
 
@@ -135,7 +135,7 @@
 
 | **Sin acceso** | **Perfil** | **Edit** | **Favs** | **ver** | **Toast** | 
 |:--:|:--:|:--:|:--:|:--:|:--:|
-![Sin Acceso](https://i.postimg.cc/WprNjrfx/Whats-App-Image-2024-11-23-at-03-29-41.jpg) | ![Perfil](https://i.postimg.cc/G25Y0ryR/Whats-App-Image-2024-11-21-at-01-23-00-2.jpg) | ![Edit](https://i.postimg.cc/nM8Dzk2w/Whats-App-Image-2024-11-21-at-01-23-00-1.jpg) | ![Favs](https://i.postimg.cc/nM8Dzk2w/Whats-App-Image-2024-11-21-at-01-23-00-1.jpg) | ![ver](https://i.postimg.cc/nM8Dzk2w/Whats-App-Image-2024-11-21-at-01-23-00-1.jpg) | ![Toast](https://i.postimg.cc/7LxDnWHk/Whats-App-Image-2024-11-23-at-03-25-33.jpg) | 
+![Sin Acceso](https://i.postimg.cc/WprNjrfx/Whats-App-Image-2024-11-23-at-03-29-41.jpg) | ![Perfil](https://i.postimg.cc/G25Y0ryR/Whats-App-Image-2024-11-21-at-01-23-00-2.jpg) | ![Edit](https://i.postimg.cc/nM8Dzk2w/Whats-App-Image-2024-11-21-at-01-23-00-1.jpg) | ![Favs](https://i.postimg.cc/m2dVPkdR/Whats-App-Image-2024-11-23-at-05-03-15.jpg) | ![ver](https://i.postimg.cc/nM8Dzk2w/Whats-App-Image-2024-11-21-at-01-23-00-1.jpg) | ![Toast](https://i.postimg.cc/7LxDnWHk/Whats-App-Image-2024-11-23-at-03-25-33.jpg) | 
 
 <br>
 
