@@ -6,6 +6,7 @@ import { useLoginMutation } from '../services/authService';
 import { useDispatch } from 'react-redux';
 import { setUser, clearUser, loadUserFromStorage } from '../features/auth/authSlice';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import Toast from 'react-native-toast-message';
 
 const textInputWidth = Dimensions.get('window').width * 0.85;
 
@@ -30,7 +31,21 @@ const LoginScreen = ({ navigation }) => {
         });
       }
       setIsLoggedIn(true);
+      Toast.show({
+        type: 'success',
+        text1: '¡Bienvenido!',
+        text2: 'Has iniciado sesión correctamente',
+        visibilityTime: 1500,
+        position: 'top',
+      });
     } else if (result.isError) {
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Usuario o contraseña incorrectos',
+        visibilityTime: 2000,
+        position: 'top',
+      });
     }
   }, [result, rememberMe, dispatch]);
   
@@ -41,9 +56,18 @@ const LoginScreen = ({ navigation }) => {
   };
 
   const onsubmit = () => {
-    triggerLogin({ email, password })
+    if (!email || !password) {
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Por favor completa todos los campos',
+        visibilityTime: 2000,
+        position: 'top',
+      });
+      return;
+    }
+    triggerLogin({ email, password });
   }
-
 
   useEffect(() => {
     if (isLoggedIn) {
