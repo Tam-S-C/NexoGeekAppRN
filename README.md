@@ -4,6 +4,8 @@
 
 <h3>Realizada con:  <img src="https://img.shields.io/badge/ReactNative-61DAFB?logo=React&logoColor=black&style=flat" width="120" /> </h3>
 
+<h6>La app cuenta con posibilidad de navegar por los eventos sin estar logueado, pero estándolo se puede acceder al perfil, editar tus datos y subir tu foto, crear una lista de tus eventos favoritos, comprar tickets para los eventos, ver tus órdenes de compra y mirar la ubicación del evento en un mapa. <h6>
+
 
 ---
 
@@ -19,6 +21,8 @@
 
 > [!IMPORTANT]
 > Herramientas Utilizadas / Dependencias / Librerías:
+
+* react-native-maps y expo-location => para renderizar mapas con geolocalización.
 
 * react-native-toast-message => Para la visualización de un Toast/mensaje en la creación exitosa del usuario en el Signup.
 
@@ -122,7 +126,7 @@
 
 | **Splash** | **Signup** | **Login** | **Home** | **Evento** | **Zoom a Foto** |
 |:--:|:--:|:--:|:--:|:--:|:--:|
-| ![Splash](https://i.postimg.cc/6q8rTTXT/Whats-App-Image-2024-11-21-at-01-23-03.jpg) | ![Signup](https://i.postimg.cc/9XkPKPd9/Whats-App-Image-2024-11-21-at-01-23-02-2.jpg) | ![Login](https://i.postimg.cc/7hjgzDH9/Whats-App-Image-2024-11-21-at-01-23-02-3.jpg) | ![Home](https://i.postimg.cc/fT07N3Cr/Whats-App-Image-2024-11-21-at-01-23-02-1.jpg) | ![Evento](https://i.postimg.cc/Pf03YnF0/Whats-App-Image-2024-11-21-at-01-22-59-1.jpg) | ![ZoomFoto](https://i.postimg.cc/qMnmGDPq/Whats-App-Image-2024-11-21-at-01-22-59.jpg) |
+| ![Splash](https://i.postimg.cc/6q8rTTXT/Whats-App-Image-2024-11-21-at-01-23-03.jpg) | ![Signup](https://i.postimg.cc/9XkPKPd9/Whats-App-Image-2024-11-21-at-01-23-02-2.jpg) | ![Login](https://i.postimg.cc/7hjgzDH9/Whats-App-Image-2024-11-21-at-01-23-02-3.jpg) | ![Home](https://i.postimg.cc/fT07N3Cr/Whats-App-Image-2024-11-21-at-01-23-02-1.jpg) | ![Evento](https://i.postimg.cc/x8dxnvtz/Whats-App-Image-2024-11-23-at-09-37-35-2.jpg) | ![ZoomFoto](https://i.postimg.cc/qMnmGDPq/Whats-App-Image-2024-11-21-at-01-22-59.jpg) |
 
 <br>
 
@@ -133,9 +137,9 @@
 <br>
 
 
-| **Sin acceso** | **Perfil** | **Edit** | **Favs** | **ver** | **Toast** | 
+| **Sin acceso** | **Perfil** | **Edit** | **Favs** | **Mapa** | **Toast** | 
 |:--:|:--:|:--:|:--:|:--:|:--:|
-![Sin Acceso](https://i.postimg.cc/WprNjrfx/Whats-App-Image-2024-11-23-at-03-29-41.jpg) | ![Perfil](https://i.postimg.cc/G25Y0ryR/Whats-App-Image-2024-11-21-at-01-23-00-2.jpg) | ![Edit](https://i.postimg.cc/nM8Dzk2w/Whats-App-Image-2024-11-21-at-01-23-00-1.jpg) | ![Favs](https://i.postimg.cc/m2dVPkdR/Whats-App-Image-2024-11-23-at-05-03-15.jpg) | ![Mapa](https://i.postimg.cc/nM8Dzk2w/Whats-App-Image-2024-11-21-at-01-23-00-1.jpg) | ![Toast](https://i.postimg.cc/7LxDnWHk/Whats-App-Image-2024-11-23-at-03-25-33.jpg) | 
+![Sin Acceso](https://i.postimg.cc/WprNjrfx/Whats-App-Image-2024-11-23-at-03-29-41.jpg) | ![Perfil](https://i.postimg.cc/G25Y0ryR/Whats-App-Image-2024-11-21-at-01-23-00-2.jpg) | ![Edit](https://i.postimg.cc/nM8Dzk2w/Whats-App-Image-2024-11-21-at-01-23-00-1.jpg) | ![Favs](https://i.postimg.cc/m2dVPkdR/Whats-App-Image-2024-11-23-at-05-03-15.jpg) | ![Mapa](https://i.postimg.cc/NFPNMKzP/Whats-App-Image-2024-11-23-at-09-37-35-1.jpg) | ![Toast](https://i.postimg.cc/7LxDnWHk/Whats-App-Image-2024-11-23-at-03-25-33.jpg) | 
 
 <br>
 
