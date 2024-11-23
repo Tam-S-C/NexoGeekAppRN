@@ -6,6 +6,8 @@
 
 <h6>La app cuenta con posibilidad de navegar por los eventos sin estar logueado, pero estándolo se puede acceder al perfil, editar tus datos y subir tu foto, crear una lista de tus eventos favoritos, comprar tickets para los eventos, ver tus órdenes de compra y mirar la ubicación del evento en un mapa. <h6>
 
+* [VIDEO DEMOSTRATIVO](https://1drv.ms/v/c/0f32ebdfc0565cb4/EQ8UzQsVPG5JipDcsyvmwjoBeGD9ddFyudWqklNZs-aD7A?e=jekGc7)
+
 
 ---
 
