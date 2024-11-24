@@ -8,7 +8,6 @@
 
 * [VIDEO DEMOSTRATIVO](https://drive.google.com/file/d/1kuEqOgqxeixpAnd8sxcOWyc8MGEo_rsa/view)
 
-
 ---
 
 > Curso: React Native - CoderHouse - Comisión 59525
