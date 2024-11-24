@@ -174,10 +174,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalImage: {
-    width: 140,
-    height: 140,
+    width: 180,
+    height: 120,
     marginBottom: 20,
-    borderRadius: 16
+    borderRadius: 24
   },
   modalTitle: {
     fontSize: 16,

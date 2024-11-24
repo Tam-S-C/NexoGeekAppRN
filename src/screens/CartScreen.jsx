@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { clearCart, removeItem, increaseQuantity, decreaseQuantity } from '../features/cart/cartSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { usePostOrderMutation } from '../services/ordersService';
+import { calculate_total_price } from '../utils/functions';
 import CardGeneral from '../components/CardGeneral';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
@@ -11,11 +12,13 @@ const CartScreen = ({ navigation }) => {
 
   const [thanksModalVisible, setThanksModalVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
-  const total = useSelector((state) => state.cartReducer.value.total);
-  const cart = useSelector((state) => state.cartReducer.value.cartItems);
   const [deleteItemModalVisible, setDeleteItemModalVisible] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
 
+
+  const cart = useSelector((state) => state.cartReducer.value.cartItems);
+  const total = Array.isArray(cart) ? calculate_total_price(cart) : 0;
+ 
   const [triggerPost, result] = usePostOrderMutation();
 
   const dispatch = useDispatch();
@@ -69,7 +72,7 @@ const CartScreen = ({ navigation }) => {
     <View style={styles.footerContainer}>
 
       <Text style={styles.itemsText}>Tienes {cart.length} producto/os del mismo evento/local en tu carrito.</Text>
-      <Text style={styles.footerTotal}>Total: ${total}</Text>
+      <Text style={styles.footerTotal}>Total: ${total.toFixed(2)}</Text>
 
       <Pressable onPress={() => {
           confirmBtn()
@@ -92,7 +95,7 @@ const CartScreen = ({ navigation }) => {
 
   const renderCartItem = ({ item }) => {
 
-    const discountedPrice = item.price - item.price * (item.discount / 100);
+    const discountedPrice = item.price * (1 - item.discount / 100);
 
     return (
       <CardGeneral style={styles.eventContainer}>
@@ -135,7 +138,10 @@ const CartScreen = ({ navigation }) => {
           <Text style={styles.priceStyle1}>${item.price}</Text>
           <Text style={styles.priceStyle}>${discountedPrice}</Text>
           <Text style={styles.subtotalStyle}>
-            SUBTOTAL: ${(discountedPrice * item.quantity).toFixed(2)}
+            SUBTOTAL:
+          </Text>
+          <Text style={styles.subtotalStyle}>
+            ${(discountedPrice * item.quantity).toFixed(2)}
           </Text>
         </View>
       </CardGeneral>
@@ -323,6 +329,7 @@ const styles = StyleSheet.create({
     height: 72,
     marginTop: 12,
     marginRight: 18,
+    borderRadius: 16
   },
   eventDescription: {
     paddingHorizontal: 2,
@@ -391,7 +398,7 @@ const styles = StyleSheet.create({
     color: colors.violetaPrimario,
     fontSize: 13,
     fontWeight: '500',
-    marginBottom: 8
+    marginTop: 2
   },
   quantityStyle: {
     marginTop: 2,
@@ -435,7 +442,7 @@ const styles = StyleSheet.create({
   lessPlusContainer: {
     flexDirection: 'row',
     gap: 16,
-    marginTop: 4,
+    marginVertical: 4,
   },
   deleteText: {
     alignSelf: 'center',

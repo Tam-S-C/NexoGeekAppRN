@@ -159,14 +159,14 @@ const styles = StyleSheet.create({
   },
   eventDescription: {
     paddingHorizontal: 2,
-    width: '32%'
+    width: '34%'
   },
   stockStyle: {
     color: colors.fucsiaAcento,
     fontFamily: 'Roboto',
     fontSize: 14,
     marginTop: 2,
-    marginBottom: 4
+    marginBottom: 6
   },
   priceStyle: {
     color: colors.violetaPrimario,
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
   },
   tagsStyleDirection: {
     flexDirection: 'row',
-    gap: 4
+    gap: 2
   },
   discountStyle: {
     backgroundColor: colors.violetaSecundario,
@@ -211,7 +211,8 @@ const styles = StyleSheet.create({
   column3Style: {
     paddingVertical: 8,
     paddingHorizontal: 4,
-    alignItems: 'center'
+    alignItems: 'center',
+    marginLeft: 8
   },
   backArrow: {
     paddingVertical: 4,
