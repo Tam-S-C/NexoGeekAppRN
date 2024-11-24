@@ -6,10 +6,15 @@ import { store } from "./src/app/store";
 import { Provider } from "react-redux";
 import { View, Text } from "react-native";
 import { colors } from "./src/global/colors";
+import { createSessionsTable } from './src/db';
 import MainNavigator from "./src/navigation/MainNavigator";
 import * as SplashScreen from "expo-splash-screen";
 import Toast from 'react-native-toast-message';
 
+createSessionsTable()
+  .then(() => {
+  })
+  .catch((error) => console.error("Error al crear la tabla Sessions: ", error));
 
 enableScreens();
 SplashScreen.preventAutoHideAsync();
@@ -29,7 +34,18 @@ export default function App() {
     PressStart: require("./assets/fonts/PressStart.ttf"),
   });
 
+
   useEffect(() => {
+    createSessionsTable().catch(error => {
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Error al inicializar la aplicación',
+        visibilityTime: 2000,
+        position: 'top',
+      });
+    });
+
     if (loaded || error) {
       SplashScreen.hideAsync();
     }

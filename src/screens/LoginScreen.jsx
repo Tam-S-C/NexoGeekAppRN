@@ -4,6 +4,7 @@ import { colors } from '../global/colors';
 import { useState, useEffect } from 'react';
 import { useLoginMutation } from '../services/authService';
 import { useDispatch } from 'react-redux';
+import { insertSession, clearSessions } from '../db';
 import { setUser, clearUser, loadUserFromStorage } from '../features/auth/authSlice';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Toast from 'react-native-toast-message';
@@ -20,24 +21,45 @@ const LoginScreen = ({ navigation }) => {
   const [triggerLogin, result] = useLoginMutation();
   const dispatch = useDispatch();
 
+  
   useEffect(() => {
     if (result.isSuccess) {
-      dispatch(setUser(result.data));
-      if (rememberMe) {
-        dispatch(clearUser());
-        loadUserFromStorage({
-          email: result.data.email,
-          token: result.data.idToken
+      const handleRememberMe = async () => {
+        if (rememberMe) {
+          try {
+            await clearSessions();
+            await insertSession({
+              localId: result.data.localId,
+              email: result.data.email,
+              token: result.data.idToken,
+            });
+            loadUserFromStorage({
+              email: result.data.email,
+              token: result.data.idToken,
+            });
+          } catch (error) {
+            Toast.show({
+              type: 'error',
+              text1: 'Error',
+              text2: 'Hubo un problema al guardar la sesión',
+              visibilityTime: 2000,
+              position: 'top',
+            });
+            return;
+          }
+        }
+  
+        dispatch(setUser(result.data)); 
+        Toast.show({
+          type: 'success',
+          text1: '¡Bienvenido!',
+          text2: 'Has iniciado sesión correctamente',
+          visibilityTime: 1500,
+          position: 'top',
         });
-      }
-      setIsLoggedIn(true);
-      Toast.show({
-        type: 'success',
-        text1: '¡Bienvenido!',
-        text2: 'Has iniciado sesión correctamente',
-        visibilityTime: 1500,
-        position: 'top',
-      });
+      };
+  
+      handleRememberMe();
     } else if (result.isError) {
       Toast.show({
         type: 'error',
@@ -69,11 +91,12 @@ const LoginScreen = ({ navigation }) => {
     triggerLogin({ email, password });
   }
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      setIsLoggedIn(false);
-    }
-  }, [isLoggedIn, navigation]);
+  //useEffect(() => {
+  //  if (isLoggedIn) {
+   //   setIsLoggedIn(false);
+   //   navigation.navigate('Home');
+  //  }
+ // }, [isLoggedIn, navigation]);
 
 
 

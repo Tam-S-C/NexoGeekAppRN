@@ -36,7 +36,6 @@ const FavsScreen = ({ navigation }) => {
       });
       refetch();
     } catch (error) {
-      console.error("Error removing favorite:", error);
       Toast.show({
         type: 'error',
         text1: 'Hubo un error al eliminar el favorito.',

@@ -84,7 +84,6 @@ const OneEventScreen = ({ navigation }) => {
         });
       }
     } catch (error) {
-      console.error("Error managing favorite:", error);
       Toast.show({
         type: 'error',
         text1: 'Hubo un error al guardar el evento, prueba nuevamente más tarde.',
@@ -108,7 +107,7 @@ const OneEventScreen = ({ navigation }) => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
+        setErrorMsg('Permiso para acceder a la locación denegada');
         return;
       }
       let location = await Location.getCurrentPositionAsync({});

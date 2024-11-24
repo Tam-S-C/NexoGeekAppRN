@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useGetProfilePictureQuery } from "../services/userService";
 import { setProfilePicture, setUser } from "../features/auth/authSlice";
+import { fetchSession } from "../db";
 import TabNavigator from "./TabNavigator";
 import LoginScreen from "../screens/LoginScreen";
 import SignupScreen from "../screens/SignupScreen";
@@ -36,6 +37,13 @@ const MainNavigator = () => {
             dispatch(setUser(session[0]));
           }
         } catch (error) {
+        Toast.show({
+            type: 'error',
+            text1: 'Error',
+            text2: 'Error al recuperar la sesión',
+            visibilityTime: 2000,
+            position: 'top',
+          });
         }
       })();
     }
