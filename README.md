@@ -8,7 +8,8 @@
 
 <h6> Se buscó seguir las medidas establecidas para Andriod según MaterialDesign para lograr una UI eficiente, como en los márgenes, calles, componentes, botones, tipografía y sus medidas, legibilidad, contrastes de color, uso de modales y toast para generar un buen flujo con el usuario y las pantallas, con carteles de error y éxito, y de preguntas antes de realizar una acción como la de eliminar un evento del carrito. </h6>
 
-* [VIDEO DEMOSTRATIVO](https://drive.google.com/file/d/1kuEqOgqxeixpAnd8sxcOWyc8MGEo_rsa/view)
+* [VIDEO DEMOSTRATIVO](https://drive.google.com/file/d/1lSMtOP4Z-2pazq9Im4axOPDyWxic2V_q/view)
+(El video se encuenta en velocidad x1.3)
 
 ---
 
@@ -25,7 +26,7 @@
 > [!IMPORTANT]
 > Herramientas Utilizadas / Dependencias / Librerías:
 
-* react-native-maps y expo-location => para renderizar mapas con geolocalización.
+* react-native-maps y expo-location => para renderizar mapas con las coordenadas de cada evento y el Marker con el pin y su título en el mapa.
 
 * react-native-toast-message => Para la visualización de un Toast/mensaje en la creación exitosa del usuario en el Signup.
 
@@ -75,9 +76,12 @@
 
 * expo-image-picker: Permite seleccionar imágenes y videos desde el dispositivo.
 
-* Redux Toolkit + RTK Query + Solititudes HTTP
+* Redux Toolkit + RTK Query + Solititudes HTTP.
 
 * Iconos de las categorías obtenidos de: <a href="https://www.flaticon.es/iconos-gratis/comercio-y-compras" title="comercio y compras iconos">Comercio y compras iconos creados por Freepik - Flaticon</a>
+
+* tabBarBadge => para que se renderice el n° de eventos agregados en el ícono del carrito en la TabBar.
+
 
 <br>
 

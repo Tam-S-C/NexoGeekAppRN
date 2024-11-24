@@ -1,12 +1,12 @@
 import { FlatList, Image, StyleSheet, View, Text, Pressable, ActivityIndicator } from 'react-native';
-import CardGeneral from '../components/CardGeneral';
 import { colors } from '../global/colors';
 import { useEffect, useState } from 'react';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-import Search from '../components/Search';
 import { useSelector, useDispatch } from 'react-redux';
 import { setEventId } from '../features/shop/shopSlice';
 import { useGetEventsByCategoryQuery } from '../services/shopService';
+import CardGeneral from '../components/CardGeneral';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import Search from '../components/Search';
 
 
 const EventsScreen = ({ navigation }) => {
