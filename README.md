@@ -30,7 +30,9 @@
 
 * expo/metro-runtime => Proporciona un entorno para el bundling de aplicaciones en Expo.
 
-* react-native-async-storage/async-storage: Permite almacenar datos de manera persistente en el dispositivo.
+* react-native-async-storage/async-storage: Permite almacenar los datos de manera persistente en el dispositivo.
+
+* expo-sqlite => para la persistencia de sesión.
 
 * react-navigation/bottom-tabs => Para realizar la barra de navegación inferior / la TabNavigation.
 

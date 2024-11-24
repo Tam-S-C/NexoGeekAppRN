@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { useLoginMutation } from '../services/authService';
 import { useDispatch } from 'react-redux';
 import { insertSession, clearSessions } from '../db';
-import { setUser, clearUser, loadUserFromStorage } from '../features/auth/authSlice';
+import { setUser, loadUserFromStorage } from '../features/auth/authSlice';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Toast from 'react-native-toast-message';
 
@@ -16,7 +16,6 @@ const LoginScreen = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [triggerLogin, result] = useLoginMutation();
   const dispatch = useDispatch();
