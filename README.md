@@ -29,7 +29,7 @@
 
 ![APK](https://i.postimg.cc/fWJvtZj1/Whats-App-Image-2024-11-24-at-19-42-50.jpg)
  
-![APKinstall](https://drive.google.com/file/d/1lcDLmyZxUaMGDG_2oZZnfF3dtB-jbD7z/view?usp=sharing)
+* [APKinstall](https://drive.google.com/file/d/1lcDLmyZxUaMGDG_2oZZnfF3dtB-jbD7z/view?usp=sharing)
 
 
 ---
@@ -39,6 +39,7 @@
 ![UI](https://i.postimg.cc/WpQ0Y3DV/ui-ng-TAM.png)
 
 <br>
+
 ---
 
 > [!IMPORTANT]
