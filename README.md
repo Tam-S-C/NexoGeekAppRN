@@ -4,13 +4,6 @@
 
 <h3>Realizada con:  <img src="https://img.shields.io/badge/ReactNative-61DAFB?logo=React&logoColor=black&style=flat" width="120" /> </h3>
 
-<h6>La app cuenta con posibilidad de navegar por los eventos sin estar logueado, pero estándolo se puede acceder al perfil, editar tus datos y subir tu foto, crear una lista de tus eventos favoritos, tener persistencia de la sesión, comprar tickets para los eventos, ver tus órdenes de compra y mirar la ubicación del evento en un mapa. <h6>
-
-<h6> Se buscó seguir las medidas establecidas para Andriod según MaterialDesign para lograr una UI eficiente, como en los márgenes, calles, componentes, botones, tipografía y sus medidas, legibilidad, contrastes de color, uso de modales y toast para generar un buen flujo con el usuario y las pantallas, con carteles de error y éxito, y de preguntas antes de realizar una acción como la de eliminar un evento del carrito. </h6>
-
-* [VIDEO DEMOSTRATIVO](https://drive.google.com/file/d/1lSMtOP4Z-2pazq9Im4axOPDyWxic2V_q/view)
-(El video se encuentra en velocidad x1.5)
-
 ---
 
 > Curso: React Native - CoderHouse - Comisión 59525
@@ -20,6 +13,30 @@
 * Profesor: Pablo Macia
 * Tutor: Rene Nicolas Palenque
 * Tutor Adjunto: Leonardo Monzon
+
+---
+
+<h6>La app cuenta con posibilidad de navegar por los eventos sin estar logueado, pero estándolo se puede acceder al perfil, editar tus datos y subir tu foto, crear una lista de tus eventos favoritos, tener persistencia de la sesión, comprar tickets para los eventos, ver tus órdenes de compra y mirar la ubicación del evento en un mapa. <h6>
+
+<h6> Se buscó seguir las medidas establecidas para Andriod según MaterialDesign para lograr una UI eficiente, como en los márgenes, calles, componentes, botones, tipografía y sus medidas, legibilidad, contrastes de color, uso de modales y toast para generar un buen flujo con el usuario y las pantallas, con carteles de error y éxito, y de preguntas antes de realizar una acción como la de eliminar un evento del carrito. </h6>
+
+* [VIDEO DEMOSTRATIVO](https://drive.google.com/file/d/1lSMtOP4Z-2pazq9Im4axOPDyWxic2V_q/view)
+(El video se encuentra en velocidad x1.5)
+
+---
+
+<h3>APK</h3>
+
+![APK](https://i.postimg.cc/fWJvtZj1/Whats-App-Image-2024-11-24-at-19-42-50.jpg)
+ 
+![APKinstall](https://drive.google.com/file/d/1lcDLmyZxUaMGDG_2oZZnfF3dtB-jbD7z/view?usp=sharing)
+
+
+---
+
+<h3>UI</h3>
+
+![UI](https://i.postimg.cc/WpQ0Y3DV/ui-ng-TAM.png)
 
 ---
 
@@ -76,6 +93,8 @@
 
 * expo-image-picker: Permite seleccionar imágenes y videos desde el dispositivo.
 
+* expo-dev-client => para habilitar la creación del apk
+
 * Redux Toolkit + RTK Query + Solititudes HTTP.
 
 * Iconos de las categorías obtenidos de: <a href="https://www.flaticon.es/iconos-gratis/comercio-y-compras" title="comercio y compras iconos">Comercio y compras iconos creados por Freepik - Flaticon</a>
@@ -84,12 +103,6 @@
 
 
 <br>
-
----
-
-<h3>UI</h3>
-
-![UI](https://i.postimg.cc/WpQ0Y3DV/ui-ng-TAM.png)
 
 ---
 
@@ -201,7 +214,7 @@ Descargar e instalar Android Studio, iniciar el emulador desde la interfaz de An
 <br>
 
 <a href="https://postimg.cc/DmZp57LX">
-   <img src="https://i.postimg.cc/DfdVvZzB/gracias.png" width="810" />
+   <img src="https://i.postimg.cc/DfdVvZzB/gracias.png" width="820" />
 </a>
 
 
