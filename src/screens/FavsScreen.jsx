@@ -107,8 +107,8 @@ const FavsScreen = ({ navigation }) => {
       <Text style={styles.screenTitle}>Mis Eventos Favs:</Text>
       
       {favs.length === 0 ? (
-        <View style={styles.emptyContainer}>
-          <Text style={styles.emptyText}>Aún no hay eventos favoritos.</Text>
+        <View style={styles.errorContainer}>
+          <Text style={styles.errorText}>Aún no hay eventos favoritos.</Text>
         </View>
       ) : (
         <FlatList
@@ -177,11 +177,6 @@ const styles = StyleSheet.create({
     padding: 8,
     textAlign: 'center'
 },
-  emptyContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   errorText: {
     fontSize: 18,
     color: colors.blanco,
@@ -191,11 +186,6 @@ const styles = StyleSheet.create({
     padding: 16,
     marginHorizontal: 14,
     textAlign: 'center'
-  },
-  emptyText: {
-    fontSize: 16,
-    color: colors.violetaPrimario,
-    textAlign: 'center',
   },
   loadingText: {
     textAlign: 'center',
