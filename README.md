@@ -9,7 +9,7 @@
 <h6> Se buscó seguir las medidas establecidas para Andriod según MaterialDesign para lograr una UI eficiente, como en los márgenes, calles, componentes, botones, tipografía y sus medidas, legibilidad, contrastes de color, uso de modales y toast para generar un buen flujo con el usuario y las pantallas, con carteles de error y éxito, y de preguntas antes de realizar una acción como la de eliminar un evento del carrito. </h6>
 
 * [VIDEO DEMOSTRATIVO](https://drive.google.com/file/d/1lSMtOP4Z-2pazq9Im4axOPDyWxic2V_q/view)
-(El video se encuenta en velocidad x1.3)
+(El video se encuentra en velocidad x1.5)
 
 ---
 

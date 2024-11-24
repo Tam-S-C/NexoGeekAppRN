@@ -188,9 +188,15 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   loadingText: {
-    textAlign: 'center',
-    fontSize: 16,
-    color: colors.violetaPrimario,
+    fontSize: 18,
+    color: colors.blanco,
+    fontWeight: 'bold',
+    backgroundColor: colors.violetaPrimario,
+    borderRadius: 16,
+    padding: 24,
+    marginHorizontal: 16,
+    marginVertical: 40,
+    textAlign: 'center'
   },
   btnContainer: {
     borderRadius: 16,

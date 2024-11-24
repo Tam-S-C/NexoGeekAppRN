@@ -18,13 +18,21 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "icon": "./assets/icon.png",
+      "package": "com.tamsc.nexogeekapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
       "expo-font"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "b8f8c3ca-6993-4d68-9722-e5cadfff1bc1"
+      }
+    },
+    "owner": "tamsc"
   }
 }
