@@ -155,7 +155,7 @@
 <br>
 
 | **Splash** | **Signup** | **Login** | **Home** | **Evento** | **Eventos** | **Zoom a Foto** |
-|:--:|:--:|:--:|:--:|:--:|:--:|
+|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | ![Splash](https://i.postimg.cc/6q8rTTXT/Whats-App-Image-2024-11-21-at-01-23-03.jpg) | ![Signup](https://i.postimg.cc/9XkPKPd9/Whats-App-Image-2024-11-21-at-01-23-02-2.jpg) | ![Login](https://i.postimg.cc/7hjgzDH9/Whats-App-Image-2024-11-21-at-01-23-02-3.jpg) | ![Home](https://i.postimg.cc/zB0CxG5n/Whats-App-Image-2024-11-25-at-16-41-08.jpg) | ![Eventos](https://i.postimg.cc/V6Y99Cyf/Whats-App-Image-2024-11-25-at-16-41-08-1.jpg) | ![Evento](https://i.postimg.cc/pVmCsKhr/Whats-App-Image-2024-11-25-at-16-45-24.jpg) | ![ZoomFoto](https://i.postimg.cc/qMnmGDPq/Whats-App-Image-2024-11-21-at-01-22-59.jpg) |
 
 <br>
