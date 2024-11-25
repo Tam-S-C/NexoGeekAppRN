@@ -3,6 +3,7 @@ import { colors } from '../global/colors.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCategory } from '../features/shop/shopSlice.js';
 import { useGetCategoriesQuery } from '../services/shopService';
+import BtnWhats from "../components/BtnWhats";
 import CardGeneral from '../components/CardGeneral.jsx';
 
 const CategoriesScreen = ({ navigation }) => {
@@ -70,6 +71,7 @@ const CategoriesScreen = ({ navigation }) => {
                                 keyExtractor={item => item.id}
                                 renderItem={renderCategoryItem}
                             />
+                            <BtnWhats />
                         </>
             }
 

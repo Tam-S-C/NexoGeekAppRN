@@ -4,6 +4,7 @@ import { useGetOrdersQuery } from '../services/ordersService';
 import { colors } from '../global/colors';
 import { useSelector } from 'react-redux';
 import { clearUser } from '../features/auth/authSlice';
+import BtnWhats from "../components/BtnWhats";
 import CardGeneral from '../components/CardGeneral';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
@@ -35,6 +36,7 @@ const OrdersScreen = ({navigation}) => {
             >
                 <Text style={styles.errorText}>Volver al Login</Text>
             </Pressable>
+            <BtnWhats/>
         </>
     );
 }
@@ -83,6 +85,7 @@ const OrdersScreen = ({navigation}) => {
 
 
   return (
+    <>
     <View>
       <FlatList
         data={orders}
@@ -126,6 +129,8 @@ const OrdersScreen = ({navigation}) => {
         </Modal>
       )}
     </View>
+    <BtnWhats/>
+    </>
   );
 };
 

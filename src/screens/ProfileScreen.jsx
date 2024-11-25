@@ -9,6 +9,7 @@ import { usePutNickNameMutation, usePutEdadMutation, usePutCiudadMutation } from
 import { updateNickName, updateEdad, updateCiudad } from '../features/auth/authSlice';
 import { useGetNickNameQuery, useGetEdadQuery, useGetCiudadQuery } from '../services/userService';
 import { updateProfile } from '../features/auth/authSlice';
+import BtnWhats from "../components/BtnWhats";
 import EditModal from '../components/EditModal';
 import CameraIcon from '../components/CameraIcon';
 import * as ImagePicker from 'expo-image-picker';
@@ -121,6 +122,7 @@ const ProfileScreen = ({ navigation }) => {
                 >
                     <Text style={styles.errorText}>Volver al Login</Text>
                 </Pressable>
+                <BtnWhats/>
             </>
         );
     }
@@ -184,7 +186,7 @@ const ProfileScreen = ({ navigation }) => {
                     field={editingField}
                 />
             </View>
-
+            <BtnWhats/>
         </>
     );
 };

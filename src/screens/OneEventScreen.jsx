@@ -6,6 +6,7 @@ import { addItem } from '../features/cart/cartSlice';
 import { useGetEventQuery } from '../services/shopService';
 import { clearUser } from '../features/auth/authSlice';
 import { useAddFavMutation, useRemoveFavMutation } from "../services/favsService";
+import BtnWhats from "../components/BtnWhats";
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -124,9 +125,12 @@ const OneEventScreen = ({ navigation }) => {
           :
           error
             ?
+            <>
             <Text style={styles.errorText}>
               Ha ocurrido un error al cargar el evento, lo sentimos mucho 🙇‍♀️. Prueba nuevamente.
             </Text>
+            <BtnWhats/>
+            </>
             :
             <>
 
@@ -256,6 +260,7 @@ const OneEventScreen = ({ navigation }) => {
               <View style={styles.priceContainer}>
                 <Text style={styles.priceTextStyle}>TOTAL: </Text>
                 <Text style={styles.priceStyle2}>${(eventFound.price - (eventFound.price * (eventFound.discount / 100)))}</Text>
+                <BtnWhats />
               </View>
 
 
@@ -275,10 +280,13 @@ const OneEventScreen = ({ navigation }) => {
                     </Text>
                   </Pressable>
                   :
+                  <>
+                  
                   <Pressable style={({ pressed }) => [{ backgroundColor: pressed ? colors.fucsiaSombra : colors.fucsiaAcento }, styles.addToCardButton2]}
                     onPress={null}>
                     <Text style={styles.addToCardText2}>Evento Sin Stock </Text>
                   </Pressable>
+                  </>
               }
 
 
@@ -308,7 +316,7 @@ const OneEventScreen = ({ navigation }) => {
                   />
                 </Pressable>
               </Modal>
-
+            
             </>
       }
     </>

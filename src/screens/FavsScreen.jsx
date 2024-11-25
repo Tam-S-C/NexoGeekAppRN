@@ -4,6 +4,7 @@ import { colors } from '../global/colors';
 import { clearUser } from '../features/auth/authSlice';
 import { useGetFavsQuery, useRemoveFavMutation } from "../services/favsService";
 import { setEventId } from "../features/shop/shopSlice";
+import BtnWhats from "../components/BtnWhats";
 import CardGeneral from "../components/CardGeneral";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import Toast from 'react-native-toast-message';
@@ -75,6 +76,7 @@ const FavsScreen = ({ navigation }) => {
           <Text style={styles.errorText}>
             Esta sección es solo para usuarios registrados. Inicia sesión para poder usar esta sección. Gracias.
           </Text>
+          
         </View>
 
         <Pressable
@@ -86,6 +88,7 @@ const FavsScreen = ({ navigation }) => {
         >
           <Text style={styles.errorText}>Volver al Login</Text>
         </Pressable>
+        <BtnWhats/>
       </View>
     );
   }
@@ -107,16 +110,22 @@ const FavsScreen = ({ navigation }) => {
       <Text style={styles.screenTitle}>Mis Eventos Favs:</Text>
       
       {favs.length === 0 ? (
+        <>
         <View style={styles.errorContainer}>
           <Text style={styles.errorText}>Aún no hay eventos favoritos.</Text>
         </View>
+        <BtnWhats/>
+        </>
       ) : (
+        <>
         <FlatList
           contentContainerStyle={styles.listContainer}
           data={uniqueFavs}
           keyExtractor={(item) => item.id.toString()}
           renderItem={renderFavItem}
         />
+        <BtnWhats/>
+        </>
       )}
     </View>
   );

@@ -5,6 +5,7 @@ import { clearCart, removeItem, increaseQuantity, decreaseQuantity } from '../fe
 import { useDispatch, useSelector } from 'react-redux';
 import { usePostOrderMutation } from '../services/ordersService';
 import { calculate_total_price } from '../utils/functions';
+import BtnWhats from "../components/BtnWhats";
 import CardGeneral from '../components/CardGeneral';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
@@ -222,12 +223,15 @@ const CartScreen = ({ navigation }) => {
               <Text style={styles.thanksText}>¡GRACIAS POR TU COMPRA!</Text>
             </View>
           </Modal>
-
+          <BtnWhats/>
         </>
       ) : (
+        <>
         <View>
           <Text style={styles.errorText}>Aún no hay eventos en tu carrito</Text>
         </View>
+        <BtnWhats/>
+        </>
       )}
     </>
   );

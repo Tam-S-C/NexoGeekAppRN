@@ -16,7 +16,7 @@
 
 ---
 
-<h6>La app cuenta con posibilidad de navegar por los eventos sin estar logueado, pero estándolo se puede acceder al perfil, editar tus datos y subir tu foto, crear una lista de tus eventos favoritos, tener persistencia de la sesión, comprar tickets para los eventos, ver tus órdenes de compra y mirar la ubicación del evento en un mapa. <h6>
+<h6>La app cuenta con posibilidad de navegar por los eventos sin estar logueado, pero estándolo se puede acceder al perfil, editar tus datos y subir tu foto, crear una lista de tus eventos favoritos, tener persistencia de la sesión, comprar tickets para los eventos, ver tus órdenes de compra y mirar la ubicación del evento en un mapa. También se agregó un botón flotante en todas las screens para poder realizar consultas por WhatsApp. <h6>
 
 <h6> Se buscó seguir las medidas establecidas para Andriod según MaterialDesign para lograr una UI eficiente, como en los márgenes, calles, componentes, botones, tipografía y sus medidas, legibilidad, contrastes de color, uso de modales y toast para generar un buen flujo con el usuario y las pantallas, con carteles de error y éxito, y de preguntas antes de realizar una acción como la de eliminar un evento del carrito. </h6>
 
@@ -115,7 +115,7 @@
 
 - [x] Archivo .env para ocultar las Api Key/url de FireBase.
 
-- [x] Carpeta 'Components' => contiene la creación de componentes reutilizables en toda la app para no generar código repetido, como el estilo de los Modals, el Header, Search, CameraIcon y las Cards.
+- [x] Carpeta 'Components' => contiene la creación de componentes reutilizables en toda la app para no generar código repetido, como el estilo de los Modals, el Header, Search, CameraIcon, BtnWhats y las Cards.
 
 - [x] Carpeta 'App' => contiene 'store.js' que es el contenedor global del estado de la app utilizando Redux Toolkit en combinación con RTK Query para manejar la lógica relacionada con las API. Su funcionalidad principal es combinar todos los reducers y middleware para que el estado global sea accesible.
 
@@ -154,22 +154,22 @@
 
 <br>
 
-| **Splash** | **Signup** | **Login** | **Home** | **Evento** | **Zoom a Foto** |
+| **Splash** | **Signup** | **Login** | **Home** | **Evento** | **Eventos** | **Zoom a Foto** |
 |:--:|:--:|:--:|:--:|:--:|:--:|
-| ![Splash](https://i.postimg.cc/6q8rTTXT/Whats-App-Image-2024-11-21-at-01-23-03.jpg) | ![Signup](https://i.postimg.cc/9XkPKPd9/Whats-App-Image-2024-11-21-at-01-23-02-2.jpg) | ![Login](https://i.postimg.cc/7hjgzDH9/Whats-App-Image-2024-11-21-at-01-23-02-3.jpg) | ![Home](https://i.postimg.cc/d0tnVr1c/Whats-App-Image-2024-11-24-at-00-33-50.jpg) | ![Evento](https://i.postimg.cc/x8dxnvtz/Whats-App-Image-2024-11-23-at-09-37-35-2.jpg) | ![ZoomFoto](https://i.postimg.cc/qMnmGDPq/Whats-App-Image-2024-11-21-at-01-22-59.jpg) |
+| ![Splash](https://i.postimg.cc/6q8rTTXT/Whats-App-Image-2024-11-21-at-01-23-03.jpg) | ![Signup](https://i.postimg.cc/9XkPKPd9/Whats-App-Image-2024-11-21-at-01-23-02-2.jpg) | ![Login](https://i.postimg.cc/7hjgzDH9/Whats-App-Image-2024-11-21-at-01-23-02-3.jpg) | ![Home](https://i.postimg.cc/zB0CxG5n/Whats-App-Image-2024-11-25-at-16-41-08.jpg) | ![Eventos](https://i.postimg.cc/V6Y99Cyf/Whats-App-Image-2024-11-25-at-16-41-08-1.jpg) | ![Evento](https://i.postimg.cc/pVmCsKhr/Whats-App-Image-2024-11-25-at-16-45-24.jpg) | ![ZoomFoto](https://i.postimg.cc/qMnmGDPq/Whats-App-Image-2024-11-21-at-01-22-59.jpg) |
 
 <br>
 
 | **Carrito Vacío** | **Carrito** | **Modal** | **Checkout** | **Órdenes** | **Zoom a Órden** | 
 |:--:|:--:|:--:|:--:|:--:|:--:|
-![Carrito Vacío](https://i.postimg.cc/J7sYszKb/Whats-App-Image-2024-11-21-at-01-23-00.jpg) | ![Carrito](https://i.postimg.cc/wj8XT6bT/Whats-App-Image-2024-11-21-at-01-23-02.jpg) | ![Modal](https://i.postimg.cc/vmG5f0sJ/Whats-App-Image-2024-11-21-at-01-23-01-3.jpg) | ![Checkout](https://i.postimg.cc/mgYQP003/Whats-App-Image-2024-11-21-at-01-23-01-2.jpg) | ![ordenes](https://i.postimg.cc/bvLkT1Ys/Whats-App-Image-2024-11-21-at-01-23-01-1.jpg) | ![Zoom a Órden](https://i.postimg.cc/T15bfSVD/Whats-App-Image-2024-11-21-at-01-23-01.jpg) | 
+![Carrito Vacío](https://i.postimg.cc/MGJmTLdj/Whats-App-Image-2024-11-25-at-16-41-08-3.jpg) | ![Carrito](https://i.postimg.cc/yNhXSTbp/Whats-App-Image-2024-11-25-at-16-41-08-2.jpg) | ![Modal](https://i.postimg.cc/vmG5f0sJ/Whats-App-Image-2024-11-21-at-01-23-01-3.jpg) | ![Checkout](https://i.postimg.cc/mgYQP003/Whats-App-Image-2024-11-21-at-01-23-01-2.jpg) | ![ordenes](https://i.postimg.cc/Wp58nXbQ/Whats-App-Image-2024-11-25-at-16-41-09-1.jpg) | ![Zoom a Órden](https://i.postimg.cc/4NM5CycP/Whats-App-Image-2024-11-25-at-16-41-09.jpg) | 
 
 <br>
 
 
 | **Sin acceso** | **Perfil** | **Edit** | **Favs** | **Mapa** | **Toast** | 
 |:--:|:--:|:--:|:--:|:--:|:--:|
-![Sin Acceso](https://i.postimg.cc/WprNjrfx/Whats-App-Image-2024-11-23-at-03-29-41.jpg) | ![Perfil](https://i.postimg.cc/G25Y0ryR/Whats-App-Image-2024-11-21-at-01-23-00-2.jpg) | ![Edit](https://i.postimg.cc/nM8Dzk2w/Whats-App-Image-2024-11-21-at-01-23-00-1.jpg) | ![Favs](https://i.postimg.cc/m2dVPkdR/Whats-App-Image-2024-11-23-at-05-03-15.jpg) | ![Mapa](https://i.postimg.cc/G2fDrsBK/Whats-App-Image-2024-11-24-at-00-22-44.jpg) | ![Toast](https://i.postimg.cc/7LxDnWHk/Whats-App-Image-2024-11-23-at-03-25-33.jpg) | 
+![Sin Acceso](https://i.postimg.cc/WprNjrfx/Whats-App-Image-2024-11-23-at-03-29-41.jpg) | ![Perfil](https://i.postimg.cc/rFzJYxDz/Whats-App-Image-2024-11-25-at-16-41-11.jpg) | ![Edit](https://i.postimg.cc/nM8Dzk2w/Whats-App-Image-2024-11-21-at-01-23-00-1.jpg) | ![Favs](https://i.postimg.cc/FHLxhvg4/Whats-App-Image-2024-11-25-at-16-41-09-2.jpg) | ![Mapa](https://i.postimg.cc/G2fDrsBK/Whats-App-Image-2024-11-24-at-00-22-44.jpg) | ![Toast](https://i.postimg.cc/7LxDnWHk/Whats-App-Image-2024-11-23-at-03-25-33.jpg) | 
 
 <br>
 
