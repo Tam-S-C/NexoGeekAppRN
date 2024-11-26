@@ -9,7 +9,7 @@ import CardGeneral from '../components/CardGeneral';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 
-const OrdersScreen = ({navigation}) => {
+const OrdersScreen = ({ navigation }) => {
 
   const token = useSelector((state) => state.authReducer.value.token);
   const { data: orders, isLoading, isError } = useGetOrdersQuery();
@@ -19,27 +19,27 @@ const OrdersScreen = ({navigation}) => {
 
   if (!token) {
     return (
-        <>
-            <View style={styles.errorContainer}>
-                <Text style={styles.errorText}>Esta sección es solo para usuarios registrados. Inicia sesión para poder usar esta sección. Gracias.</Text>
-            </View>
+      <>
+        <View style={styles.errorContainer}>
+          <Text style={styles.errorText}>Esta sección es solo para usuarios registrados. Inicia sesión para poder usar esta sección. Gracias.</Text>
+        </View>
 
-            <Pressable
-                style={({ pressed }) => [
-                    { backgroundColor: pressed ? colors.violetaSombra : colors.violetaPrimario },
-                    styles.btnContainer
-                ]}
-                onPress={() => {
-                  navigation.navigate('InAppAuth', { screen: 'LoginScreen' });
-                  dispatch(clearUser());
-              }}
-            >
-                <Text style={styles.errorText}>Volver al Login</Text>
-            </Pressable>
-            <BtnWhats/>
-        </>
+        <Pressable
+          style={({ pressed }) => [
+            { backgroundColor: pressed ? colors.violetaSombra : colors.violetaPrimario },
+            styles.btnContainer
+          ]}
+          onPress={() => {
+            navigation.navigate('InAppAuth', { screen: 'LoginScreen' });
+            dispatch(clearUser());
+          }}
+        >
+          <Text style={styles.errorText}>Volver al Login</Text>
+        </Pressable>
+        <BtnWhats />
+      </>
     );
-}
+  }
 
 
   const openModal = (order) => {
@@ -86,50 +86,50 @@ const OrdersScreen = ({navigation}) => {
 
   return (
     <>
-    <View>
-      <FlatList
-        data={orders}
-        keyExtractor={(item) => item.id}
-        renderItem={renderOrderItem}
-        ListHeaderComponent={<Text style={styles.ordersScreenTitle}>Mis Compras Realizadas:</Text>}
-      />
+      <View>
+        <FlatList
+          data={orders}
+          keyExtractor={(item) => item.id}
+          renderItem={renderOrderItem}
+          ListHeaderComponent={<Text style={styles.ordersScreenTitle}>Mis Compras Realizadas:</Text>}
+        />
 
-      {selectedOrder && (
-        <Modal
-          visible={modalVisible}
-          transparent
-          animationType="slide"
-          onRequestClose={closeModal}
-        >
-          <View style={styles.modalContainer}>
-            <View style={styles.modalContent}>
-              <Image
-                source={{ uri: selectedOrder.cart[0]?.mainImage }}
-                style={styles.modalImage}
-                resizeMode="contain"
-              />
-              <Text style={styles.modalTitle}>Orden nº: {selectedOrder.id}</Text>
-              <Text style={styles.modalText}>
-                Fecha: {new Date(selectedOrder.createdAt).toLocaleString('es-Ar')} hs.
-              </Text>
-              
-              {selectedOrder.cart.map((item, index) => (
-                <View key={index} style={styles.modalItem}>
-                  <Text style={styles.modalText}>Evento/Local: {item.title}</Text>
-                  <Text style={styles.modalText}>Cantidad de Tickets: {item.quantity}</Text>
-                  <Text style={styles.modalText}>Total: ${selectedOrder.total}</Text>
-                  <Text style={styles.modalText2}>No válido como factura.</Text>
-                </View>
-              ))}
-              <Pressable style={styles.closeButton} onPress={closeModal}>
-                <Text style={styles.closeButtonText}>Cerrar</Text>
-              </Pressable>
+        {selectedOrder && (
+          <Modal
+            visible={modalVisible}
+            transparent
+            animationType="slide"
+            onRequestClose={closeModal}
+          >
+            <View style={styles.modalContainer}>
+              <View style={styles.modalContent}>
+                <Image
+                  source={{ uri: selectedOrder.cart[0]?.mainImage }}
+                  style={styles.modalImage}
+                  resizeMode="contain"
+                />
+                <Text style={styles.modalTitle}>Orden nº: {selectedOrder.id}</Text>
+                <Text style={styles.modalText}>
+                  Fecha: {new Date(selectedOrder.createdAt).toLocaleString('es-Ar')} hs.
+                </Text>
+
+                {selectedOrder.cart.map((item, index) => (
+                  <View key={index} style={styles.modalItem}>
+                    <Text style={styles.modalText}>Evento/Local: {item.title}</Text>
+                    <Text style={styles.modalText}>Cantidad de Tickets: {item.quantity}</Text>
+                    <Text style={styles.modalText}>Total: ${selectedOrder.total}</Text>
+                    <Text style={styles.modalText2}>No válido como factura.</Text>
+                  </View>
+                ))}
+                <Pressable style={styles.closeButton} onPress={closeModal}>
+                  <Text style={styles.closeButtonText}>Cerrar</Text>
+                </Pressable>
+              </View>
             </View>
-          </View>
-        </Modal>
-      )}
-    </View>
-    <BtnWhats/>
+          </Modal>
+        )}
+      </View>
+      <BtnWhats />
     </>
   );
 };
@@ -242,22 +242,22 @@ const styles = StyleSheet.create({
     padding: 16,
     marginVertical: 24,
     marginHorizontal: 80
-},
-errorContainer: {
+  },
+  errorContainer: {
     backgroundColor: colors.violetaPrimario,
     borderRadius: 16,
     padding: 24,
     marginHorizontal: 16,
     marginTop: 64,
     textAlign: 'center'
-},
-errorText: {
+  },
+  errorText: {
     fontSize: 18,
     color: colors.blanco,
     fontWeight: 'bold',
     textAlign: 'center',
     paddingHorizontal: 16,
-},
+  },
 });
 
 export default OrdersScreen;

@@ -90,14 +90,6 @@ const LoginScreen = ({ navigation }) => {
     triggerLogin({ email, password });
   }
 
-  //useEffect(() => {
-  //  if (isLoggedIn) {
-   //   setIsLoggedIn(false);
-   //   navigation.navigate('Home');
-  //  }
- // }, [isLoggedIn, navigation]);
-
-
 
   return (
     <LinearGradient

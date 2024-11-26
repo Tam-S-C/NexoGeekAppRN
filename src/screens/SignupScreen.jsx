@@ -27,7 +27,7 @@ const SignupScreen = ({ navigation }) => {
   const [errorPassword, setErrorPassword] = useState("")
   const [errorConfirmPassword, setErrorConfirmPassword] = useState("")
   const [genericValidationError, setGenericValidationError] = useState("")
-  const [errorAddUser,setErrorAddUser] = useState(false)
+  const [errorAddUser, setErrorAddUser] = useState(false)
 
   const [triggerSignup, result] = useSignupMutation()
 
@@ -49,35 +49,35 @@ const SignupScreen = ({ navigation }) => {
       });
     }
   }, [result, navigation]);
-  
+
 
   const onsubmit = async () => {
     setIsLoading(true);
     try {
-        validationSchema.validateSync({ email, password, confirmPassword });
-        setErrorEmail("");
-        setErrorPassword("");
-        setErrorConfirmPassword("");
-        triggerSignup({ email, password });
+      validationSchema.validateSync({ email, password, confirmPassword });
+      setErrorEmail("");
+      setErrorPassword("");
+      setErrorConfirmPassword("");
+      triggerSignup({ email, password });
     } catch (error) {
       setIsLoading(false);
-        switch (error.path) {
-            case "email":
-                setErrorEmail(error.message);
-                break;
-            case "password":
-                setErrorPassword(error.message);
-                break;
-            case "confirmPassword":
-                setErrorConfirmPassword(error.message);
-                break;
-            default:
-                setGenericValidationError(error.message);
-                break;
-        }
+      switch (error.path) {
+        case "email":
+          setErrorEmail(error.message);
+          break;
+        case "password":
+          setErrorPassword(error.message);
+          break;
+        case "confirmPassword":
+          setErrorConfirmPassword(error.message);
+          break;
+        default:
+          setGenericValidationError(error.message);
+          break;
+      }
     }
-    };
-  
+  };
+
 
   return (
     <LinearGradient
@@ -90,7 +90,7 @@ const SignupScreen = ({ navigation }) => {
       <Text style={styles.subTitle}>Registrate</Text>
 
       <View style={styles.inputContainer}>
- 
+
         <TextInput
           onChangeText={setEmail}
           placeholderTextColor={colors.violetaPrimario}
@@ -146,7 +146,7 @@ const SignupScreen = ({ navigation }) => {
         ]}
         disabled={isLoading}
       >
-        { isLoading ? ( 
+        {isLoading ? (
           <ActivityIndicator size="small" color={colors.blanco} />
         ) : (
           <Text style={styles.buttonText}>CREAR USUARIO</Text>

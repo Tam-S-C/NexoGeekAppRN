@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
         marginVertical: 8,
         padding: 24,
     },
-    nickName:{
+    nickName: {
         color: colors.fucsiaAcento
     },
     image: {

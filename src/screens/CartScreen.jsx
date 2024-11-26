@@ -19,7 +19,7 @@ const CartScreen = ({ navigation }) => {
 
   const cart = useSelector((state) => state.cartReducer.value.cartItems);
   const total = Array.isArray(cart) ? calculate_total_price(cart) : 0;
- 
+
   const [triggerPost, result] = usePostOrderMutation();
 
   const dispatch = useDispatch();
@@ -58,15 +58,15 @@ const CartScreen = ({ navigation }) => {
   };
 
   const confirmBtn = () => {
-   setThanksModalVisible(true);
-   setTimeout(() => {
+    setThanksModalVisible(true);
+    setTimeout(() => {
       setThanksModalVisible(false);
       dispatch(clearCart());
       navigation.navigate('Orders');
       triggerPost({ cart, total, createdAt: Date.now() });
-   }, 1300);
+    }, 1300);
   };
-  
+
 
   const FooterComponent = () => (
 
@@ -76,7 +76,7 @@ const CartScreen = ({ navigation }) => {
       <Text style={styles.footerTotal}>Total: ${total.toFixed(2)}</Text>
 
       <Pressable onPress={() => {
-          confirmBtn()
+        confirmBtn()
       }}
         style={({ pressed }) => [
           { backgroundColor: pressed ? colors.violetaSombra : colors.violetaPrimario },
@@ -214,23 +214,23 @@ const CartScreen = ({ navigation }) => {
             </View>
           </Modal>
 
-          <Modal 
+          <Modal
             visible={thanksModalVisible}
-            transparent={true} 
+            transparent={true}
             animationType="fade"
             onRequestClose={() => setModalVisible(false)}>
             <View style={styles.thanksModalContainer}>
               <Text style={styles.thanksText}>¡GRACIAS POR TU COMPRA!</Text>
             </View>
           </Modal>
-          <BtnWhats/>
+          <BtnWhats />
         </>
       ) : (
         <>
-        <View>
-          <Text style={styles.errorText}>Aún no hay eventos en tu carrito</Text>
-        </View>
-        <BtnWhats/>
+          <View>
+            <Text style={styles.errorText}>Aún no hay eventos en tu carrito</Text>
+          </View>
+          <BtnWhats />
         </>
       )}
     </>
@@ -473,7 +473,7 @@ const styles = StyleSheet.create({
     marginVertical: 40,
     textAlign: 'center'
   },
-  itemsText:{
+  itemsText: {
     alignSelf: 'center',
     color: colors.violetaPrimario,
     fontSize: 12,

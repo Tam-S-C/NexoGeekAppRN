@@ -105,12 +105,12 @@ const OneEventScreen = ({ navigation }) => {
   const [errorMsg, setErrorMsg] = useState(null);
 
 
-  const handleMapPress = async() => {
+  const handleMapPress = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
-  if (status !== 'granted') {
-    setErrorMsg('Permiso para acceder a la locación denegada');
-    return;
-  }
+    if (status !== 'granted') {
+      setErrorMsg('Permiso para acceder a la locación denegada');
+      return;
+    }
     setMapModalVisible(true);
   };
 
@@ -126,10 +126,10 @@ const OneEventScreen = ({ navigation }) => {
           error
             ?
             <>
-            <Text style={styles.errorText}>
-              Ha ocurrido un error al cargar el evento, lo sentimos mucho 🙇‍♀️. Prueba nuevamente.
-            </Text>
-            <BtnWhats/>
+              <Text style={styles.errorText}>
+                Ha ocurrido un error al cargar el evento, lo sentimos mucho 🙇‍♀️. Prueba nuevamente.
+              </Text>
+              <BtnWhats />
             </>
             :
             <>
@@ -281,11 +281,11 @@ const OneEventScreen = ({ navigation }) => {
                   </Pressable>
                   :
                   <>
-                  
-                  <Pressable style={({ pressed }) => [{ backgroundColor: pressed ? colors.fucsiaSombra : colors.fucsiaAcento }, styles.addToCardButton2]}
-                    onPress={null}>
-                    <Text style={styles.addToCardText2}>Evento Sin Stock </Text>
-                  </Pressable>
+
+                    <Pressable style={({ pressed }) => [{ backgroundColor: pressed ? colors.fucsiaSombra : colors.fucsiaAcento }, styles.addToCardButton2]}
+                      onPress={null}>
+                      <Text style={styles.addToCardText2}>Evento Sin Stock </Text>
+                    </Pressable>
                   </>
               }
 
@@ -316,7 +316,7 @@ const OneEventScreen = ({ navigation }) => {
                   />
                 </Pressable>
               </Modal>
-            
+
             </>
       }
     </>

@@ -215,6 +215,12 @@ Descargar e instalar Android Studio, iniciar el emulador desde la interfaz de An
 
 <br>
 
+<a href="https://postimg.cc/VdZsHj3X">
+   <img src="https://i.postimg.cc/W1TDz88Y/PORTADA.png" width="820" />
+</a>
+
+<br>
+
 <a href="https://postimg.cc/DmZp57LX">
    <img src="https://i.postimg.cc/DfdVvZzB/gracias.png" width="820" />
 </a>

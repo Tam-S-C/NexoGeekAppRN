@@ -26,7 +26,7 @@ const FavsScreen = ({ navigation }) => {
     navigation.navigate("Evento");
   };
 
-  
+
   const handleRemoveFav = async (id) => {
     try {
       await removeFavMutation(id).unwrap();
@@ -76,7 +76,7 @@ const FavsScreen = ({ navigation }) => {
           <Text style={styles.errorText}>
             Esta sección es solo para usuarios registrados. Inicia sesión para poder usar esta sección. Gracias.
           </Text>
-          
+
         </View>
 
         <Pressable
@@ -88,7 +88,7 @@ const FavsScreen = ({ navigation }) => {
         >
           <Text style={styles.errorText}>Volver al Login</Text>
         </Pressable>
-        <BtnWhats/>
+        <BtnWhats />
       </View>
     );
   }
@@ -98,7 +98,7 @@ const FavsScreen = ({ navigation }) => {
       <Text style={styles.loadingText}>Cargando favoritos...</Text>
     </View>
   );
-  
+
   if (isError) return (
     <View style={styles.mainContainer}>
       <Text style={styles.errorText}>Error al cargar favoritos. Inténtalo nuevamente.</Text>
@@ -108,23 +108,23 @@ const FavsScreen = ({ navigation }) => {
   return (
     <View style={styles.mainContainer}>
       <Text style={styles.screenTitle}>Mis Eventos Favs:</Text>
-      
+
       {favs.length === 0 ? (
         <>
-        <View style={styles.errorContainer}>
-          <Text style={styles.errorText}>Aún no hay eventos favoritos.</Text>
-        </View>
-        <BtnWhats/>
+          <View style={styles.errorContainer}>
+            <Text style={styles.errorText}>Aún no hay eventos favoritos.</Text>
+          </View>
+          <BtnWhats />
         </>
       ) : (
         <>
-        <FlatList
-          contentContainerStyle={styles.listContainer}
-          data={uniqueFavs}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={renderFavItem}
-        />
-        <BtnWhats/>
+          <FlatList
+            contentContainerStyle={styles.listContainer}
+            data={uniqueFavs}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={renderFavItem}
+          />
+          <BtnWhats />
         </>
       )}
     </View>
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     marginVertical: 16,
   },
   listContainer: {
-    flexGrow: 1, 
+    flexGrow: 1,
     paddingBottom: 16,
   },
   eventContainer: {
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
     marginTop: 64,
     padding: 8,
     textAlign: 'center'
-},
+  },
   errorText: {
     fontSize: 18,
     color: colors.blanco,
@@ -209,9 +209,9 @@ const styles = StyleSheet.create({
   },
   btnContainer: {
     borderRadius: 16,
-    marginTop: 24, 
+    marginTop: 24,
     marginHorizontal: 64
-},
+  },
 });
 
 export default FavsScreen;

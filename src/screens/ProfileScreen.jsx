@@ -122,7 +122,7 @@ const ProfileScreen = ({ navigation }) => {
                 >
                     <Text style={styles.errorText}>Volver al Login</Text>
                 </Pressable>
-                <BtnWhats/>
+                <BtnWhats />
             </>
         );
     }
@@ -186,7 +186,7 @@ const ProfileScreen = ({ navigation }) => {
                     field={editingField}
                 />
             </View>
-            <BtnWhats/>
+            <BtnWhats />
         </>
     );
 };

@@ -109,10 +109,10 @@ const EventsScreen = ({ navigation }) => {
           error
             ?
             <>
-            <Text style={styles.errorText}>
-              Ha ocurrido un error al cargar las categorías, lo sentimos mucho 🙇‍♀️. Prueba nuevamente.
-            </Text>
-            <BtnWhats />
+              <Text style={styles.errorText}>
+                Ha ocurrido un error al cargar las categorías, lo sentimos mucho 🙇‍♀️. Prueba nuevamente.
+              </Text>
+              <BtnWhats />
             </>
             :
             <>
@@ -127,24 +127,24 @@ const EventsScreen = ({ navigation }) => {
                 eventsFiltered.length == 0
                   ?
                   <>
-                  <Text style={styles.noSearch}>
-                    No hay eventos ni locales que contengan los términos de tu búsqueda. Lo lamentamos 🙇‍♀️ . Intenta con otras palabras.
-                  </Text>
-                  <BtnWhats />
+                    <Text style={styles.noSearch}>
+                      No hay eventos ni locales que contengan los términos de tu búsqueda. Lo lamentamos 🙇‍♀️ . Intenta con otras palabras.
+                    </Text>
+                    <BtnWhats />
                   </>
                   :
                   <>
-                  <FlatList
-                    data={eventsFiltered}
-                    keyExtractor={(item) => item.id.toString()}
-                    renderItem={renderEventItem}
-                  />
-                          <BtnWhats />
+                    <FlatList
+                      data={eventsFiltered}
+                      keyExtractor={(item) => item.id.toString()}
+                      renderItem={renderEventItem}
+                    />
+                    <BtnWhats />
                   </>
-                  
+
               }
             </>
-            
+
       }
     </>
   )
