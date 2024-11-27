@@ -20,7 +20,7 @@
 
 <h6> Se buscó seguir las medidas establecidas para Andriod según MaterialDesign para lograr una UI eficiente, como en los márgenes, calles, componentes, botones, tipografía y sus medidas, legibilidad, contrastes de color, uso de modales y toast para generar un buen flujo con el usuario y las pantallas, con carteles de error y éxito, y de preguntas antes de realizar una acción como la de eliminar un evento del carrito. </h6>
 
-* [VIDEO DEMOSTRATIVO](https://drive.google.com/file/d/1UcuSzKzdzgUdMkUsQZB2FII9Ab_rVV-G/view?usp=sharing)
+* [VIDEO DEMOSTRATIVO](https://drive.google.com/file/d/1mfCW5b5oBagru-A9MocYGr514kLo3HCR/view?usp=sharing)
 
 ---
 
@@ -31,7 +31,7 @@
 <br>
 
 <a href="https://postimg.cc/yWCRtMGT">
-   <img src="https://i.postimg.cc/fWJvtZj1/Whats-App-Image-2024-11-24-at-19-42-50.jpg" width="360" />
+   <img src="https://i.postimg.cc/fWJvtZj1/Whats-App-Image-2024-11-24-at-19-42-50.jpg" width="300" />
 </a>
 
 <br>
