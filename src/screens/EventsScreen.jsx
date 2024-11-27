@@ -25,22 +25,24 @@ const EventsScreen = ({ navigation }) => {
 
   //SEARCH LÓGICA
   useEffect(() => {
-
     if (!search.trim()) {
       setEventsFiltered(eventsFilteredByCategory || []);
       return;
     }
 
     const searchLowerCase = search.trim().toLowerCase();
-    const filteredEvents = (eventsFilteredByCategory || []).filter(({ title, dateAndPlace, tags }) =>
-      title.toLowerCase().includes(searchLowerCase) ||
-      dateAndPlace.toLowerCase().includes(searchLowerCase) ||
-      tags.some(tag => tag.toLowerCase().includes(searchLowerCase))
-    );
+    const filteredEvents = (eventsFilteredByCategory || []).filter(({ title, dateAndPlace, tags }) => {
+      const hasValidTags = Array.isArray(tags) && tags.length > 0;
+
+      return (
+        title?.toLowerCase().includes(searchLowerCase) ||
+        dateAndPlace?.toLowerCase().includes(searchLowerCase) ||
+        (hasValidTags && tags.some(tag => tag?.toLowerCase().includes(searchLowerCase)))
+      );
+    });
 
     setEventsFiltered(filteredEvents);
   }, [search, eventsFilteredByCategory]);
-
 
   const renderEventItem = ({ item }) => {
 
