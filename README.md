@@ -22,6 +22,8 @@
 
 * [VIDEO DEMOSTRATIVO](https://drive.google.com/file/d/1mfCW5b5oBagru-A9MocYGr514kLo3HCR/view?usp=sharing)
 
+* [Animación en Login](https://drive.google.com/file/d/1jeNTp3Vk7vGZjG1-_J-QnA1rCr3EkJ-e/view?usp=sharing)
+
 ---
 
 <h3>APK</h3>
@@ -103,6 +105,8 @@
 * expo-dev-client => para habilitar la creación del apk
 
 * Redux Toolkit + RTK Query + Solititudes HTTP.
+
+* Animated => para crear la animación de switch y de jigglypuff.
 
 * Iconos de las categorías obtenidos de: <a href="https://www.flaticon.es/iconos-gratis/comercio-y-compras" title="comercio y compras iconos">Comercio y compras iconos creados por Freepik - Flaticon</a>
 
