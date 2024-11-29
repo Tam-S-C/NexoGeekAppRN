@@ -1,11 +1,12 @@
-import { StyleSheet, Text, View, TextInput, Pressable, Dimensions, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Pressable, Dimensions, Animated } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { colors } from '../global/colors';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useLoginMutation } from '../services/authService';
 import { useDispatch } from 'react-redux';
 import { insertSession, clearSessions } from '../db';
 import { setUser, loadUserFromStorage } from '../features/auth/authSlice';
+import AnimationExample from '../components/MotionComp'; 
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Toast from 'react-native-toast-message';
 
@@ -19,6 +20,19 @@ const LoginScreen = ({ navigation }) => {
 
   const [triggerLogin, result] = useLoginMutation();
   const dispatch = useDispatch();
+
+  
+  const switchMotion = useRef(new Animated.Value(0)).current;
+
+  const toggleRememberMe = () => {
+    setRememberMe((prev) => !prev);
+
+    Animated.timing(switchMotion, {
+      toValue: rememberMe ? 0 : 1,
+      duration: 400,
+      useNativeDriver: false,
+    }).start();
+  };
 
   
   useEffect(() => {
@@ -116,27 +130,40 @@ const LoginScreen = ({ navigation }) => {
             style={styles.textInput}
             secureTextEntry={!isPasswordVisible}
           />
-          <TouchableOpacity onPress={togglePasswordVisibility} style={styles.icon}>
+          <Pressable onPress={togglePasswordVisibility} style={styles.icon}>
             <Icon
               name={isPasswordVisible ? 'eye' : 'eye-slash'}
               size={24}
               color={colors.violetaPrimario}
             />
-          </TouchableOpacity>
+          </Pressable>
         </View>
       </View>
 
       <View style={styles.rememberMeContainer}>
         <Text style={styles.buttonText}>Mantener sesión iniciada</Text>
-        {rememberMe ? (
-          <Pressable onPress={() => setRememberMe(!rememberMe)}>
-            <Icon name="toggle-on" size={36} color={colors.violetaSecundario} />
-          </Pressable>
-        ) : (
-          <Pressable onPress={() => setRememberMe(!rememberMe)}>
-            <Icon name="toggle-off" size={36} color={colors.fucsiaAcento} />
-          </Pressable>
-        )}
+        
+        <Pressable onPress={toggleRememberMe}>
+          <View style={styles.switchContainer}>
+            <Animated.View
+              style={[
+                styles.switchThumb,
+                {
+                  transform: [
+                    {
+                      translateX: switchMotion.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [2,25], 
+                      }),
+                    },
+                  ],
+                  backgroundColor: rememberMe ? colors.violetaSecundario : colors.fucsiaAcento,
+                },
+              ]}
+            />
+          </View>
+        </Pressable>
+
       </View>
 
       <Pressable
@@ -178,6 +205,8 @@ const LoginScreen = ({ navigation }) => {
       <Text style={styles.subTitle2}>IMPORTANTE!</Text>
       <Text style={styles.askText2}>Si deseas comprar y poder usar todas las secciones te sugerimos que inicies sesión. Gracias. </Text>
    
+          <AnimationExample/>
+
     </LinearGradient>
   );
 };
@@ -194,7 +223,7 @@ const styles = StyleSheet.create({
     color: colors.blanco,
     fontFamily: 'PressStart',
     fontSize: 32,
-    marginTop: 36,
+    marginTop: 120,
   },
   subTitle: {
     fontSize: 20,
@@ -299,6 +328,20 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     marginVertical: 2,
-  }
+  },
+  switchContainer: {
+    width: 50,
+    height: 24,
+    borderRadius: 12,
+    backgroundColor: colors.violetaPrimario,
+    padding: 2,
+    justifyContent: 'center',
+  },
+  switchThumb: {
+    width: 18,
+    height: 18,
+    borderRadius: 10,
+    backgroundColor: colors.fucsiaAcento,
+  },
 });
 
