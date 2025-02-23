@@ -4,6 +4,8 @@
 
 <h3>Realizada con:  <img src="https://img.shields.io/badge/ReactNative-61DAFB?logo=React&logoColor=black&style=flat" width="120" /> </h3>
 
+> Certificado TopTen: https://pub.coderhouse.com/legacy-certificates/6745fcb9100e7d773aa05809?lang=es
+
 ---
 
 > Curso: React Native - CoderHouse - Comisión 59525
